@@ -33,7 +33,7 @@ export default function HomePage() {
             <ButtonArrow href="/contact" size="lg">
               {hero.cta}
             </ButtonArrow>
-            <Button href="/projects" variant="outline" size="lg" className="border-white/40 text-white hover:border-white hover:text-white">
+            <Button href="/projects" variant="outline-light" size="lg">
               {hero.ctaSecondary}
             </Button>
           </div>
@@ -110,7 +110,7 @@ export default function HomePage() {
               <SectionHeading eyebrow="About" title={`Who is ${adelRegal.name}?`} light />
               <p className="mt-6 text-lg text-white/85">{adelRegal.bioShort}</p>
               <p className="mt-4 text-sm leading-relaxed text-white/65">{adelRegal.bioLong[0]}</p>
-              <Button href="/about" variant="outline" size="sm" className="mt-8 border-white/30 text-white hover:border-white">
+              <Button href="/about" variant="outline-light" size="sm" className="mt-8">
                 Full biography →
               </Button>
             </div>

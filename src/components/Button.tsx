@@ -3,7 +3,7 @@ import { ArrowRightIcon } from "./Icon";
 
 type ButtonProps = {
   href?: string;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?: "primary" | "secondary" | "outline" | "outline-light" | "ghost";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
   className?: string;
@@ -13,6 +13,7 @@ const variants = {
   primary: "bg-sea text-white hover:bg-sea-dark border border-sea",
   secondary: "bg-ink text-white hover:bg-ink/90 border border-ink",
   outline: "border border-line text-ink hover:border-sea hover:text-sea bg-white",
+  "outline-light": "border border-white/40 bg-transparent text-white hover:border-white hover:bg-white/10",
   ghost: "text-ink hover:text-sea",
 };
 
