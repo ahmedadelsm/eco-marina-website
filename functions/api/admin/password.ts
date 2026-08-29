@@ -1,4 +1,11 @@
-import { corsHeaders, json, readSession, type Env } from "../../lib/utils";
+import { auditLog } from "../../lib/audit";
+import {
+  bumpAdminSessionEpoch,
+  corsHeaders,
+  json,
+  readSession,
+  type Env,
+} from "../../lib/utils";
 import { hashPassword, verifyPassword } from "../../lib/password";
 
 export const onRequestPut: PagesFunction<Env> = async (context) => {
@@ -19,7 +26,7 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
       return json({ error: "Current and new password required" }, 400, cors);
     }
 
-    if (newPassword.length < 8) {
+    if (newPassword.length < 8 || newPassword.length > 256) {
       return json({ error: "New password must be at least 8 characters" }, 400, cors);
     }
 
@@ -39,6 +46,9 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
     await env.DB.prepare("UPDATE admins SET password_hash = ? WHERE id = ?")
       .bind(passwordHash, admin.id)
       .run();
+
+    await bumpAdminSessionEpoch(env, admin.id);
+    await auditLog(env, admin, "password.change");
 
     return json({ ok: true }, 200, cors);
   } catch {

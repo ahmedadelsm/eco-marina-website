@@ -5,6 +5,13 @@ export interface Env {
   ASSETS: { fetch: (req: Request) => Promise<Response> };
 }
 
+export interface AdminSession {
+  id: number;
+  email: string;
+  name?: string | null;
+  sessionEpoch: number;
+}
+
 const ALLOWED_ORIGINS = new Set([
   "https://eco-marina.com",
   "https://www.eco-marina.com",
@@ -32,16 +39,53 @@ export function corsHeaders(request?: Request): Record<string, string> {
   return {};
 }
 
-export async function readSession(request: Request, env: Env): Promise<{ id: number; email: string; name?: string | null } | null> {
+async function getAdminSessionEpoch(env: Env, adminId: number): Promise<number> {
+  const raw = await env.SETTINGS.get(`admin:${adminId}:session_epoch`);
+  return raw ? parseInt(raw, 10) : 0;
+}
+
+export async function bumpAdminSessionEpoch(env: Env, adminId: number): Promise<void> {
+  const epoch = (await getAdminSessionEpoch(env, adminId)) + 1;
+  await env.SETTINGS.put(`admin:${adminId}:session_epoch`, String(epoch));
+}
+
+export async function readSession(request: Request, env: Env): Promise<AdminSession | null> {
   const sessionId = getSessionIdFromCookie(request);
   if (!sessionId) return null;
+
   const raw = await env.SETTINGS.get(`session:${sessionId}`);
   if (!raw) return null;
+
+  let session: { id: number; email: string; name?: string | null; sessionEpoch?: number };
   try {
-    return JSON.parse(raw) as { id: number; email: string; name?: string | null };
+    session = JSON.parse(raw) as typeof session;
   } catch {
     return null;
   }
+
+  const admin = await env.DB.prepare(
+    "SELECT id, email, name, active FROM admins WHERE id = ?"
+  )
+    .bind(session.id)
+    .first<{ id: number; email: string; name: string | null; active: number }>();
+
+  if (!admin || admin.active !== 1) {
+    await env.SETTINGS.delete(`session:${sessionId}`);
+    return null;
+  }
+
+  const currentEpoch = await getAdminSessionEpoch(env, admin.id);
+  if ((session.sessionEpoch ?? 0) !== currentEpoch) {
+    await env.SETTINGS.delete(`session:${sessionId}`);
+    return null;
+  }
+
+  return {
+    id: admin.id,
+    email: admin.email,
+    name: admin.name,
+    sessionEpoch: currentEpoch,
+  };
 }
 
 export function getSessionIdFromCookie(request: Request): string | null {
@@ -56,7 +100,12 @@ export async function createSession(
   admin: { id: number; email: string; name?: string | null }
 ): Promise<string> {
   const id = crypto.randomUUID();
-  await env.SETTINGS.put(`session:${id}`, JSON.stringify(admin), { expirationTtl: 86400 * 7 });
+  const sessionEpoch = await getAdminSessionEpoch(env, admin.id);
+  await env.SETTINGS.put(
+    `session:${id}`,
+    JSON.stringify({ ...admin, sessionEpoch }),
+    { expirationTtl: 86400 * 7 }
+  );
   return id;
 }
 
@@ -79,4 +128,8 @@ export async function requireAdmin(request: Request, env: Env): Promise<Response
   const admin = await readSession(request, env);
   if (!admin) return json({ error: "Unauthorized" }, 401, corsHeaders(request));
   return null;
+}
+
+export async function getAdminOrNull(request: Request, env: Env): Promise<AdminSession | null> {
+  return readSession(request, env);
 }

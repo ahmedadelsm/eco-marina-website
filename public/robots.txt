@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /api/
+
+# Full sitemap is served when the site is live (maintenance off).
+Sitemap: https://eco-marina.com/sitemap.xml

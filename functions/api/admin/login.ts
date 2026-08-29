@@ -1,9 +1,14 @@
+import { auditLog } from "../../lib/audit";
+import { enforceRateLimit } from "../../lib/rate-limit";
 import { corsHeaders, createSession, json, sessionCookie, type Env } from "../../lib/utils";
 import { verifyPassword } from "../../lib/password";
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
   const cors = corsHeaders(request);
+
+  const limited = await enforceRateLimit(request, env, "login", 5, 900);
+  if (limited) return limited;
 
   try {
     const body = (await request.json()) as { email?: string; password?: string };
@@ -12,6 +17,10 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     if (!email || !password) {
       return json({ error: "Email and password required" }, 400, cors);
+    }
+
+    if (password.length > 256) {
+      return json({ error: "Invalid email or password" }, 401, cors);
     }
 
     const admin = await env.DB.prepare(
@@ -29,6 +38,8 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       email: admin.email,
       name: admin.name,
     });
+
+    await auditLog(env, admin, "login");
 
     return json({ ok: true, email: admin.email, name: admin.name }, 200, {
       ...cors,

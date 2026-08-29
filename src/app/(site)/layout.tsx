@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AdminPreviewBar } from "@/components/admin/AdminPreviewBar";
+import { ContentOverridesProvider } from "@/components/ContentOverridesProvider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@/content/site-content";
@@ -15,11 +16,13 @@ export const metadata: Metadata = {
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <div className="flex min-h-screen flex-col">
-      <AdminPreviewBar />
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-    </div>
+    <ContentOverridesProvider>
+      <div className="flex min-h-screen flex-col">
+        <AdminPreviewBar />
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </div>
+    </ContentOverridesProvider>
   );
 }

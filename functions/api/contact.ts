@@ -1,3 +1,4 @@
+import { enforceRateLimit } from "../lib/rate-limit";
 import { corsHeaders, json, type Env } from "../lib/utils";
 
 interface ContactBody {
@@ -7,24 +8,50 @@ interface ContactBody {
   organization?: string;
   serviceType?: string;
   message?: string;
+  /** Honeypot — must be empty for legitimate submissions. */
+  website?: string;
+}
+
+const LIMITS = {
+  firstName: 100,
+  lastName: 100,
+  email: 254,
+  organization: 200,
+  serviceType: 100,
+  message: 5000,
+} as const;
+
+function trimField(value: unknown, max: number): string {
+  return String(value ?? "")
+    .trim()
+    .slice(0, max);
 }
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
+  const cors = corsHeaders(request);
+
+  const limited = await enforceRateLimit(request, env, "contact", 5, 3600);
+  if (limited) return limited;
 
   try {
     const body = (await request.json()) as ContactBody;
-    const firstName = body.firstName?.trim();
-    const lastName = body.lastName?.trim();
-    const email = body.email?.trim();
-    const message = body.message?.trim();
+
+    if (body.website?.trim()) {
+      return json({ ok: true }, 201, cors);
+    }
+
+    const firstName = trimField(body.firstName, LIMITS.firstName);
+    const lastName = trimField(body.lastName, LIMITS.lastName);
+    const email = trimField(body.email, LIMITS.email);
+    const message = trimField(body.message, LIMITS.message);
 
     if (!firstName || !lastName || !email || !message) {
-      return json({ error: "Missing required fields" }, 400, corsHeaders(context.request));
+      return json({ error: "Missing required fields" }, 400, cors);
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return json({ error: "Invalid email" }, 400, corsHeaders(context.request));
+      return json({ error: "Invalid email" }, 400, cors);
     }
 
     await env.DB.prepare(
@@ -35,15 +62,15 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
         firstName,
         lastName,
         email,
-        body.organization?.trim() || null,
-        body.serviceType?.trim() || null,
+        trimField(body.organization, LIMITS.organization) || null,
+        trimField(body.serviceType, LIMITS.serviceType) || null,
         message
       )
       .run();
 
-    return json({ ok: true }, 201, corsHeaders(context.request));
+    return json({ ok: true }, 201, cors);
   } catch {
-    return json({ error: "Failed to submit message" }, 500, corsHeaders(context.request));
+    return json({ error: "Failed to submit message" }, 500, cors);
   }
 };
 

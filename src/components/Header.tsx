@@ -4,11 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "./Button";
+import { useSiteContact } from "@/components/SiteContactInfo";
 import { nav, site } from "@/content/site-content";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const { phone, phoneHref } = useSiteContact();
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white">
@@ -56,8 +58,8 @@ export function Header() {
             ),
           )}
           <div className="ml-2 border-l border-line pl-6">
-            <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-ink-muted hover:text-brand-blue">
-              {site.phone}
+            <a href={phoneHref} className="text-ink-muted hover:text-brand-blue">
+              {phone}
             </a>
           </div>
           <Button href="/contact" size="sm">

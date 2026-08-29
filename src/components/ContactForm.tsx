@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { useSiteContact } from "@/components/SiteContactInfo";
 import { API, apiPost } from "@/lib/api";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { email: contactEmail } = useSiteContact();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -23,11 +25,12 @@ export function ContactForm() {
         organization: data.get("organization"),
         serviceType: data.get("serviceType"),
         message: data.get("message"),
+        website: data.get("website"),
       });
       setSubmitted(true);
       form.reset();
     } catch {
-      setError("Could not send your message. Please email info@eco-marina.com directly.");
+      setError(`Could not send your message. Please email ${contactEmail} directly.`);
     } finally {
       setLoading(false);
     }
@@ -52,23 +55,31 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
+      <input
+        type="text"
+        name="website"
+        tabIndex={-1}
+        autoComplete="off"
+        className="hidden"
+        aria-hidden
+      />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="firstName" className="text-sm font-medium text-ink">First name *</label>
-          <input id="firstName" name="firstName" required className={inputClass} />
+          <input id="firstName" name="firstName" required maxLength={100} className={inputClass} />
         </div>
         <div>
           <label htmlFor="lastName" className="text-sm font-medium text-ink">Last name *</label>
-          <input id="lastName" name="lastName" required className={inputClass} />
+          <input id="lastName" name="lastName" required maxLength={100} className={inputClass} />
         </div>
       </div>
       <div>
         <label htmlFor="email" className="text-sm font-medium text-ink">Email *</label>
-        <input id="email" name="email" type="email" required className={inputClass} />
+        <input id="email" name="email" type="email" required maxLength={254} className={inputClass} />
       </div>
       <div>
         <label htmlFor="organization" className="text-sm font-medium text-ink">Organization</label>
-        <input id="organization" name="organization" className={inputClass} />
+        <input id="organization" name="organization" maxLength={200} className={inputClass} />
       </div>
       <div>
         <label htmlFor="serviceType" className="text-sm font-medium text-ink">Service interest</label>
@@ -87,6 +98,7 @@ export function ContactForm() {
           name="message"
           rows={5}
           required
+          maxLength={5000}
           className={inputClass}
           placeholder="Tell us about your project, timeline, and location…"
         />
@@ -104,6 +116,8 @@ export function ContactForm() {
 }
 
 export function ContactPageContent() {
+  const { email, phone, office, phoneHref, mailto } = useSiteContact();
+
   return (
     <>
       <section className="border-b border-line bg-ink py-16 text-white sm:py-20">
@@ -124,9 +138,9 @@ export function ContactPageContent() {
               <p className="mt-3 text-ink-muted">We typically respond within 1–2 business days.</p>
               <div className="mt-10 space-y-6">
                 {[
-                  { label: "Email", value: "info@eco-marina.com", href: "mailto:info@eco-marina.com" },
-                  { label: "Phone", value: "+31 684 942 020", href: "tel:+31684942020" },
-                  { label: "Office", value: "Utrecht, Netherlands" },
+                  { label: "Email", value: email, href: mailto },
+                  { label: "Phone", value: phone, href: phoneHref },
+                  { label: "Office", value: office },
                 ].map((item) => (
                   <div key={item.label}>
                     <p className="text-xs font-semibold uppercase tracking-wider text-ink-light">{item.label}</p>

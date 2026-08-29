@@ -3,14 +3,15 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { hero, site } from "@/content/site-content";
+import { CMS_KEYS } from "@/lib/content-keys";
 import { API, apiGet, apiPut } from "@/lib/api";
 
 const EDITABLE = [
-  { key: "hero.headline", label: "Homepage headline", default: hero.headline },
-  { key: "hero.subheadline", label: "Homepage subheadline", default: hero.subheadline },
-  { key: "site.email", label: "Contact email", default: site.email },
-  { key: "site.phone", label: "Contact phone", default: site.phone },
-  { key: "site.office", label: "Office location", default: site.office },
+  { key: CMS_KEYS.heroHeadline, label: "Homepage headline", default: hero.headline },
+  { key: CMS_KEYS.heroSubheadline, label: "Homepage subheadline", default: hero.subheadline },
+  { key: CMS_KEYS.siteEmail, label: "Contact email", default: site.email },
+  { key: CMS_KEYS.sitePhone, label: "Contact phone", default: site.phone },
+  { key: CMS_KEYS.siteOffice, label: "Office location", default: site.office },
 ];
 
 export default function AdminContentPage() {

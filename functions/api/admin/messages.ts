@@ -1,4 +1,5 @@
-import { corsHeaders, json, requireAdmin, type Env } from "../../lib/utils";
+import { auditLog } from "../../lib/audit";
+import { corsHeaders, json, readSession, requireAdmin, type Env } from "../../lib/utils";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
@@ -42,11 +43,15 @@ export const onRequestDelete: PagesFunction<Env> = async (context) => {
   const denied = await requireAdmin(request, env);
   if (denied) return denied;
 
+  const admin = await readSession(request, env);
+  if (!admin) return json({ error: "Unauthorized" }, 401, corsHeaders(context.request));
+
   const url = new URL(request.url);
   const id = url.searchParams.get("id");
   if (!id) return json({ error: "Missing id" }, 400, corsHeaders(context.request));
 
   await env.DB.prepare("DELETE FROM messages WHERE id = ?").bind(Number(id)).run();
+  await auditLog(env, admin, "message.delete", id);
   return json({ ok: true }, 200, corsHeaders(context.request));
 };
 

@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "build:cloudflare": "next build --webpack",
-    "build:production": "next build --webpack",
+    "build:cloudflare": "next build --webpack && node scripts/enable-maintenance.js",
+    "build:production": "next build --webpack && node scripts/disable-maintenance.js",
     "start": "next start",
     "lint": "eslint"
   },
