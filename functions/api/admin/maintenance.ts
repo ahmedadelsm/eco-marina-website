@@ -1,5 +1,5 @@
 import { auditLog } from "../../lib/audit";
-import { corsHeaders, json, readSession, requireAdmin, type Env } from "../../lib/utils";
+import { corsHeaders, json, readSession, requireAdmin, requireSuperAdmin, type Env } from "../../lib/utils";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
@@ -12,7 +12,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
 export const onRequestPut: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const denied = await requireAdmin(request, env);
+  const denied = await requireSuperAdmin(request, env);
   if (denied) return denied;
 
   const admin = await readSession(request, env);

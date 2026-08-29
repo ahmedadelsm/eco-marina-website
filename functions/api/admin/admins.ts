@@ -5,17 +5,18 @@ import {
   json,
   readSession,
   requireAdmin,
+  requireSuperAdmin,
   type Env,
 } from "../../lib/utils";
 import { hashPassword } from "../../lib/password";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const denied = await requireAdmin(request, env);
+  const denied = await requireSuperAdmin(request, env);
   if (denied) return denied;
 
   const { results } = await env.DB.prepare(
-    "SELECT id, email, name, active, created_at FROM admins ORDER BY created_at ASC"
+    "SELECT id, email, name, role, active, created_at FROM admins ORDER BY created_at ASC"
   ).all();
 
   return json({ admins: results }, 200, corsHeaders(context.request));
@@ -23,7 +24,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const denied = await requireAdmin(request, env);
+  const denied = await requireSuperAdmin(request, env);
   if (denied) return denied;
 
   const actor = await readSession(request, env);
@@ -45,7 +46,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
     const passwordHash = await hashPassword(password);
     await env.DB.prepare(
-      "INSERT INTO admins (email, password_hash, name) VALUES (?, ?, ?)"
+      "INSERT INTO admins (email, password_hash, name, role) VALUES (?, ?, ?, 'editor')"
     )
       .bind(email, passwordHash, name)
       .run();
@@ -60,7 +61,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
 export const onRequestPatch: PagesFunction<Env> = async (context) => {
   const { request, env } = context;
-  const denied = await requireAdmin(request, env);
+  const denied = await requireSuperAdmin(request, env);
   if (denied) return denied;
 
   const actor = await readSession(request, env);

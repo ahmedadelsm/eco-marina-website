@@ -44,7 +44,7 @@ if (password.length < 8) {
 
 const hash = await hashPassword(password);
 const safeEmail = email.toLowerCase().replace(/'/g, "''");
-const sql = `INSERT OR REPLACE INTO admins (email, password_hash, name, active) VALUES ('${safeEmail}', '${hash}', '${name.replace(/'/g, "''")}', 1);`;
+const sql = `INSERT OR REPLACE INTO admins (email, password_hash, name, role, active) VALUES ('${safeEmail}', '${hash}', '${name.replace(/'/g, "''")}', 'super_admin', 1);`;
 
 console.log(`-- Admin seed for ${email.toLowerCase()}`);
 console.log(sql);

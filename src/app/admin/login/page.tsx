@@ -1,15 +1,26 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { isTurnstileConfigured, TurnstileWidget } from "@/components/TurnstileWidget";
 import { API, apiGet, apiPost } from "@/lib/api";
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileReset, setTurnstileReset] = useState(0);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const handleTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken("");
+  }, []);
 
   useEffect(() => {
     apiGet(API.admin.me).then(() => router.replace("/admin")).catch(() => {});
@@ -17,13 +28,24 @@ export default function AdminLoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (isTurnstileConfigured() && !turnstileToken) {
+      setError("Please complete the captcha.");
+      return;
+    }
+
     setLoading(true);
     setError("");
     try {
-      await apiPost(API.admin.login, { email, password });
+      await apiPost(API.admin.login, {
+        email,
+        password,
+        ...(turnstileToken ? { turnstileToken } : {}),
+      });
       router.replace("/admin");
     } catch {
       setError("Invalid email or password");
+      setTurnstileToken("");
+      setTurnstileReset((n) => n + 1);
     } finally {
       setLoading(false);
     }
@@ -61,6 +83,12 @@ export default function AdminLoginPage() {
           className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
           required
           autoComplete="current-password"
+        />
+
+        <TurnstileWidget
+          onToken={handleTurnstileToken}
+          onExpire={handleTurnstileExpire}
+          resetKey={turnstileReset}
         />
 
         {error && <p className="mt-2 text-sm text-red-600">{error}</p>}

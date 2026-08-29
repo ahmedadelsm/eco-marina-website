@@ -3,12 +3,19 @@ export interface Env {
   SETTINGS: KVNamespace;
   ADMIN_PASSWORD?: string;
   ASSETS: { fetch: (req: Request) => Promise<Response> };
+  TURNSTILE_SECRET_KEY?: string;
+  RESEND_API_KEY?: string;
+  CONTACT_NOTIFY_EMAIL?: string;
+  CONTACT_FROM_EMAIL?: string;
 }
+
+export type AdminRole = "super_admin" | "editor";
 
 export interface AdminSession {
   id: number;
   email: string;
   name?: string | null;
+  role: AdminRole;
   sessionEpoch: number;
 }
 
@@ -49,6 +56,10 @@ export async function bumpAdminSessionEpoch(env: Env, adminId: number): Promise<
   await env.SETTINGS.put(`admin:${adminId}:session_epoch`, String(epoch));
 }
 
+function normalizeRole(role: string | null | undefined): AdminRole {
+  return role === "super_admin" ? "super_admin" : "editor";
+}
+
 export async function readSession(request: Request, env: Env): Promise<AdminSession | null> {
   const sessionId = getSessionIdFromCookie(request);
   if (!sessionId) return null;
@@ -64,10 +75,10 @@ export async function readSession(request: Request, env: Env): Promise<AdminSess
   }
 
   const admin = await env.DB.prepare(
-    "SELECT id, email, name, active FROM admins WHERE id = ?"
+    "SELECT id, email, name, active, role FROM admins WHERE id = ?"
   )
     .bind(session.id)
-    .first<{ id: number; email: string; name: string | null; active: number }>();
+    .first<{ id: number; email: string; name: string | null; active: number; role: string }>();
 
   if (!admin || admin.active !== 1) {
     await env.SETTINGS.delete(`session:${sessionId}`);
@@ -84,6 +95,7 @@ export async function readSession(request: Request, env: Env): Promise<AdminSess
     id: admin.id,
     email: admin.email,
     name: admin.name,
+    role: normalizeRole(admin.role),
     sessionEpoch: currentEpoch,
   };
 }
@@ -97,7 +109,7 @@ export function getSessionIdFromCookie(request: Request): string | null {
 
 export async function createSession(
   env: Env,
-  admin: { id: number; email: string; name?: string | null }
+  admin: { id: number; email: string; name?: string | null; role: AdminRole }
 ): Promise<string> {
   const id = crypto.randomUUID();
   const sessionEpoch = await getAdminSessionEpoch(env, admin.id);
@@ -130,6 +142,19 @@ export async function requireAdmin(request: Request, env: Env): Promise<Response
   return null;
 }
 
+export async function requireSuperAdmin(request: Request, env: Env): Promise<Response | null> {
+  const admin = await readSession(request, env);
+  if (!admin) return json({ error: "Unauthorized" }, 401, corsHeaders(request));
+  if (admin.role !== "super_admin") {
+    return json({ error: "Forbidden" }, 403, corsHeaders(request));
+  }
+  return null;
+}
+
 export async function getAdminOrNull(request: Request, env: Env): Promise<AdminSession | null> {
   return readSession(request, env);
+}
+
+export function isSuperAdmin(admin: AdminSession): boolean {
+  return admin.role === "super_admin";
 }

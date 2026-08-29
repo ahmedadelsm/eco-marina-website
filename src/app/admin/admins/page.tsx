@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { API, apiGet, apiPatch, apiPost } from "@/lib/api";
 
-type Admin = { id: number; email: string; name: string | null; active: number; created_at: string };
+type Admin = { id: number; email: string; name: string | null; role: string; active: number; created_at: string };
 
 export default function AdminUsersPage() {
   const router = useRouter();
@@ -96,7 +96,10 @@ export default function AdminUsersPage() {
               <span className="font-medium text-ink">{a.email}</span>
               {a.name && <span className="text-ink-muted"> — {a.name}</span>}
               {a.active !== 1 && <span className="ml-2 text-xs uppercase tracking-wide text-amber-700">Inactive</span>}
-              {a.id === currentId && <span className="ml-2 text-xs uppercase tracking-wide text-sea">You</span>}
+              {a.role === "super_admin" && (
+                <span className="ml-2 text-xs uppercase tracking-wide text-sea">Super admin</span>
+              )}
+              {a.id === currentId && <span className="ml-2 text-xs uppercase tracking-wide text-ink-light">You</span>}
             </div>
             {a.id !== currentId && (
               <button

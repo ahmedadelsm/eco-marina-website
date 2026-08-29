@@ -9,7 +9,16 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     return json({ error: "Unauthorized" }, 401, cors);
   }
 
-  return json({ email: admin.email, name: admin.name ?? null, id: admin.id }, 200, cors);
+  return json(
+    {
+      email: admin.email,
+      name: admin.name ?? null,
+      id: admin.id,
+      role: admin.role,
+    },
+    200,
+    cors
+  );
 };
 
 export const onRequestOptions: PagesFunction<Env> = async (context) => {

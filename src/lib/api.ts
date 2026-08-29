@@ -11,6 +11,7 @@ export const API = {
     me: "/api/admin/me",
     logout: "/api/admin/logout",
     password: "/api/admin/password",
+    audit: "/api/admin/audit",
   },
 } as const;
 

@@ -1,4 +1,6 @@
+import { notifyContactSubmission } from "../lib/notify-contact";
 import { enforceRateLimit } from "../lib/rate-limit";
+import { isTurnstileEnabled, verifyTurnstile } from "../lib/turnstile";
 import { corsHeaders, json, type Env } from "../lib/utils";
 
 interface ContactBody {
@@ -8,8 +10,8 @@ interface ContactBody {
   organization?: string;
   serviceType?: string;
   message?: string;
-  /** Honeypot — must be empty for legitimate submissions. */
   website?: string;
+  turnstileToken?: string;
 }
 
 const LIMITS = {
@@ -41,10 +43,17 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       return json({ ok: true }, 201, cors);
     }
 
+    if (isTurnstileEnabled(env)) {
+      const ok = await verifyTurnstile(request, env, body.turnstileToken);
+      if (!ok) return json({ error: "Captcha verification failed" }, 400, cors);
+    }
+
     const firstName = trimField(body.firstName, LIMITS.firstName);
     const lastName = trimField(body.lastName, LIMITS.lastName);
     const email = trimField(body.email, LIMITS.email);
     const message = trimField(body.message, LIMITS.message);
+    const organization = trimField(body.organization, LIMITS.organization) || null;
+    const serviceType = trimField(body.serviceType, LIMITS.serviceType) || null;
 
     if (!firstName || !lastName || !email || !message) {
       return json({ error: "Missing required fields" }, 400, cors);
@@ -58,15 +67,19 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       `INSERT INTO messages (first_name, last_name, email, organization, service_type, message)
        VALUES (?, ?, ?, ?, ?, ?)`
     )
-      .bind(
+      .bind(firstName, lastName, email, organization, serviceType, message)
+      .run();
+
+    context.waitUntil(
+      notifyContactSubmission(env, {
         firstName,
         lastName,
         email,
-        trimField(body.organization, LIMITS.organization) || null,
-        trimField(body.serviceType, LIMITS.serviceType) || null,
-        message
-      )
-      .run();
+        organization,
+        serviceType,
+        message,
+      })
+    );
 
     return json({ ok: true }, 201, cors);
   } catch {

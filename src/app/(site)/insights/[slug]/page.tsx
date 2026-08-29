@@ -2,8 +2,11 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { ButtonArrow } from "@/components/Button";
 import { getInsight, insights } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
+import { articleJsonLd } from "@/lib/structured-data";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -15,10 +18,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getInsight(slug);
   if (!article) return { title: "Insight" };
-  return {
+  return buildPageMetadata({
     title: article.title,
     description: article.excerpt,
-  };
+    path: `/insights/${slug}`,
+    image: article.image,
+    type: "article",
+  });
 }
 
 export default async function InsightDetailPage({ params }: Props) {
@@ -28,6 +34,7 @@ export default async function InsightDetailPage({ params }: Props) {
 
   return (
     <>
+      <JsonLd data={articleJsonLd(article)} />
       <section className="relative min-h-[360px] overflow-hidden bg-ink">
         <div className="absolute inset-0">
           <Image src={article.image} alt="" fill className="photo-image object-cover opacity-50" priority sizes="100vw" />

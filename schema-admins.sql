@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS admins (
   email TEXT NOT NULL UNIQUE,
   password_hash TEXT NOT NULL,
   name TEXT,
+  role TEXT NOT NULL DEFAULT 'editor',
   active INTEGER NOT NULL DEFAULT 1,
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );

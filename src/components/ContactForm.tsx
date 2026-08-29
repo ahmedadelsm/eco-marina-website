@@ -1,17 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useSiteContact } from "@/components/SiteContactInfo";
+import { isTurnstileConfigured, TurnstileWidget } from "@/components/TurnstileWidget";
 import { API, apiPost } from "@/lib/api";
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileReset, setTurnstileReset] = useState(0);
   const { email: contactEmail } = useSiteContact();
+
+  const handleTurnstileToken = useCallback((token: string) => {
+    setTurnstileToken(token);
+  }, []);
+
+  const handleTurnstileExpire = useCallback(() => {
+    setTurnstileToken("");
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isTurnstileConfigured() && !turnstileToken) {
+      setError("Please complete the captcha.");
+      return;
+    }
+
     setLoading(true);
     setError("");
     const form = e.currentTarget;
@@ -26,11 +42,15 @@ export function ContactForm() {
         serviceType: data.get("serviceType"),
         message: data.get("message"),
         website: data.get("website"),
+        ...(turnstileToken ? { turnstileToken } : {}),
       });
       setSubmitted(true);
       form.reset();
+      setTurnstileToken("");
     } catch {
       setError(`Could not send your message. Please email ${contactEmail} directly.`);
+      setTurnstileToken("");
+      setTurnstileReset((n) => n + 1);
     } finally {
       setLoading(false);
     }
@@ -104,6 +124,11 @@ export function ContactForm() {
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
+      <TurnstileWidget
+        onToken={handleTurnstileToken}
+        onExpire={handleTurnstileExpire}
+        resetKey={turnstileReset}
+      />
       <button
         type="submit"
         disabled={loading}

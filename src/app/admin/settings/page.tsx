@@ -16,20 +16,31 @@ export default function AdminSettingsPage() {
   const [passwordSaving, setPasswordSaving] = useState(false);
   const [passwordMessage, setPasswordMessage] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [role, setRole] = useState<"super_admin" | "editor" | null>(null);
+  const [maintenanceError, setMaintenanceError] = useState("");
 
   useEffect(() => {
-    apiGet<{ enabled: boolean }>(API.admin.maintenance)
-      .then((d) => setEnabled(d.enabled))
+    Promise.all([
+      apiGet<{ enabled: boolean }>(API.admin.maintenance),
+      apiGet<{ role: "super_admin" | "editor" }>(API.admin.me),
+    ])
+      .then(([maintenance, me]) => {
+        setEnabled(maintenance.enabled);
+        setRole(me.role);
+      })
       .catch(() => router.replace("/admin/login"))
       .finally(() => setLoading(false));
   }, [router]);
 
   async function toggle() {
     setSaving(true);
+    setMaintenanceError("");
     const next = !enabled;
     try {
       await apiPut(API.admin.maintenance, { enabled: next });
       setEnabled(next);
+    } catch (err) {
+      setMaintenanceError(err instanceof Error ? err.message : "Could not update maintenance mode.");
     } finally {
       setSaving(false);
     }
@@ -71,6 +82,7 @@ export default function AdminSettingsPage() {
       <h1 className="font-serif text-3xl font-semibold text-ink">Settings</h1>
       <p className="mt-2 text-ink-muted">Site-wide configuration and your account.</p>
 
+      {role === "super_admin" && (
       <div className="mt-8 max-w-xl border border-line bg-white p-6">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -100,9 +112,11 @@ export default function AdminSettingsPage() {
         <p className={`mt-4 text-sm font-medium ${enabled ? "text-amber-700" : "text-brand-green"}`}>
           Status: {enabled ? "Maintenance ON — public site hidden" : "Live — full website visible"}
         </p>
+        {maintenanceError && <p className="mt-3 text-sm text-red-600">{maintenanceError}</p>}
       </div>
+      )}
 
-      <AdminPartnerToggles />
+      {role === "super_admin" && <AdminPartnerToggles />}
 
       <form onSubmit={changePassword} className="mt-8 max-w-xl border border-line bg-white p-6">
         <h2 className="font-serif text-xl font-semibold text-ink">Change password</h2>

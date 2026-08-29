@@ -2,6 +2,25 @@ import type { Env } from "./utils";
 
 const MAX_ENTRIES = 100;
 
+export interface AuditEntry {
+  at: string;
+  adminId: number;
+  email: string;
+  action: string;
+  detail: string | null;
+}
+
+export async function readAuditLog(env: Env): Promise<AuditEntry[]> {
+  try {
+    const raw = await env.SETTINGS.get("audit:log");
+    if (!raw) return [];
+    const entries = JSON.parse(raw) as AuditEntry[];
+    return Array.isArray(entries) ? entries : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function auditLog(
   env: Env,
   admin: { id: number; email: string },
@@ -9,8 +28,7 @@ export async function auditLog(
   detail?: string
 ): Promise<void> {
   try {
-    const raw = await env.SETTINGS.get("audit:log");
-    const entries = raw ? (JSON.parse(raw) as unknown[]) : [];
+    const entries = await readAuditLog(env);
     entries.unshift({
       at: new Date().toISOString(),
       adminId: admin.id,

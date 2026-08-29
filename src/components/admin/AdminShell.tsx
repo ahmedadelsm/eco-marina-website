@@ -1,28 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API, adminLogout, apiGet } from "@/lib/api";
 
+type AdminRole = "super_admin" | "editor";
+
 const nav = [
-  { href: "/admin", label: "Dashboard" },
-  { href: "/admin/messages", label: "Messages" },
-  { href: "/admin/content", label: "Content" },
-  { href: "/admin/admins", label: "Admins" },
-  { href: "/admin/settings", label: "Settings" },
+  { href: "/admin", label: "Dashboard", roles: ["super_admin", "editor"] as AdminRole[] },
+  { href: "/admin/messages", label: "Messages", roles: ["super_admin", "editor"] as AdminRole[] },
+  { href: "/admin/content", label: "Content", roles: ["super_admin", "editor"] as AdminRole[] },
+  { href: "/admin/admins", label: "Admins", roles: ["super_admin"] as AdminRole[] },
+  { href: "/admin/audit", label: "Audit log", roles: ["super_admin"] as AdminRole[] },
+  { href: "/admin/settings", label: "Settings", roles: ["super_admin", "editor"] as AdminRole[] },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const isLoginPage = pathname === "/admin/login";
   const [email, setEmail] = useState<string | null>(null);
+  const [role, setRole] = useState<AdminRole | null>(null);
+  const [authState, setAuthState] = useState<"checking" | "ok" | "denied">(
+    isLoginPage ? "ok" : "checking"
+  );
 
   useEffect(() => {
-    if (pathname === "/admin/login") return;
-    apiGet<{ email: string }>(API.admin.me)
-      .then((d) => setEmail(d.email))
-      .catch(() => {});
-  }, [pathname]);
+    if (isLoginPage) return;
+
+    apiGet<{ email: string; role: AdminRole }>(API.admin.me)
+      .then((d) => {
+        setEmail(d.email);
+        setRole(d.role);
+        setAuthState("ok");
+      })
+      .catch(() => {
+        setAuthState("denied");
+        router.replace("/admin/login");
+      });
+  }, [isLoginPage, router]);
 
   async function logout() {
     try {
@@ -33,9 +50,23 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     window.location.href = "/admin/login";
   }
 
-  if (pathname === "/admin/login") {
+  if (isLoginPage) {
     return <>{children}</>;
   }
+
+  if (authState === "checking") {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-paper">
+        <p className="text-sm text-ink-muted">Checking access…</p>
+      </div>
+    );
+  }
+
+  if (authState === "denied") {
+    return null;
+  }
+
+  const visibleNav = nav.filter((item) => role && item.roles.includes(role));
 
   return (
     <div className="flex min-h-screen bg-paper">
@@ -44,9 +75,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-sea">Eco Marina</p>
           <p className="mt-1 font-serif text-lg font-semibold text-ink">Admin</p>
           {email && <p className="mt-2 truncate text-xs text-ink-muted">{email}</p>}
+          {role && (
+            <p className="mt-1 text-[10px] uppercase tracking-wider text-ink-light">
+              {role === "super_admin" ? "Super admin" : "Editor"}
+            </p>
+          )}
         </div>
         <nav className="space-y-1 p-3">
-          {nav.map((item) => {
+          {visibleNav.map((item) => {
             const active = pathname === item.href;
             return (
               <Link

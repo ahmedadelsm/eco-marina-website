@@ -32,12 +32,13 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # generated admin seed (contains password hashes — never commit)
 seed.sql
 
-# cloudflare local dev state
-.wrangler/
+# database backups (local only)
+/backups/
 
 # typescript
 *.tsbuildinfo

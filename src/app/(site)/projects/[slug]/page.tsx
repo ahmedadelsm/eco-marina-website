@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonArrow } from "@/components/Button";
 import { CheckIcon } from "@/components/Icon";
+import { buildPageMetadata } from "@/lib/seo";
 import { getProject, projects } from "@/content/site-content";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -16,10 +17,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) return { title: "Case Study" };
-  return {
+  return buildPageMetadata({
     title: project.title,
     description: project.summary,
-  };
+    path: `/projects/${slug}`,
+    image: project.image,
+  });
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
