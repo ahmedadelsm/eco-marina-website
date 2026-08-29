@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Eco Marina Website
 
-## Getting Started
+Official website for [eco-marina.com](https://eco-marina.com) — environmental consultancy by Adel Regal.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build (static export for Cloudflare Pages)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Output is written to `out/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Deploy to Cloudflare Pages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Push this repo to GitHub
+2. In [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+3. Select the GitHub repository
+4. Build settings:
+   - **Framework preset:** Next.js (Static HTML Export) or None
+   - **Build command:** `npm run build`
+   - **Build output directory:** `out`
+   - **Node.js version:** 20
+5. Add custom domain **eco-marina.com** under **Custom domains**
+6. Update DNS nameservers or add CNAME to Cloudflare as instructed
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Deploy via Wrangler (optional)
 
-## Deploy on Vercel
+```bash
+npx wrangler pages deploy out --project-name eco-marina
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Email: info@eco-marina.com
+- Phone: +31 684 942 020
+- Office: Utrecht, Netherlands
