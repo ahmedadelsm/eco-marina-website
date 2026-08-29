@@ -1,6 +1,6 @@
 import { readSession, type Env } from "./lib/utils";
 
-const BYPASS = ["/api/", "/admin", "/images/", "/favicon", "/_next/", "/maintenance.html"];
+const BYPASS = ["/api/", "/admin", "/images/", "/favicon", "/_next/", "/maintenance.html", "/robots.txt", "/sitemap.xml"];
 
 export const onRequest: PagesFunction<Env> = async (context) => {
   const { request, env, next } = context;

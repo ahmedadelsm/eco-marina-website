@@ -25,23 +25,16 @@ Then **Retry deployment**.
 
 ## Maintenance mode
 
-**Currently enabled by default** via `npm run build:cloudflare`.
+**Enabled by default** via Cloudflare KV (`maintenance_mode` is not `"false"`).
 
-Visitors see a "Site update in progress" page with contact details. HTTP status **503** (temporarily unavailable).
+Visitors see a "Site update in progress" page (HTTP **503**). **Signed-in admins** can preview the full site — the build always includes all pages; only the runtime middleware gates public access.
 
 ### Go live (disable maintenance)
 
-Change Cloudflare build command to:
+1. Sign in at `/admin/login`
+2. **Admin → Settings** → turn maintenance **OFF**
 
-```bash
-npm run build:production
-```
-
-Or locally:
-
-```bash
-npm run build:production
-```
+No build command change is required for go-live.
 
 ---
 
