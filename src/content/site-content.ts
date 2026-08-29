@@ -22,8 +22,8 @@ export const hero = {
     "Environmental and social impact assessment studies, environmental monitoring programs, and sustainability training — for governments, industry, and coastal development.",
   cta: "Book a Consultation",
   ctaSecondary: "View Case Studies",
-  image: "/images/projects/oil-berth.jpg",
-  imageAlt: "Coastal environmental consulting project — ecosystem-conscious infrastructure planning",
+  image: "/images/hero-coastal.jpg",
+  imageAlt: "Coastal waters — environmental consultancy for marine and coastal development",
 };
 
 /** Primary focus areas requested + mapped to original site offerings */
@@ -56,7 +56,7 @@ export const coreServices = [
       "Design and run environmental monitoring programs for industrial, coastal, and marine settings — studying and assessing qualitative and quantitative contamination with solid, gaseous, and liquid parameters.",
     href: "/services/monitoring",
     icon: "monitoring" as const,
-    image: "/images/services/industry.jpg",
+    image: "/images/services/monitoring.jpg",
     deliverables: [
       "Monitoring program design and protocols",
       "Water quality and marine pollution sampling",

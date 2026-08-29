@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #1c2b36;
-  --ink-muted: #4a5f6d;
-  --ink-light: #6b8294;
-  --sea: #1a6b7a;
-  --sea-dark: #145a66;
-  --sea-light: #e8f4f6;
-  --paper: #f7f5f0;
-  --paper-dark: #ebe6dc;
+  --ink: #152028;
+  --ink-muted: #3d5160;
+  --ink-light: #5c7384;
+  --sea: #0f6b7c;
+  --sea-dark: #0a5563;
+  --sea-light: #e6f3f5;
+  --paper: #f5f2eb;
+  --paper-dark: #e8e2d6;
   --white: #ffffff;
-  --line: #d9d3c8;
+  --line: #d4cdc2;
+  --accent: #2a8f7a;
 }
 
 @theme inline {
@@ -23,6 +24,7 @@
   --color-paper: var(--paper);
   --color-paper-dark: var(--paper-dark);
   --color-line: var(--line);
+  --color-accent: var(--accent);
   --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
 }
@@ -47,4 +49,18 @@ body {
 ::selection {
   background: var(--sea-light);
   color: var(--ink);
+}
+
+/* Subtle environmental motif — horizon line */
+.bg-horizon {
+  background: linear-gradient(180deg, var(--ink) 0%, #1a3340 55%, var(--sea-dark) 100%);
+}
+
+.card-lift {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-lift:hover {
+  box-shadow: 0 12px 40px rgba(21, 32, 40, 0.08);
+  transform: translateY(-2px);
 }
