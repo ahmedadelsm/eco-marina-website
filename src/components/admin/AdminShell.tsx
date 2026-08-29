@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { API, apiGet, apiPost } from "@/lib/api";
+import { API, adminLogout, apiGet } from "@/lib/api";
 
 const nav = [
   { href: "/admin", label: "Dashboard" },
@@ -26,7 +26,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   async function logout() {
-    await apiPost(API.admin.logout, {}).catch(() => {});
+    await adminLogout();
     router.replace("/admin/login");
   }
 
@@ -59,11 +59,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           })}
         </nav>
         <div className="absolute bottom-0 w-56 space-y-2 border-t border-line p-4">
-          <button type="button" onClick={() => router.push("/")} className="block text-sm text-ink-muted hover:text-ink">
+          <Link href="/" className="block text-sm text-ink-muted hover:text-ink">
             ← View website
-          </button>
-          <button type="button" onClick={logout} className="block text-sm text-red-600 hover:text-red-700">
-            Sign out
+          </Link>
+          <button
+            type="button"
+            onClick={logout}
+            className="w-full rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-100"
+          >
+            Log out
           </button>
         </div>
       </aside>
@@ -74,12 +78,16 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               <p className="font-serif text-xl font-semibold text-ink">Website administration</p>
               {email && <p className="text-xs text-ink-muted">Signed in as {email}</p>}
             </div>
-            <div className="flex items-center gap-3 lg:hidden">
-              <Link href="/" className="text-sm text-sea hover:text-sea-dark">
+            <div className="flex items-center gap-3">
+              <Link href="/" className="text-sm font-medium text-sea hover:text-sea-dark">
                 View site
               </Link>
-              <button type="button" onClick={logout} className="text-sm text-red-600">
-                Sign out
+              <button
+                type="button"
+                onClick={logout}
+                className="rounded-md border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100"
+              >
+                Log out
               </button>
             </div>
           </div>

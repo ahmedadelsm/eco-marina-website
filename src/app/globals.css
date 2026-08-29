@@ -1,30 +1,15 @@
 @import "tailwindcss";
 
-:root {
-  --ink: #152028;
-  --ink-muted: #3d5160;
-  --ink-light: #5c7384;
-  --sea: #0f6b7c;
-  --sea-dark: #0a5563;
-  --sea-light: #e6f3f5;
-  --paper: #f5f2eb;
-  --paper-dark: #e8e2d6;
-  --white: #ffffff;
-  --line: #d4cdc2;
-  --accent: #2a8f7a;
-}
-
 @theme inline {
-  --color-ink: var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-light: var(--ink-light);
-  --color-sea: var(--sea);
-  --color-sea-dark: var(--sea-dark);
-  --color-sea-light: var(--sea-light);
-  --color-paper: var(--paper);
-  --color-paper-dark: var(--paper-dark);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
+  --color-ink: #1c2b36;
+  --color-ink-muted: #4a5f6d;
+  --color-ink-light: #6b8294;
+  --color-sea: #1a6b7a;
+  --color-sea-dark: #145a66;
+  --color-sea-light: #e8f4f6;
+  --color-paper: #f7f5f0;
+  --color-paper-dark: #ebe6dc;
+  --color-line: #d9d3c8;
   --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
 }
@@ -34,8 +19,8 @@ html {
 }
 
 body {
-  background: var(--white);
-  color: var(--ink);
+  background: #ffffff;
+  color: var(--color-ink);
   font-family: var(--font-source-sans), system-ui, sans-serif;
   font-size: 17px;
   line-height: 1.65;
@@ -47,20 +32,25 @@ body {
 }
 
 ::selection {
-  background: var(--sea-light);
-  color: var(--ink);
+  background: var(--color-sea-light);
+  color: var(--color-ink);
 }
 
-/* Subtle environmental motif — horizon line */
-.bg-horizon {
-  background: linear-gradient(180deg, var(--ink) 0%, #1a3340 55%, var(--sea-dark) 100%);
+/* Hero & page hero overlays — reliable gradients */
+.hero-overlay {
+  background: linear-gradient(
+    to top,
+    var(--color-ink) 0%,
+    color-mix(in oklab, var(--color-ink) 88%, transparent) 45%,
+    color-mix(in oklab, var(--color-ink) 72%, transparent) 100%
+  );
 }
 
-.card-lift {
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.card-lift:hover {
-  box-shadow: 0 12px 40px rgba(21, 32, 40, 0.08);
-  transform: translateY(-2px);
+.page-hero-overlay {
+  background: linear-gradient(
+    to right,
+    color-mix(in oklab, var(--color-ink) 96%, transparent) 0%,
+    color-mix(in oklab, var(--color-ink) 82%, transparent) 50%,
+    color-mix(in oklab, var(--color-ink) 55%, transparent) 100%
+  );
 }

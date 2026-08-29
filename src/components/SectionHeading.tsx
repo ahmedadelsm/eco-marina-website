@@ -40,11 +40,11 @@ export function PageHero({
 }) {
   if (image) {
     return (
-      <section className="relative min-h-[420px] bg-ink">
+      <section className="relative min-h-[420px] overflow-hidden bg-ink">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={image} alt={imageAlt ?? ""} className="h-full w-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/50" />
+          <div className="page-hero-overlay absolute inset-0" aria-hidden />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
           <SectionHeading eyebrow={eyebrow} title={title} description={description} light />

@@ -58,3 +58,7 @@ export async function apiDelete<T>(url: string): Promise<T> {
   const res = await fetch(url, { method: "DELETE", credentials: "include" });
   return parseJson<T>(res);
 }
+
+export async function adminLogout(): Promise<void> {
+  await apiPost(API.admin.logout, {}).catch(() => {});
+}

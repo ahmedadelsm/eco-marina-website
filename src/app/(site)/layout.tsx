@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
-    <>
+    <div className="flex min-h-screen flex-col">
       <AdminPreviewBar />
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-    </>
+    </div>
   );
 }
