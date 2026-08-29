@@ -4,9 +4,15 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
+    "build:maintenance": "next build --webpack && node scripts/enable-maintenance.js",
+    "build:production": "next build --webpack && node scripts/disable-maintenance.js",
+    "build:cloudflare": "npm run build:maintenance",
     "start": "next start",
     "lint": "eslint"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "next": "16.3.3",
