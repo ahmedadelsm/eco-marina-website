@@ -45,15 +45,24 @@ npm run build:production
 
 ---
 
-## Custom domain
+## Custom domain (eco-marina.com)
 
-1. **Custom domains** → Add `eco-marina.com` and `www.eco-marina.com`
-2. Point DNS to Cloudflare (nameservers or CNAME)
-3. Enable **Always Use HTTPS**
+Custom domains are registered on the Pages project. DNS must point to Pages:
+
+| Type | Name | Content | Proxy |
+|------|------|---------|-------|
+| **CNAME** | `@` (eco-marina.com) | `eco-marina.pages.dev` | Proxied (orange cloud) |
+| **CNAME** | `www` | `eco-marina.pages.dev` | Proxied (orange cloud) |
+
+**Remove** any existing **A** records on `@` — they currently serve a placeholder.
+
+Dashboard: [DNS records](https://dash.cloudflare.com/bace0682525d63a4e564f456e50c157c/eco-marina.com/dns/records) · [Pages domains](https://dash.cloudflare.com/bace0682525d63a4e564f456e50c157c/pages/view/eco-marina/domains)
+
+Domains become **Active** within 1–5 minutes after DNS is correct. SSL is automatic.
 
 ## Manual deploy (Wrangler)
 
 ```bash
-npm run build:cloudflare
+npm run build:production
 npx wrangler pages deploy out --project-name eco-marina
 ```
