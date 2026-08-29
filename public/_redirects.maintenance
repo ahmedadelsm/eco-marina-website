@@ -1,8 +1,8 @@
-# Maintenance mode — all visitors see maintenance.html (HTTP 503)
-# Static assets still load for the maintenance page
+# Maintenance mode — serve in-progress page everywhere
 
+/index.html 200
 /maintenance.html 200
 /images/* 200
 /favicon.png 200
 /_next/* 200
-/* /maintenance.html 503
+/* /index.html 503
