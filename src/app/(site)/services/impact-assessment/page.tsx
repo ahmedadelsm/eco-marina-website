@@ -3,11 +3,13 @@ import { ButtonArrow } from "@/components/Button";
 import { ServiceDetailLayout } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
 import { coreServices, impactAssessmentDetail } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Environmental & Social Impact Assessment",
   description: "EIA and environmental impact assessment studies for industrial, marine, tourism, and infrastructure projects.",
-};
+  path: "/services/impact-assessment",
+});
 
 export default function ImpactAssessmentPage() {
   const service = coreServices[0];
@@ -16,7 +18,7 @@ export default function ImpactAssessmentPage() {
     <>
       <PageHero eyebrow="Service" title={service.title} description={service.tagline} />
 
-      <ServiceDetailLayout service={service}>
+      <ServiceDetailLayout service={service} showTitle={false}>
         <p className="mt-6 text-sm text-ink-muted">{impactAssessmentDetail.overview}</p>
         <ol className="mt-8 space-y-4">
           {impactAssessmentDetail.steps.map((step, i) => (

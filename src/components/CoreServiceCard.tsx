@@ -76,16 +76,24 @@ export function ProjectCard({
 export function ServiceDetailLayout({
   service,
   children,
+  showTitle = true,
 }: {
   service: CoreService;
   children: React.ReactNode;
+  showTitle?: boolean;
 }) {
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <p className="text-xs font-semibold uppercase tracking-wider text-sea">{service.shortTitle}</p>
-          <h2 className="mt-2 font-serif text-3xl font-semibold text-ink">{service.title}</h2>
+          {showTitle ? (
+            <>
+              <p className="text-xs font-semibold uppercase tracking-wider text-sea">{service.shortTitle}</p>
+              <h2 className="mt-2 font-serif text-3xl font-semibold text-ink">{service.title}</h2>
+            </>
+          ) : (
+            <p className="text-xs font-semibold uppercase tracking-wider text-sea">{service.shortTitle}</p>
+          )}
           <p className="mt-4 text-ink-muted leading-relaxed">{service.description}</p>
           {children}
         </div>

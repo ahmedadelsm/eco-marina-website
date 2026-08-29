@@ -36,7 +36,7 @@ export function Footer() {
             </div>
           </div>
           <div className="md:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/45">Pages</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">Pages</p>
             <ul className="mt-4 space-y-2">
               {footerNav.map((item) => (
                 <li key={item.href}>
@@ -48,7 +48,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="md:col-span-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/45">Connect</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">Connect</p>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
               Environmental consultancy since {site.since}. Impact assessment, monitoring, and training across{" "}
               {site.operatingRegions.slice(0, 3).join(", ")}, and beyond.

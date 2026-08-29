@@ -47,7 +47,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     } catch {
       // Still redirect — server may have invalidated the session.
     }
-    window.location.href = "/admin/login";
+    router.replace("/admin/login");
   }
 
   if (isLoginPage) {
@@ -130,6 +130,22 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               </button>
             </div>
           </div>
+          <nav className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:hidden" aria-label="Admin navigation">
+            {visibleNav.map((item) => {
+              const active = pathname === item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`shrink-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                    active ? "bg-sea-light text-sea-dark" : "border border-line text-ink-muted hover:bg-paper hover:text-ink"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </nav>
         </header>
         <div className="flex-1 p-4 sm:p-8">{children}</div>
       </div>

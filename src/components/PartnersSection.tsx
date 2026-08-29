@@ -44,7 +44,7 @@ export function PartnersSection() {
             <div key={p.id} className="flex items-center gap-5 border border-line bg-white px-6 py-5">
               {p.logo ? (
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center border border-line bg-paper p-2">
-                  <Image src={p.logo} alt="" width={48} height={48} className="max-h-10 w-auto object-contain" />
+                  <Image src={p.logo} alt={p.name} width={48} height={48} className="max-h-10 w-auto object-contain" />
                 </div>
               ) : (
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center border border-line bg-paper">

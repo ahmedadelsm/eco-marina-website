@@ -4,21 +4,16 @@ import { ContentOverridesProvider } from "@/components/ContentOverridesProvider"
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { JsonLd } from "@/components/JsonLd";
-import { site } from "@/content/site-content";
-import { buildPageMetadata } from "@/lib/seo";
-import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
+import { organizationJsonLd, professionalServiceJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: `${site.name} | ${site.tagline}`,
-  description:
-    "Environmental and social impact assessment, monitoring programs, and sustainability training. Based in Utrecht, Netherlands.",
-  path: "/",
-});
+export const metadata: Metadata = {
+  metadataBase: new URL("https://eco-marina.com"),
+};
 
 export default function SiteLayout({ children }: LayoutProps<"/">) {
   return (
     <ContentOverridesProvider>
-      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd(), professionalServiceJsonLd()]} />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[200] focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink focus:shadow-lg"

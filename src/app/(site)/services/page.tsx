@@ -5,11 +5,13 @@ import { ButtonArrow } from "@/components/Button";
 import { CoreServiceCard } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
 import { coreServices, legacyServices, serviceCategories } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Services",
   description: "Environmental impact assessment, monitoring programs, training, and full consultancy services.",
-};
+  path: "/services",
+});
 
 export default function ServicesPage() {
   return (
@@ -41,7 +43,7 @@ export default function ServicesPage() {
             {serviceCategories.map((cat) => (
               <div key={cat.title} className="border border-line bg-white">
                 <div className="relative aspect-[16/7] overflow-hidden bg-paper">
-                  <Image src={cat.image} alt="" fill className="photo-image object-cover" sizes="50vw" />
+                  <Image src={cat.image} alt={cat.title} fill className="photo-image object-cover" sizes="50vw" />
                   <div className="photo-tint absolute inset-0" aria-hidden />
                 </div>
                 <div className="p-6">
@@ -72,7 +74,7 @@ export default function ServicesPage() {
             {legacyServices.map((service) => (
               <Link key={service.slug} href={service.href} className="group flex gap-5 border border-line bg-white p-4">
                 <div className="relative h-24 w-32 shrink-0 overflow-hidden bg-paper">
-                  <Image src={service.image} alt="" fill className="object-cover" sizes="128px" />
+                  <Image src={service.image} alt={service.title} fill className="object-cover" sizes="128px" />
                 </div>
                 <div>
                   <h3 className="font-serif font-semibold text-ink group-hover:text-sea">{service.title}</h3>

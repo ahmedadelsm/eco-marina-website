@@ -37,6 +37,7 @@ export default async function InsightDetailPage({ params }: Props) {
       <JsonLd data={articleJsonLd(article)} />
       <DetailHero
         image={article.image}
+        imageAlt={article.title}
         eyebrow={`${article.category} · ${article.date} · ${article.readTime}`}
         title={article.title}
         description={article.excerpt}

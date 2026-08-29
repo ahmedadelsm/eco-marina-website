@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import { ButtonArrow } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { coreServices, trainingCourses } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Training Courses",
   description: "Environmental and sustainability training — EIA workshops, monitoring courses, compliance seminars, and community programs.",
-};
+  path: "/training",
+});
 
 export default function TrainingPage() {
   const service = coreServices[2];
@@ -18,7 +20,7 @@ export default function TrainingPage() {
         title={service.title}
         description="Advice and training on environmental topics — for professionals, government, industry, and community groups."
         image={service.image}
-        imageAlt="Tourism and marine environmental services training"
+        imageAlt="Environmental and sustainability training workshop"
       />
 
       <section className="py-16 sm:py-24">

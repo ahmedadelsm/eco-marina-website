@@ -27,7 +27,7 @@ export function PageHero({ eyebrow, title, description, image, imageAlt }: PageH
         </div>
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
           <div className="hero-copy max-w-3xl">
-            <SectionHeading eyebrow={eyebrow} title={title} description={description} light />
+            <SectionHeading eyebrow={eyebrow} title={title} description={description} light as="h1" />
           </div>
         </div>
       </section>
@@ -37,7 +37,7 @@ export function PageHero({ eyebrow, title, description, image, imageAlt }: PageH
   return (
     <section className="border-b border-line bg-paper">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-        <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+        <SectionHeading eyebrow={eyebrow} title={title} description={description} as="h1" />
       </div>
     </section>
   );

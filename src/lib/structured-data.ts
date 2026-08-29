@@ -31,7 +31,7 @@ export function websiteJsonLd() {
 export function articleJsonLd(article: {
   title: string;
   excerpt: string;
-  date: string;
+  datePublished: string;
   slug: string;
   image: string;
 }) {
@@ -40,7 +40,7 @@ export function articleJsonLd(article: {
     "@type": "Article",
     headline: article.title,
     description: article.excerpt,
-    datePublished: article.date,
+    datePublished: article.datePublished,
     author: {
       "@type": "Person",
       name: "Adel Regal",

@@ -3,11 +3,13 @@ import { ButtonArrow } from "@/components/Button";
 import { ProjectCard } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
 import { projects } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Case Studies",
   description: "Environmental consulting case studies from Eco Marina — shipping, industrial, wastewater, and coastal projects.",
-};
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

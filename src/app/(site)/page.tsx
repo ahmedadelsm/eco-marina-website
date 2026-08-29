@@ -1,9 +1,11 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { CoreServiceCard, ProjectCard } from "@/components/CoreServiceCard";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   adelRegal,
   coreServices,
@@ -15,6 +17,13 @@ import {
   site,
   whyUs,
 } from "@/content/site-content";
+
+export const metadata: Metadata = buildPageMetadata({
+  title: "Eco Marina | Environmental Consultancy",
+  description:
+    "Environmental and social impact assessment, monitoring programs, and sustainability training. Based in Utrecht, Netherlands.",
+  path: "/",
+});
 
 export default function HomePage() {
   return (

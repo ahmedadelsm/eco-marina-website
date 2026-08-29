@@ -4,11 +4,13 @@ import { ButtonArrow } from "@/components/Button";
 import { PartnersSection } from "@/components/PartnersSection";
 import { PageHero } from "@/components/PageHero";
 import { adelRegal, mission, site } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "About Adel Regal",
   description: `${adelRegal.name} — marine chemist, environmental consultant, and founder of ${site.name}. International experience across Egypt, Japan, Malta, Sweden, and the Netherlands.`,
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

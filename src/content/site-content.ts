@@ -11,7 +11,7 @@ export const site = {
   since: 1997,
   stats: {
     projects: 75,
-    countries: 6,
+    countries: 5,
   },
   values: [
     "Sustainability over short-term gain",
@@ -487,6 +487,7 @@ export const insights = [
     category: "Tourism & Coastal",
     readTime: "4 min read",
     date: "July 2025",
+    datePublished: "2025-07-01",
     image: "/images/services/tourism-marine.jpg",
     sections: [
       {
@@ -515,6 +516,7 @@ export const insights = [
     category: "Consulting",
     readTime: "3 min read",
     date: "July 2025",
+    datePublished: "2025-07-15",
     image: "/images/services/consultancy.jpg",
     sections: [
       {

@@ -3,11 +3,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { PageHero } from "@/components/PageHero";
 import { insights } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Insights",
   description: "Environmental consulting insights from Eco Marina — sustainable tourism, compliance, and coastal development.",
-};
+  path: "/insights",
+});
 
 export default function InsightsPage() {
   return (
@@ -30,7 +32,7 @@ export default function InsightsPage() {
                 <div className="relative aspect-[16/9] overflow-hidden bg-paper">
                   <Image
                     src={article.image}
-                    alt=""
+                    alt={article.title}
                     fill
                     className="photo-image object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     sizes="(max-width: 768px) 100vw, 50vw"
