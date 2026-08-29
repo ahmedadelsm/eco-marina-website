@@ -1,6 +1,7 @@
 export const site = {
   name: "Eco Marina",
   tagline: "Environmental Consultancy",
+  motto: "Restoring balance beneath the surface",
   domain: "eco-marina.com",
   email: "info@eco-marina.com",
   phone: "+31 684 942 020",
@@ -12,17 +13,24 @@ export const site = {
     projects: 75,
     countries: 6,
   },
+  values: [
+    "Sustainability over short-term gain",
+    "Science as a guiding force",
+    "Transparency in impact and process",
+    "Collaboration with communities and experts",
+  ],
 } as const;
 
 export const hero = {
   eyebrow: "Environmental Consultancy · Utrecht, Netherlands",
   headline: "Eco Marina Environmental Consultancy",
   subheadline:
-    "Environmental and social impact assessment studies, environmental monitoring programs, and sustainability training — for governments, industry, and coastal development.",
+    "Environmental and social impact assessment studies, environmental monitoring programs, and sustainability training — for governments, industry, and coastal development across Europe, Africa, and Asia.",
   cta: "Book a Consultation",
   ctaSecondary: "View Case Studies",
   image: "/images/hero-coastal.jpg",
   imageAlt: "Coastal waters — environmental consultancy for marine and coastal development",
+  brandBackground: "/images/brand-ocean-bg.png",
 };
 
 /** Core consultancy services */
@@ -151,44 +159,127 @@ export const projects = [
     slug: "shipping-agency-regulations",
     title: "Implementing environmental regulations within a shipping agency",
     category: "Marine & Shipping",
-    summary: "Integrated environmental regulations into shipping agency operations.",
+    summary:
+      "Integrated environmental regulations into shipping agency operations — aligning port logistics, vessel handling, and compliance with national and international marine standards.",
     image: "/images/projects/shipping-agency.jpg",
+    location: "Mediterranean region",
+    client: "Shipping agency operator",
+    challenge:
+      "A shipping agency needed to align daily port operations — vessel handling, cargo logistics, and agency services — with evolving environmental regulations without disrupting commercial throughput.",
+    approach: [
+      "Mapped applicable national and international marine environmental requirements to agency workflows",
+      "Identified compliance gaps across vessel reception, waste handling, and documentation processes",
+      "Developed operational procedures and staff guidance for environmental compliance",
+      "Established monitoring and reporting protocols for ongoing regulatory adherence",
+    ],
+    outcomes: [
+      "Environmental regulations integrated into standard agency operations",
+      "Clear compliance procedures for port-facing staff and management",
+      "Reduced regulatory risk during vessel calls and cargo handling",
+    ],
+    services: ["Regulatory compliance", "Environmental advisory", "Operational guidance"],
   },
   {
     slug: "cement-factory-approval",
     title: "Environmental approval of the construction of a Cement Factory",
     category: "Industrial EIA",
-    summary: "Environmental assessment and approval support for major industrial construction.",
+    summary:
+      "Full environmental assessment and approval support for major industrial construction — screening, baseline surveys, impact prediction, and mitigation planning for emissions and effluents.",
     image: "/images/projects/cement-factory.jpg",
+    location: "Industrial zone",
+    client: "Industrial developer",
+    challenge:
+      "A major cement factory construction required full environmental approval, including assessment of air emissions, effluent discharge, and impacts on surrounding land and communities.",
+    approach: [
+      "Conducted screening and scoping under the applicable EIA framework",
+      "Baseline surveys for air quality, water resources, and land use in the project area",
+      "Impact prediction for stack emissions, dust, noise, and liquid effluents",
+      "Mitigation measures and Environmental Management Plan for construction and operation phases",
+      "Prepared documentation and supported the regulatory approval process",
+    ],
+    outcomes: [
+      "Environmental approval pathway completed with full EIA documentation",
+      "Defined mitigation measures for emissions and effluent management",
+      "Operational monitoring requirements established for the facility lifecycle",
+    ],
+    services: ["Environmental impact assessment", "Baseline studies", "Permit support"],
   },
   {
     slug: "seaweed-wastewater-treatment",
     title: "Developing and implementing industrial wastewater treatment using seaweed",
     category: "Nature-based Treatment",
-    summary: "Designed and implemented industrial wastewater treatment using seaweed filtration technology.",
+    summary:
+      "Designed and implemented industrial wastewater treatment using seaweed filtration technology — a nature-based approach to reducing contamination at industrial sites.",
     image: "/images/projects/seaweed-wastewater.jpg",
+    location: "Coastal industrial site",
+    client: "Industrial facility",
+    challenge:
+      "An industrial site required effective wastewater treatment that could reduce contamination load while offering a lower-cost, nature-based alternative to conventional treatment systems.",
+    approach: [
+      "Assessed effluent composition and discharge volumes at the industrial site",
+      "Designed a seaweed-based filtration system suited to local water conditions",
+      "Piloted and implemented the treatment technology with quality monitoring",
+      "Documented treatment performance and operational requirements for the client",
+    ],
+    outcomes: [
+      "Operational nature-based wastewater treatment system deployed",
+      "Measurable reduction in contamination load from industrial effluent",
+      "Documented protocol for ongoing system maintenance and monitoring",
+    ],
+    services: ["Nature-based treatment design", "Water quality monitoring", "Industrial advisory"],
   },
   {
     slug: "oil-berth-construction",
     title: "Implementation of ecosystem-conscious Oil Berth construction plans",
     category: "Coastal Infrastructure",
-    summary: "Ecosystem-conscious construction planning for oil berth infrastructure in sensitive coastal areas.",
+    summary:
+      "Ecosystem-conscious construction planning for oil berth infrastructure in sensitive coastal areas — balancing industrial needs with marine habitat protection.",
     image: "/images/projects/oil-berth.jpg",
+    location: "Sensitive coastal waters",
+    client: "Port and energy infrastructure developer",
+    challenge:
+      "Construction of oil berth infrastructure in ecologically sensitive coastal waters required careful planning to minimise disturbance to marine habitats while meeting industrial operational requirements.",
+    approach: [
+      "Ecological baseline assessment of the berth site and surrounding marine area",
+      "Impact evaluation for construction phases — dredging, piling, and operational discharge",
+      "Ecosystem-conscious construction sequencing and habitat protection measures",
+      "Compliance framework aligned with coastal and marine environmental regulations",
+    ],
+    outcomes: [
+      "Construction plans adapted to reduce ecological disturbance",
+      "Defined habitat protection measures for sensitive coastal zones",
+      "Regulatory-compliant framework for berth construction and operation",
+    ],
+    services: ["Coastal EIA", "Ecological assessment", "Infrastructure planning"],
   },
 ] as const;
 
+export type Project = (typeof projects)[number];
+
+export function getProject(slug: string): Project | undefined {
+  return projects.find((p) => p.slug === slug);
+}
+
 export const adelRegal = {
   name: "Adel Regal",
-  title: "Environmental Consultant",
+  title: "Marine Chemist & Environmental Consultant",
   tagline: "Bridging academic research and practical environmental implementation",
+  image: "/images/team/adel-regal.png",
+  imageAlt: "Adel Regal — founder of Eco Marina Environmental Consultancy",
   bioShort:
-    "I help organisations solve water, energy, and ecosystem challenges through expertise backed by decades of scientific and organisational experience.",
+    "Marine chemist and environmental consultant with three decades of experience across the Red Sea, Mediterranean, and Gulf of Suez, delivering impact assessments, monitoring programmes, and regulatory advisory for industry and coastal development.",
   bioLong: [
-    "I solve energy, water, and environmental challenges. As an accredited researcher, a member of various international committees, and a seasoned consultant, I've bridged the gap between academic research and the world for over two decades.",
-    "I've practiced internationally across Egypt, Malta, Sweden, Japan, and the Netherlands — working on environmental assessments for factories, shipping companies, and chemical installations, always focused on whether the environment suffers damage and how that can be prevented.",
-    "In Egypt I spent fifteen years as professor and consultant at a major research institute, working on large-scale environmental assessments. Eco Marina brings that experience to clients in the Netherlands and internationally.",
+    "Adel Regal began his career in coastal Egypt, where work in marine protected areas and early engagement with Egypt's Environmental Law (1997) established a foundation in applied environmental science and regulatory compliance.",
+    "Over three decades, he has combined academic research with consultancy — conducting environmental assessments for industrial facilities, shipping operations, and chemical installations across Egypt, Japan, Malta, Sweden, and the Netherlands.",
+    "As founder of Eco Marina, he brings this international experience to clients in the Netherlands and beyond, with a focus on rigorous science, practical mitigation, and long-term environmental stewardship.",
   ],
-  languages: ["Arabic (native)", "English", "Dutch (learning)", "Japanese (basic)", "Turkish (basic)"],
+  credentials: [
+    "PhD in Marine Chemistry & Environment",
+    "Associate Professor at NIOF (National Institute of Oceanography & Fisheries)",
+    "Postdoctoral research at Mie University, Japan",
+    "Consultant for EEAA, DANIDA, and IOI projects",
+    "Trainer in EIA, pollution control, and ocean governance",
+  ],
   countries: ["Egypt", "Japan", "Malta", "Sweden", "Netherlands"],
   focus: [
     "Environmental impact assessments for industry and coastal development",
@@ -197,14 +288,15 @@ export const adelRegal = {
     "Environmental training for professionals and communities",
   ],
   timeline: [
-    { period: "1997–", label: "Environmental consulting practice begins" },
-    { period: "15 years", label: "Professor & consultant at major research institute, Egypt" },
-    { period: "International", label: "Projects and research in Egypt, Japan, Malta, Sweden" },
+    { period: "Early career", label: "Marine science and environmental consultancy, coastal Egypt" },
+    { period: "1997–", label: "Environmental consulting practice; regulatory advisory under Egyptian Environmental Law" },
+    { period: "15 years", label: "Professor and consultant at NIOF — large-scale environmental assessments" },
+    { period: "International", label: "Postdoctoral research in Japan; projects across Malta, Sweden, and Egypt" },
     { period: "2019–", label: "Relocated to the Netherlands; founded Eco Marina consultancy" },
-    { period: "Present", label: "Based in Utrecht; serving clients across Europe and beyond" },
+    { period: "Present", label: "Based in Utrecht; serving clients across Europe and internationally" },
   ],
-  quote: "If you want to run a business here, you need to know the language and the culture — the same applies to environmental work: local context matters.",
-  quoteSource: "Power by Peers",
+  quote: "Science must serve the sea — not just study it.",
+  quoteSource: "Adel Regal",
 };
 
 export const founder = adelRegal;
@@ -212,8 +304,10 @@ export const founder = adelRegal;
 export const mission = {
   mission:
     "To make professional environmental assessment, monitoring, and training accessible to governments, industry, and communities — grounded in science and focused on practical results.",
+  vision:
+    "A thriving ocean where biodiversity flourishes, coastal communities are resilient, and sustainable innovation leads global change.",
   approach:
-    "Eco Marina combines international environmental science with local implementation, delivering services from initial assessment through compliance and ongoing monitoring.",
+    "Eco Marina combines international environmental science with local implementation, delivering services from initial assessment through compliance and ongoing monitoring. Environmental-friendliness should be democratized — not an unreachable organizational process.",
 };
 
 export const trainingCourses = [
@@ -342,10 +436,210 @@ export const faq = [
   },
 ] as const;
 
-export const partners = [
-  { name: "PT. EgyTronic International Trading", location: "Indonesia" },
-  { name: "R.E.D.S — Renewable Energy Desalination Systems", location: "" },
+export const serviceCategories = [
+  {
+    title: "Tourism & Coastal Development",
+    description: "Eco-design for hotels, resorts, and marinas — impact assessments, biodiversity-sensitive planning, and staff training.",
+    items: [
+      "Eco-design recommendations for coastal infrastructure",
+      "Impact assessments and biodiversity-sensitive planning",
+      "Staff training and sustainable operations programmes",
+    ],
+    image: "/images/services/tourism-marine.jpg",
+  },
+  {
+    title: "Industrial & Urban Projects",
+    description: "Pollution risk analysis, environmental permits, and adaptive sustainability strategies for expanding businesses.",
+    items: [
+      "Pollution risk analysis and mitigation plans",
+      "Environmental permits and regulatory compliance",
+      "Adaptive sustainability strategies for industrial expansion",
+    ],
+    image: "/images/services/industry.jpg",
+  },
+  {
+    title: "Scientific & Research Collaboration",
+    description: "Field data collection, policy advisory, and technical input for academic and regulatory work.",
+    items: [
+      "Field data collection and environmental reporting",
+      "Policy advisory for environmental and marine protection",
+      "Technical input for academic and policy publications",
+    ],
+    image: "/images/services/monitoring.jpg",
+  },
+  {
+    title: "Legal & Monitoring Support",
+    description: "Alignment with environmental legislation, compliance reporting, and stakeholder mediation.",
+    items: [
+      "National and international environmental legislation alignment",
+      "Implementation monitoring and compliance reporting",
+      "Stakeholder and regulatory body coordination",
+    ],
+    image: "/images/services/consultancy.jpg",
+  },
 ] as const;
+
+export const insights = [
+  {
+    slug: "sustainable-tourism-new-standard",
+    title: "Why sustainable tourism is the new standard",
+    excerpt:
+      "Luxury tourism is shifting from excess to responsibility. Coastal developers who integrate ecological design and operational sustainability gain long-term value and smoother approvals.",
+    category: "Tourism & Coastal",
+    readTime: "4 min read",
+    date: "July 2025",
+    image: "/images/services/tourism-marine.jpg",
+    sections: [
+      {
+        heading: "From opulence to responsibility",
+        body: "Today's travellers and investors expect experiences that respect ecosystems. Privacy that preserves habitats, comfort designed with resource efficiency, and authenticity rooted in local ecology are becoming the benchmark for coastal development — not optional extras.",
+      },
+      {
+        heading: "Case insight: Red Sea region",
+        body: "In Egypt's Red Sea region, a resort reduced water usage by 28% without affecting guest satisfaction. The intervention included landscaping redesign, fixture upgrades, and operational changes — followed by green certification. Sustainable operations and guest experience are not mutually exclusive.",
+      },
+      {
+        heading: "Why it matters for developers",
+        body: "Informed travellers factor sustainability into booking decisions. Investors see long-term value in ecological compliance and certification. Governments increasingly favour low-impact projects with smoother approval pathways.",
+      },
+      {
+        heading: "How Eco Marina supports tourism projects",
+        body: "We help operators assess site sensitivity and ecological risks, integrate sustainable design and operations, and work toward recognised certifications such as Green Globe or EU Ecolabel. Contact us to discuss your coastal or tourism project.",
+      },
+    ],
+  },
+  {
+    slug: "environmental-compliance-accessible",
+    title: "Environmental consultancy should not be a luxury",
+    excerpt:
+      "Professional environmental assessment must be accessible to businesses of all sizes. Transparent scoping, time-efficient delivery, and practical mitigation keep costs proportionate to project scale.",
+    category: "Consulting",
+    readTime: "3 min read",
+    date: "July 2025",
+    image: "/images/services/consultancy.jpg",
+    sections: [
+      {
+        heading: "Democratising environmental compliance",
+        body: "Environmental-friendliness should not be an unreachable organisational process reserved for large corporations. Time-efficient, well-scoped consultancy delivers higher quality outcomes at proportionate cost — whether for a marina operator, an industrial facility, or a coastal developer.",
+      },
+      {
+        heading: "Transparent proposals",
+        body: "Every engagement begins with clear scoping: what is required by regulation, what the site conditions demand, and what deliverables the client needs. Proposals are structured for real-world implementation — not open-ended studies with unclear endpoints.",
+      },
+      {
+        heading: "International context, local application",
+        body: "Eco Marina brings experience from Egypt, Japan, Malta, Sweden, and the Netherlands to bear on each project. International standards are applied with local regulatory knowledge — the combination that produces approvals that hold up in practice.",
+      },
+    ],
+  },
+] as const;
+
+export type Insight = (typeof insights)[number];
+
+export function getInsight(slug: string): Insight | undefined {
+  return insights.find((i) => i.slug === slug);
+}
+
+export const resources = [
+  {
+    category: "Developer Tools",
+    items: [
+      {
+        title: "Sustainable Site Assessment Checklist",
+        description: "Identify sensitive zones, ecosystem overlaps, and regulatory flags before breaking ground.",
+      },
+      {
+        title: "Coastal Risk Evaluation Template",
+        description: "Quick-fill worksheet for infrastructure and waterfront planning in sensitive areas.",
+      },
+    ],
+  },
+  {
+    category: "Tourism Sector",
+    items: [
+      {
+        title: "Green Operations Guide for Hotels & Resorts",
+        description: "Water-saving, energy reduction, and biodiversity-respect practices for coastal hospitality.",
+      },
+      {
+        title: "Eco-Awareness Training Module (Staff Edition)",
+        description: "Slide-ready content for internal sustainability workshops and staff onboarding.",
+      },
+    ],
+  },
+  {
+    category: "Education & Community",
+    items: [
+      {
+        title: "Marine Protection Primer",
+        description: "Accessible overview of marine ecosystems, threats, and protective actions for educators and community groups.",
+      },
+      {
+        title: "Environmental Law Explained",
+        description: "Plain-language guide to permitting processes and how business decisions affect ecosystems.",
+      },
+      {
+        title: "Coastal Living & Eco-Awareness Toolkit",
+        description: "Practical guidance on waste, water, and biodiversity for households and tourism operators.",
+      },
+    ],
+  },
+  {
+    category: "Policy & Certification",
+    items: [
+      {
+        title: "Environmental Permit Roadmap",
+        description: "Step-by-step overview for navigating approval processes across project types.",
+      },
+      {
+        title: "EU Ecolabel Prep Checklist",
+        description: "Criteria breakdown and project readiness tasks for tourism and coastal operators.",
+      },
+    ],
+  },
+] as const;
+
+export type Partner = {
+  id: string;
+  name: string;
+  location: string;
+  logo?: string;
+  enabledByDefault: boolean;
+};
+
+export const partners: readonly Partner[] = [
+  {
+    id: "egytronic",
+    name: "PT. EgyTronic International Trading",
+    location: "Indonesia",
+    logo: "/images/partners/egytronic.png",
+    enabledByDefault: true,
+  },
+  {
+    id: "reds",
+    name: "R.E.D.S — Renewable Energy Desalination Systems",
+    location: "Egypt",
+    enabledByDefault: true,
+  },
+];
+
+const PARTNERS_CONTENT_KEY = "partners.enabled";
+
+/** Resolve which partners are visible, optionally applying admin overrides from /api/content */
+export function getVisiblePartners(content?: Record<string, unknown>): Partner[] {
+  const override = content?.[PARTNERS_CONTENT_KEY];
+  if (Array.isArray(override)) {
+    const enabledIds = new Set(override.filter((id): id is string => typeof id === "string"));
+    return partners.filter((p) => enabledIds.has(p.id));
+  }
+  return partners.filter((p) => p.enabledByDefault);
+}
+
+export function getDefaultEnabledPartnerIds(): string[] {
+  return partners.filter((p) => p.enabledByDefault).map((p) => p.id);
+}
+
+export { PARTNERS_CONTENT_KEY };
 
 export const nav = [
   { label: "Home", href: "/" },
@@ -359,6 +653,7 @@ export const nav = [
     ],
   },
   { label: "Cases", href: "/projects" },
+  { label: "Insights", href: "/insights" },
   { label: "Training", href: "/training" },
   { label: "About Adel", href: "/about" },
   { label: "Contact", href: "/contact" },
@@ -369,6 +664,8 @@ export const footerNav = [
   { label: "Monitoring Programs", href: "/services/monitoring" },
   { label: "Training", href: "/training" },
   { label: "Case Studies", href: "/projects" },
+  { label: "Insights", href: "/insights" },
+  { label: "Resources", href: "/resources" },
   { label: "About Adel Regal", href: "/about" },
   { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },

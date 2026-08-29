@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ink: #1c2b36;
-  --color-ink-muted: #4a5f6d;
-  --color-ink-light: #6b8294;
-  --color-sea: #1a6b7a;
-  --color-sea-dark: #145a66;
-  --color-sea-light: #e8f4f6;
-  --color-paper: #f7f5f0;
-  --color-paper-dark: #ebe6dc;
-  --color-line: #d9d3c8;
+  /* Eco Marina brand — green (ECO) + blue (MARINA) from official identity */
+  --color-brand-green: #6ab04a;
+  --color-brand-green-dark: #559038;
+  --color-brand-green-light: #eef5e9;
+  --color-brand-blue: #2e7db5;
+  --color-brand-blue-dark: #256694;
+  --color-brand-blue-light: #e8f2f9;
+  --color-brand-grey: #6b7280;
+
+  /* Semantic tokens mapped to brand */
+  --color-ink: #1a2332;
+  --color-ink-muted: #4a5568;
+  --color-ink-light: #718096;
+  --color-sea: #2e7db5;
+  --color-sea-dark: #256694;
+  --color-sea-light: #e8f2f9;
+  --color-paper: #f7f8f6;
+  --color-paper-dark: #eceee9;
+  --color-line: #d8dde3;
   --font-sans: var(--font-source-sans);
   --font-serif: var(--font-source-serif);
 }
@@ -22,7 +32,7 @@ body {
   background: #ffffff;
   color: var(--color-ink);
   font-family: var(--font-source-sans), system-ui, sans-serif;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
@@ -32,39 +42,61 @@ body {
 }
 
 ::selection {
-  background: var(--color-sea-light);
+  background: var(--color-brand-green-light);
   color: var(--color-ink);
 }
 
-/* Hero & page hero overlays — reliable gradients */
 .hero-overlay {
   background: linear-gradient(
-    to top,
-    var(--color-ink) 0%,
-    color-mix(in oklab, var(--color-ink) 88%, transparent) 45%,
-    color-mix(in oklab, var(--color-ink) 72%, transparent) 100%
+    105deg,
+    color-mix(in oklab, var(--color-ink) 92%, transparent) 0%,
+    color-mix(in oklab, var(--color-ink) 78%, transparent) 45%,
+    color-mix(in oklab, var(--color-brand-blue-dark) 55%, transparent) 100%
   );
 }
 
 .page-hero-overlay {
   background: linear-gradient(
     to right,
-    color-mix(in oklab, var(--color-ink) 96%, transparent) 0%,
-    color-mix(in oklab, var(--color-ink) 82%, transparent) 50%,
-    color-mix(in oklab, var(--color-ink) 55%, transparent) 100%
+    color-mix(in oklab, var(--color-ink) 94%, transparent) 0%,
+    color-mix(in oklab, var(--color-ink) 80%, transparent) 55%,
+    color-mix(in oklab, var(--color-ink) 50%, transparent) 100%
   );
 }
 
-/* Unified photo treatment — ties imagery to brand palette */
 .photo-image {
-  filter: saturate(0.88) contrast(1.06) brightness(0.97);
+  filter: saturate(0.95) contrast(1.02);
 }
 
 .photo-tint {
   background: linear-gradient(
     to top,
-    color-mix(in oklab, var(--color-ink) 24%, transparent) 0%,
-    transparent 58%
+    color-mix(in oklab, var(--color-ink) 18%, transparent) 0%,
+    transparent 55%
   );
   pointer-events: none;
+}
+
+.brand-ocean-section {
+  background-color: var(--color-brand-green-light);
+  background-image: url("/images/brand-ocean-bg.png");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+.brand-accent-heading {
+  border-left: 3px solid var(--color-brand-green);
+  padding-left: 1rem;
+}
+
+.site-brand-bar {
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand-green) 0%,
+    var(--color-brand-green) 38%,
+    var(--color-brand-blue) 38%,
+    var(--color-brand-blue) 100%
+  );
 }

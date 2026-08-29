@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Image from "next/image";
 import { ButtonArrow } from "@/components/Button";
+import { PartnersSection } from "@/components/PartnersSection";
 import { PageHero } from "@/components/SectionHeading";
-import { adelRegal, mission, partners, site } from "@/content/site-content";
+import { adelRegal, mission, site } from "@/content/site-content";
 
 export const metadata: Metadata = {
   title: "About Adel Regal",
-  description: `${adelRegal.name} — environmental consultant and founder of ${site.name}. International experience across Egypt, Japan, Malta, Sweden, and the Netherlands.`,
+  description: `${adelRegal.name} — marine chemist, environmental consultant, and founder of ${site.name}. International experience across Egypt, Japan, Malta, Sweden, and the Netherlands.`,
 };
 
 export default function AboutPage() {
@@ -20,12 +21,27 @@ export default function AboutPage() {
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="max-w-3xl">
-            <p className="text-xl leading-relaxed text-ink">{adelRegal.bioShort}</p>
-            <div className="mt-8 space-y-4 text-ink-muted">
-              {adelRegal.bioLong.map((p) => (
-                <p key={p.slice(0, 50)}>{p}</p>
-              ))}
+          <div className="grid items-start gap-12 lg:grid-cols-[280px_1fr]">
+            <div className="mx-auto w-full max-w-[280px] shrink-0 lg:mx-0">
+              <div className="relative aspect-[3/4] overflow-hidden border border-line bg-paper">
+                <Image
+                  src={adelRegal.image}
+                  alt={adelRegal.imageAlt}
+                  fill
+                  className="object-cover object-top"
+                  sizes="280px"
+                  priority
+                />
+              </div>
+              <p className="mt-3 text-center text-sm text-ink-muted lg:text-left">{adelRegal.title}</p>
+            </div>
+            <div>
+              <p className="mt-6 text-xl leading-relaxed text-ink">{adelRegal.bioShort}</p>
+              <div className="mt-8 space-y-4 text-ink-muted">
+                {adelRegal.bioLong.map((p) => (
+                  <p key={p.slice(0, 50)}>{p}</p>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -33,6 +49,20 @@ export default function AboutPage() {
             <p className="font-serif text-lg italic text-ink">&ldquo;{adelRegal.quote}&rdquo;</p>
             <footer className="mt-2 text-xs text-ink-light">— {adelRegal.quoteSource}</footer>
           </blockquote>
+        </div>
+      </section>
+
+      <section className="border-y border-line bg-paper py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <h2 className="font-serif text-2xl font-semibold text-ink">Credentials</h2>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+            {adelRegal.credentials.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-ink-muted">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sea" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -66,13 +96,7 @@ export default function AboutPage() {
               </ul>
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">Languages</h2>
-              <ul className="mt-6 space-y-2 text-ink-muted">
-                {adelRegal.languages.map((lang) => (
-                  <li key={lang}>{lang}</li>
-                ))}
-              </ul>
-              <h2 className="mt-10 font-serif text-2xl font-semibold text-ink">Countries of experience</h2>
+              <h2 className="font-serif text-2xl font-semibold text-ink">Countries of experience</h2>
               <p className="mt-4 text-ink-muted">{adelRegal.countries.join(" · ")}</p>
             </div>
           </div>
@@ -82,8 +106,17 @@ export default function AboutPage() {
       <section className="border-t border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <h2 className="font-serif text-2xl font-semibold text-ink">{site.name}</h2>
+          <p className="mt-2 text-sm font-medium uppercase tracking-wider text-sea">{site.motto}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{mission.mission}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{mission.approach}</p>
+          <h3 className="mt-8 font-serif text-lg font-semibold text-ink">Our values</h3>
+          <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+            {site.values.map((value) => (
+              <li key={value} className="flex items-start gap-2 text-sm text-ink-muted">
+                <span className="text-sea">—</span> {value}
+              </li>
+            ))}
+          </ul>
           <div className="mt-8 flex flex-wrap gap-4">
             <ButtonArrow href="/contact">Get in touch</ButtonArrow>
             <a
@@ -98,19 +131,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Partners</h2>
-          <div className="mt-8 flex flex-wrap gap-4">
-            {partners.map((p) => (
-              <div key={p.name} className="border border-line bg-white px-6 py-4">
-                <p className="font-medium text-ink">{p.name}</p>
-                {p.location && <p className="mt-1 text-sm text-ink-muted">{p.location}</p>}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <PartnersSection />
     </>
   );
 }

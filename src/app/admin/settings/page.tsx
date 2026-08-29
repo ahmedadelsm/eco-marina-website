@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { API, apiGet, apiPut } from "@/lib/api";
+import { AdminPartnerToggles } from "@/components/admin/AdminPartnerToggles";
 
 export default function AdminSettingsPage() {
   const router = useRouter();
@@ -85,21 +86,23 @@ export default function AdminSettingsPage() {
             aria-checked={enabled}
             disabled={saving}
             onClick={toggle}
-            className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
-              enabled ? "bg-sea" : "bg-line"
+            className={`relative h-7 w-12 shrink-0 transition-colors ${
+              enabled ? "bg-brand-blue" : "bg-line"
             }`}
           >
             <span
-              className={`absolute top-0.5 h-6 w-6 rounded-full bg-white shadow transition-transform ${
+              className={`absolute top-0.5 h-6 w-6 bg-white shadow transition-transform ${
                 enabled ? "left-5" : "left-0.5"
               }`}
             />
           </button>
         </div>
-        <p className={`mt-4 text-sm font-medium ${enabled ? "text-amber-700" : "text-sea"}`}>
+        <p className={`mt-4 text-sm font-medium ${enabled ? "text-amber-700" : "text-brand-green"}`}>
           Status: {enabled ? "Maintenance ON — public site hidden" : "Live — full website visible"}
         </p>
       </div>
+
+      <AdminPartnerToggles />
 
       <form onSubmit={changePassword} className="mt-8 max-w-xl border border-line bg-white p-6">
         <h2 className="font-serif text-xl font-semibold text-ink">Change password</h2>
@@ -152,7 +155,7 @@ export default function AdminSettingsPage() {
         <button
           type="submit"
           disabled={passwordSaving}
-          className="mt-6 bg-sea px-5 py-2.5 text-sm font-semibold text-white hover:bg-sea-dark disabled:opacity-60"
+          className="mt-6 bg-brand-blue px-5 py-2.5 text-sm font-semibold text-white hover:bg-brand-blue-dark disabled:opacity-60"
         >
           {passwordSaving ? "Updating…" : "Update password"}
         </button>

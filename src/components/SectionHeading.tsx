@@ -11,7 +11,7 @@ export function SectionHeading({ eyebrow, title, description, light, centered, c
   return (
     <div className={`${centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl"} ${className}`}>
       {eyebrow && (
-        <p className={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] ${light ? "text-sea-light" : "text-sea"}`}>
+        <p className={`mb-2 text-xs font-semibold uppercase tracking-[0.15em] ${light ? "text-brand-green" : "text-brand-blue"}`}>
           {eyebrow}
         </p>
       )}

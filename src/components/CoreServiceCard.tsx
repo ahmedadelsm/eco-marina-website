@@ -23,16 +23,16 @@ export function CoreServiceCard({ service }: { service: CoreService }) {
           src={service.image}
           alt={service.title}
           fill
-          className="photo-image object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="photo-image object-cover transition-transform duration-300 group-hover:scale-[1.01]"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
         <div className="photo-tint absolute inset-0" aria-hidden />
       </div>
       <div className="p-6">
-        <p className="text-xs font-semibold uppercase tracking-wider text-sea">{service.shortTitle}</p>
-        <h3 className="mt-2 font-serif text-xl font-semibold text-ink group-hover:text-sea">{service.title}</h3>
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-blue">{service.shortTitle}</p>
+        <h3 className="mt-2 font-serif text-xl font-semibold text-ink group-hover:text-brand-blue">{service.title}</h3>
         <p className="mt-3 text-sm leading-relaxed text-ink-muted">{service.description}</p>
-        <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-sea">
+        <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-brand-blue">
           Details <ArrowRightIcon className="h-3.5 w-3.5" />
         </span>
       </div>
@@ -52,23 +52,24 @@ export function ProjectCard({
   };
 }) {
   return (
-    <article className="group border border-line bg-white">
+    <Link href={`/projects/${project.slug}`} className="group block border border-line bg-white">
       <div className="relative aspect-[4/3] overflow-hidden bg-paper">
         <Image
           src={project.image}
           alt={project.title}
           fill
-          className="photo-image object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          className="photo-image object-cover transition-transform duration-300 group-hover:scale-[1.01]"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
         <div className="photo-tint absolute inset-0" aria-hidden />
       </div>
       <div className="p-6">
-        <p className="text-xs font-semibold uppercase tracking-wider text-sea">{project.category}</p>
-        <h3 className="mt-2 font-serif text-lg font-semibold leading-snug text-ink">{project.title}</h3>
+        <p className="text-xs font-semibold uppercase tracking-wider text-brand-blue">{project.category}</p>
+        <h3 className="mt-2 font-serif text-lg font-semibold leading-snug text-ink group-hover:text-brand-blue">{project.title}</h3>
         <p className="mt-2 text-sm text-ink-muted">{project.summary}</p>
+        <span className="mt-4 inline-block text-sm font-medium text-brand-blue">View case study →</span>
       </div>
-    </article>
+    </Link>
   );
 }
 

@@ -7,7 +7,9 @@ import {
   adelRegal,
   coreServices,
   hero,
+  insights,
   legacyServices,
+  mission,
   processSteps,
   projects,
   site,
@@ -20,12 +22,13 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative min-h-[min(88vh,820px)] overflow-hidden bg-ink text-white">
         <div className="absolute inset-0">
-          <Image src={hero.image} alt={hero.imageAlt} fill className="photo-image object-cover object-center opacity-45" priority sizes="100vw" />
+          <Image src={hero.image} alt={hero.imageAlt} fill className="photo-image object-cover object-center opacity-55" priority sizes="100vw" />
           <div className="hero-overlay absolute inset-0" aria-hidden />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sea-light">{hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl font-serif text-4xl font-semibold leading-tight sm:text-5xl lg:text-[3.25rem]">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">{hero.eyebrow}</p>
+          <p className="mt-3 max-w-xl text-sm font-medium tracking-wide text-white/70">{site.motto}</p>
+          <h1 className="mt-5 max-w-3xl font-serif text-4xl font-semibold leading-tight sm:text-[2.75rem] lg:text-5xl">
             {hero.headline}
           </h1>
           <p className="mt-6 max-w-2xl text-lg text-white/80">{hero.subheadline}</p>
@@ -37,18 +40,18 @@ export default function HomePage() {
               {hero.ctaSecondary}
             </Button>
           </div>
-          <dl className="mt-16 grid grid-cols-3 gap-6 border-t border-white/15 pt-10 sm:max-w-lg">
+          <dl className="mt-14 grid grid-cols-3 gap-6 border-t border-white/15 pt-8 sm:max-w-md">
             <div>
-              <dt className="font-serif text-3xl font-semibold">{site.stats.projects}</dt>
-              <dd className="mt-1 text-xs uppercase tracking-wider text-white/50">Projects</dd>
+              <dt className="font-serif text-2xl font-semibold text-white">{site.stats.projects}+</dt>
+              <dd className="mt-1 text-[11px] uppercase tracking-wider text-white/50">Projects</dd>
             </div>
             <div>
-              <dt className="font-serif text-3xl font-semibold">{site.stats.countries}</dt>
-              <dd className="mt-1 text-xs uppercase tracking-wider text-white/50">Countries</dd>
+              <dt className="font-serif text-2xl font-semibold text-white">{site.stats.countries}</dt>
+              <dd className="mt-1 text-[11px] uppercase tracking-wider text-white/50">Countries</dd>
             </div>
             <div>
-              <dt className="font-serif text-3xl font-semibold">{site.since}</dt>
-              <dd className="mt-1 text-xs uppercase tracking-wider text-white/50">Since</dd>
+              <dt className="font-serif text-2xl font-semibold text-white">{site.since}</dt>
+              <dd className="mt-1 text-[11px] uppercase tracking-wider text-white/50">Since</dd>
             </div>
           </dl>
         </div>
@@ -70,13 +73,38 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Mission & values */}
+      <section className="brand-ocean-section relative overflow-hidden border-y border-line py-16 sm:py-24">
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div>
+              <div className="brand-accent-heading">
+                <SectionHeading eyebrow="Mission" title="Science-backed, locally applied" />
+              </div>
+              <p className="mt-6 leading-relaxed text-ink-muted">{mission.mission}</p>
+              <p className="mt-4 leading-relaxed text-ink-muted">{mission.approach}</p>
+            </div>
+            <div>
+              <h3 className="font-serif text-xl font-semibold text-ink">Our values</h3>
+              <ul className="mt-6 space-y-3">
+                {site.values.map((value) => (
+                  <li key={value} className="flex items-start gap-3 border-l-2 border-brand-green pl-4 text-ink-muted">
+                    {value}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Why Eco Marina */}
       <section className="border-y border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading eyebrow="Why Eco Marina" title="Why work with us" />
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
             {whyUs.map((item) => (
-              <div key={item.title} className="border-l-2 border-sea pl-6">
+              <div key={item.title} className="border-l-2 border-brand-blue pl-6">
                 <h3 className="font-serif text-xl font-semibold text-ink">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.description}</p>
               </div>
@@ -109,28 +137,70 @@ export default function HomePage() {
       {/* About Adel preview */}
       <section className="border-t border-line bg-ink text-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
-          <div className="grid items-start gap-12 lg:grid-cols-2">
+          <div className="grid items-center gap-12 lg:grid-cols-[240px_1fr]">
+            <div className="mx-auto w-full max-w-[240px] shrink-0 lg:mx-0">
+              <div className="relative aspect-[3/4] overflow-hidden border border-white/15">
+                <Image
+                  src={adelRegal.image}
+                  alt={adelRegal.imageAlt}
+                  fill
+                  className="object-cover object-top"
+                  sizes="240px"
+                />
+              </div>
+            </div>
             <div>
-              <SectionHeading eyebrow="About" title={`Who is ${adelRegal.name}?`} light />
+              <SectionHeading eyebrow="Founder" title={adelRegal.name} light />
+              <p className="mt-2 text-sm text-sea-light">{adelRegal.title}</p>
               <p className="mt-6 text-lg text-white/85">{adelRegal.bioShort}</p>
               <p className="mt-4 text-sm leading-relaxed text-white/65">{adelRegal.bioLong[0]}</p>
+              <blockquote className="mt-6 border-l-2 border-sea-light pl-4">
+                <p className="font-serif italic text-white/80">&ldquo;{adelRegal.quote}&rdquo;</p>
+              </blockquote>
               <Button href="/about" variant="outline-light" size="sm" className="mt-8">
                 Full biography →
               </Button>
             </div>
-            <div className="border border-white/10 bg-white/5 p-8">
-              <h3 className="font-serif text-lg font-semibold">International experience</h3>
-              <p className="mt-4 text-sm text-white/70">
-                Projects and research across {adelRegal.countries.join(", ")}.
-              </p>
-              <ul className="mt-6 space-y-2">
-                {adelRegal.focus.map((item) => (
-                  <li key={item} className="flex items-start gap-2 text-sm text-white/75">
-                    <span className="text-sea-light">—</span> {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          </div>
+          <div className="mt-12 border border-white/10 bg-white/5 p-8 lg:ml-[calc(240px+3rem)]">
+            <h3 className="font-serif text-lg font-semibold">International experience</h3>
+            <p className="mt-4 text-sm text-white/70">
+              Projects and research across {adelRegal.countries.join(", ")}.
+            </p>
+            <ul className="mt-6 space-y-2">
+              {adelRegal.focus.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-sm text-white/75">
+                  <span className="text-sea-light">—</span> {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Insights preview */}
+      <section className="border-t border-line bg-paper py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+            <SectionHeading
+              eyebrow="Insights"
+              title="Perspectives from the field"
+              description="Practical guidance on sustainable tourism, compliance, and coastal development."
+            />
+            <Link href="/insights" className="text-sm font-medium text-sea hover:underline">
+              All insights →
+            </Link>
+          </div>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {insights.map((article) => (
+              <Link key={article.slug} href={`/insights/${article.slug}`} className="group border border-line bg-white p-6">
+                <p className="text-xs font-semibold uppercase tracking-wider text-sea">
+                  {article.category} · {article.readTime}
+                </p>
+                <h3 className="mt-2 font-serif text-lg font-semibold text-ink group-hover:text-sea">{article.title}</h3>
+                <p className="mt-2 text-sm text-ink-muted line-clamp-2">{article.excerpt}</p>
+              </Link>
+            ))}
           </div>
         </div>
       </section>

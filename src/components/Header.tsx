@@ -12,9 +12,17 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
+      <div className="site-brand-bar" aria-hidden />
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
         <Link href="/" className="shrink-0">
-          <Image src="/images/logo.png" alt={site.name} width={120} height={40} className="h-8 w-auto sm:h-9" priority />
+          <Image
+            src="/images/logo.png"
+            alt={site.name}
+            width={220}
+            height={56}
+            className="h-9 w-auto sm:h-10"
+            priority
+          />
         </Link>
 
         <div className="hidden items-center gap-6 text-sm lg:flex">
@@ -26,7 +34,7 @@ export function Header() {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <Link href={item.href} className="font-medium text-ink-muted hover:text-ink">
+                <Link href={item.href} className="font-medium text-ink-muted hover:text-brand-blue">
                   {item.label}
                 </Link>
                 {servicesOpen && (
@@ -42,13 +50,13 @@ export function Header() {
                 )}
               </div>
             ) : (
-              <Link key={item.href} href={item.href} className="font-medium text-ink-muted hover:text-ink">
+              <Link key={item.href} href={item.href} className="font-medium text-ink-muted hover:text-brand-blue">
                 {item.label}
               </Link>
             ),
           )}
           <div className="ml-2 border-l border-line pl-6">
-            <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-ink-muted hover:text-sea">
+            <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-ink-muted hover:text-brand-blue">
               {site.phone}
             </a>
           </div>

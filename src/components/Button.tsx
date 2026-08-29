@@ -10,11 +10,11 @@ type ButtonProps = {
 };
 
 const variants = {
-  primary: "bg-sea text-white hover:bg-sea-dark border border-sea",
+  primary: "bg-brand-blue text-white hover:bg-brand-blue-dark border border-brand-blue",
   secondary: "bg-ink text-white hover:bg-ink/90 border border-ink",
-  outline: "border border-line text-ink hover:border-sea hover:text-sea bg-white",
+  outline: "border border-line text-ink hover:border-brand-blue hover:text-brand-blue bg-white",
   "outline-light": "border border-white/40 bg-transparent text-white hover:border-white hover:bg-white/10",
-  ghost: "text-ink hover:text-sea",
+  ghost: "text-ink hover:text-brand-blue",
 };
 
 const sizes = {

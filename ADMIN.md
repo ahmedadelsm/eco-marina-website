@@ -4,18 +4,11 @@
 
 **URL:** https://eco-marina.com/admin/login
 
-### Temporary admin (change after first login)
+Sign in with the admin email and password configured in the D1 database. Credentials are never stored in this repository.
 
-| Field | Value |
-|-------|--------|
-| **Email** | `admin@eco-marina.com` |
-| **Password** | `EcoMarina2026!` |
+Multiple admins are supported — each person can have their own email and password.
 
-Multiple admins are supported — each person signs in with their own email and password.
-
-**Important:** Use the same URL on all devices: **https://eco-marina.com/admin/login** (not `www.` — cookies now work on both, but stick to one for consistency).
-
-Each device signs in separately with the **same email and password** — you'll see the same messages and settings. The admin header shows which email you're signed in as.
+**Important:** Use the same URL on all devices: **https://eco-marina.com/admin/login**
 
 ## Add more admins
 
@@ -23,20 +16,28 @@ Each device signs in separately with the **same email and password** — you'll 
 2. Go to **Admin → Admins**
 3. Enter email, name, and password (min 8 characters)
 
+## Change your password
+
+1. Sign in
+2. Go to **Admin → Settings → Change password**
+
 ## Features
 
 - **Dashboard** — overview
 - **Messages** — contact form submissions
 - **Content** — edit homepage copy and contact details
 - **Admins** — add/remove admin users
-- **Settings** — toggle maintenance mode (instant, no rebuild)
+- **Settings** — maintenance mode and partner visibility
 
-## Database setup
+## Database setup (local only)
+
+Run these commands locally. **Never commit generated SQL or passwords.**
 
 ```bash
 npx wrangler d1 execute eco-marina-admin --remote --file=schema-admins.sql
-node scripts/seed-admin.mjs admin@eco-marina.com "EcoMarina2026!" "Site Admin" > seed.sql
+node scripts/seed-admin.mjs admin@eco-marina.com "YOUR-STRONG-PASSWORD" "Site Admin" > seed.sql
 npx wrangler d1 execute eco-marina-admin --remote --file=seed.sql
+rm seed.sql
 ```
 
 ## Cloudflare bindings
@@ -46,4 +47,4 @@ npx wrangler d1 execute eco-marina-admin --remote --file=seed.sql
 | `DB` | D1 | `eco-marina-admin` |
 | `SETTINGS` | KV | `ECO_MARINA_SETTINGS` |
 
-No `ADMIN_PASSWORD` env var needed — auth uses the `admins` table in D1.
+Auth uses the `admins` table in D1 with PBKDF2 password hashes.
