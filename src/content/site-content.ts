@@ -30,7 +30,6 @@ export const hero = {
   ctaSecondary: "View Case Studies",
   image: "/images/hero-coastal.jpg",
   imageAlt: "Coastal waters — environmental consultancy for marine and coastal development",
-  brandBackground: "/images/brand-ocean-bg.png",
 };
 
 /** Core consultancy services */

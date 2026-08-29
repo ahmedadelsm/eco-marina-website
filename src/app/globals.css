@@ -104,14 +104,6 @@ body {
   pointer-events: none;
 }
 
-.brand-ocean-section {
-  background-color: var(--color-brand-green-light);
-  background-image: url("/images/brand-ocean-bg.png");
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
-
 .brand-accent-heading {
   border-left: 3px solid var(--color-brand-green);
   padding-left: 1rem;

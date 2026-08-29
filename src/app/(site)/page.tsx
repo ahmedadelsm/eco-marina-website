@@ -38,8 +38,8 @@ export default function HomePage() {
       </section>
 
       {/* Mission & values */}
-      <section className="brand-ocean-section relative overflow-hidden border-y border-line py-16 sm:py-24">
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+      <section className="border-y border-line bg-paper py-16 sm:py-24">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
               <div className="brand-accent-heading">
