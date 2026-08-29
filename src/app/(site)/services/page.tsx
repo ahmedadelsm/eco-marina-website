@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ButtonArrow } from "@/components/Button";
 import { CoreServiceCard } from "@/components/CoreServiceCard";
-import { PageHero } from "@/components/SectionHeading";
+import { PageHero } from "@/components/PageHero";
 import { coreServices, legacyServices, serviceCategories } from "@/content/site-content";
 
 export const metadata: Metadata = {

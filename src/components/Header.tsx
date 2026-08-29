@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { useSiteContact } from "@/components/SiteContactInfo";
 import { nav, site } from "@/content/site-content";
@@ -12,11 +12,20 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const { phone, phoneHref } = useSiteContact();
 
+  useEffect(() => {
+    if (!open) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white">
       <div className="site-brand-bar" aria-hidden />
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
-        <Link href="/" className="shrink-0">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
+        <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
           <Image
             src="/images/logo.png"
             alt={site.name}
@@ -43,7 +52,11 @@ export function Header() {
                   <div className="absolute left-0 top-full z-50 pt-2">
                     <div className="min-w-[200px] border border-line bg-white py-1 shadow-lg">
                       {item.children.map((child) => (
-                        <Link key={child.href} href={child.href} className="block px-4 py-2 text-ink-muted hover:bg-paper hover:text-ink">
+                        <Link
+                          key={child.href}
+                          href={child.href}
+                          className="block px-4 py-2.5 text-ink-muted hover:bg-paper hover:text-ink"
+                        >
                           {child.label}
                         </Link>
                       ))}
@@ -58,7 +71,7 @@ export function Header() {
             ),
           )}
           <div className="ml-2 border-l border-line pl-6">
-            <a href={phoneHref} className="text-ink-muted hover:text-brand-blue">
+            <a href={phoneHref} className="whitespace-nowrap text-ink-muted hover:text-brand-blue">
               {phone}
             </a>
           </div>
@@ -67,8 +80,15 @@ export function Header() {
           </Button>
         </div>
 
-        <button type="button" className="p-2 lg:hidden" aria-label="Menu" onClick={() => setOpen(!open)}>
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button
+          type="button"
+          className="-mr-1 min-h-11 min-w-11 p-2 lg:hidden"
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen(!open)}
+        >
+          <svg className="mx-auto h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden>
             {open ? (
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
             ) : (
@@ -79,21 +99,33 @@ export function Header() {
       </div>
 
       {open && (
-        <nav className="border-t border-line bg-white px-4 py-4 lg:hidden">
+        <nav id="mobile-nav" className="border-t border-line bg-white px-4 py-4 lg:hidden">
+          <a href={phoneHref} className="mb-4 block text-sm font-medium text-brand-blue">
+            {phone}
+          </a>
           {nav.map((item) => (
             <div key={item.href}>
-              <Link href={item.href} className="block py-2.5 font-medium" onClick={() => setOpen(false)}>
+              <Link
+                href={item.href}
+                className="block min-h-11 py-2.5 font-medium leading-6"
+                onClick={() => setOpen(false)}
+              >
                 {item.label}
               </Link>
               {"children" in item &&
                 item.children?.map((child) => (
-                  <Link key={child.href} href={child.href} className="block py-2 pl-4 text-sm text-ink-muted" onClick={() => setOpen(false)}>
+                  <Link
+                    key={child.href}
+                    href={child.href}
+                    className="block min-h-10 py-2 pl-4 text-sm text-ink-muted"
+                    onClick={() => setOpen(false)}
+                  >
                     {child.label}
                   </Link>
                 ))}
             </div>
           ))}
-          <Button href="/contact" className="mt-4 w-full">
+          <Button href="/contact" className="mt-4 w-full" onClick={() => setOpen(false)}>
             Contact
           </Button>
         </nav>

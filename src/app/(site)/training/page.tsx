@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { ButtonArrow } from "@/components/Button";
-import { PageHero } from "@/components/SectionHeading";
+import { PageHero } from "@/components/PageHero";
 import { coreServices, trainingCourses } from "@/content/site-content";
 
 export const metadata: Metadata = {

@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { ButtonArrow } from "@/components/Button";
-import { PageHero } from "@/components/SectionHeading";
-import { resources, site } from "@/content/site-content";
+import { PageHero } from "@/components/PageHero";
+import { ResourcesContactEmail } from "@/components/ResourcesContactEmail";
+import { resources } from "@/content/site-content";
+import { buildPageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Resources",
-  description: "Environmental guides, checklists, and templates from Eco Marina — for developers, tourism operators, and communities.",
-};
+  description:
+    "Environmental guides, checklists, and templates from Eco Marina — for developers, tourism operators, and communities.",
+  path: "/resources",
+});
 
 export default function ResourcesPage() {
   return (
@@ -38,11 +42,11 @@ export default function ResourcesPage() {
           <div className="mt-16 border border-line bg-paper p-8 text-center sm:p-12">
             <h2 className="font-serif text-2xl font-semibold text-ink">Request resources</h2>
             <p className="mx-auto mt-4 max-w-lg text-ink-muted">
-              These materials are provided to clients and project partners. Contact us to request access or discuss tailored
-              versions for your organisation.
+              These materials are provided to clients and project partners. Contact us to request access or discuss
+              tailored versions for your organisation.
             </p>
-            <p className="mt-4 text-sm text-ink-light">{site.email}</p>
-            <ButtonArrow href="/contact" className="mt-6">
+            <ResourcesContactEmail />
+            <ButtonArrow href="/contact" className="mt-6 w-full sm:w-auto">
               Get in touch
             </ButtonArrow>
           </div>

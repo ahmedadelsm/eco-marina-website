@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ButtonArrow } from "@/components/Button";
 import { ServiceDetailLayout } from "@/components/CoreServiceCard";
-import { PageHero } from "@/components/SectionHeading";
+import { PageHero } from "@/components/PageHero";
 import { coreServices, monitoringDetail } from "@/content/site-content";
 
 export const metadata: Metadata = {

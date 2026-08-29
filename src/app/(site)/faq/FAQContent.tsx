@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PageHero } from "@/components/SectionHeading";
+import { PageHero } from "@/components/PageHero";
 import { faq } from "@/content/site-content";
 
 export function FAQContent() {

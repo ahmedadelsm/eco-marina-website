@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonArrow } from "@/components/Button";
 import { CheckIcon } from "@/components/Icon";
+import { DetailHero } from "@/components/DetailHero";
 import { buildPageMetadata } from "@/lib/seo";
 import { getProject, projects } from "@/content/site-content";
 
@@ -34,19 +34,13 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   return (
     <>
-      <section className="relative min-h-[420px] overflow-hidden bg-ink">
-        <div className="absolute inset-0">
-          <Image src={project.image} alt={project.title} fill className="photo-image object-cover" priority sizes="100vw" />
-          <div className="page-hero-overlay absolute inset-0" aria-hidden />
-        </div>
-        <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-sea-light">{project.category}</p>
-          <h1 className="mt-2 max-w-3xl font-serif text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-            {project.title}
-          </h1>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/80">{project.summary}</p>
-        </div>
-      </section>
+      <DetailHero
+        image={project.image}
+        imageAlt={project.title}
+        eyebrow={project.category}
+        title={project.title}
+        description={project.summary}
+      />
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">

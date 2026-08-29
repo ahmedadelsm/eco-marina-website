@@ -7,6 +7,7 @@ type ButtonProps = {
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
   className?: string;
+  onClick?: () => void;
 };
 
 const variants = {
@@ -23,18 +24,22 @@ const sizes = {
   lg: "px-6 py-3 text-base",
 };
 
-export function Button({ href, variant = "primary", size = "md", children, className = "" }: ButtonProps) {
+export function Button({ href, variant = "primary", size = "md", children, className = "", onClick }: ButtonProps) {
   const classes = `inline-flex items-center justify-center gap-2 font-medium transition-colors ${variants[variant]} ${sizes[size]} ${className}`;
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} onClick={onClick}>
         {children}
       </Link>
     );
   }
 
-  return <button type="button" className={classes}>{children}</button>;
+  return (
+    <button type="button" className={classes} onClick={onClick}>
+      {children}
+    </button>
+  );
 }
 
 export function ButtonArrow({

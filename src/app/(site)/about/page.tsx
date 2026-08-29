@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { ButtonArrow } from "@/components/Button";
 import { PartnersSection } from "@/components/PartnersSection";
-import { PageHero } from "@/components/SectionHeading";
+import { PageHero } from "@/components/PageHero";
 import { adelRegal, mission, site } from "@/content/site-content";
 
 export const metadata: Metadata = {
