@@ -1,4 +1,4 @@
-import type { Env } from "./lib/utils";
+import { readSession, type Env } from "./lib/utils";
 
 const BYPASS = ["/api/", "/admin", "/images/", "/favicon", "/_next/", "/maintenance.html"];
 
@@ -12,6 +12,11 @@ export const onRequest: PagesFunction<Env> = async (context) => {
 
   const maintenance = await env.SETTINGS.get("maintenance_mode");
   if (maintenance !== "false") {
+    const admin = await readSession(request, env);
+    if (admin) {
+      return next();
+    }
+
     const assetUrl = new URL("/maintenance.html", request.url);
     const response = await env.ASSETS.fetch(assetUrl.toString());
     return new Response(response.body, {
