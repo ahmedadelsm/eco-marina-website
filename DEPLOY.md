@@ -60,6 +60,28 @@ Dashboard: [DNS records](https://dash.cloudflare.com/bace0682525d63a4e564f456e50
 
 Domains become **Active** within 1–5 minutes after DNS is correct. SSL is automatic.
 
+## GitHub Actions (build check)
+
+The workflow in `.github/workflows/cloudflare-pages.yml` runs `npm ci` and `npm run build` on every push and pull request to `main`. It validates the site builds cleanly on CI.
+
+**Deploys are handled by Cloudflare Pages** (Git integration is already connected to this repo). Pushes to `main` trigger a Cloudflare build automatically — no GitHub secrets required.
+
+### Optional: GitHub-managed deploy (Wrangler direct upload)
+
+If you prefer GitHub Actions to deploy instead of Cloudflare's native Git builds, replace the CI workflow with a deploy job and add these repository secrets under **Settings → Secrets and variables → Actions**:
+
+| Secret | Value |
+|--------|--------|
+| `CLOUDFLARE_ACCOUNT_ID` | `bace0682525d63a4e564f456e50c157c` |
+| `CLOUDFLARE_API_TOKEN` | Cloudflare API token with **Edit Cloudflare Workers** permission |
+
+Create the token: [Cloudflare API tokens](https://dash.cloudflare.com/profile/api-tokens) → **Create Token** → **Edit Cloudflare Workers** template.
+
+```bash
+gh secret set CLOUDFLARE_ACCOUNT_ID --body "bace0682525d63a4e564f456e50c157c" -R ahmedadelsm/eco-marina-website
+gh secret set CLOUDFLARE_API_TOKEN --body "YOUR_TOKEN" -R ahmedadelsm/eco-marina-website
+```
+
 ## Manual deploy (Wrangler)
 
 ```bash

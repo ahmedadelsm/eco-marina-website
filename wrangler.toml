@@ -1,4 +1,5 @@
 name = "eco-marina"
+account_id = "bace0682525d63a4e564f456e50c157c"
 compatibility_date = "2024-08-01"
 pages_build_output_dir = "out"
 
