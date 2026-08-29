@@ -70,7 +70,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Why me — original copy from archived site */}
+      {/* Why Eco Marina */}
       <section className="border-y border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading eyebrow="Why Eco Marina" title="Why work with us" />
@@ -89,7 +89,11 @@ export default function HomePage() {
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <SectionHeading eyebrow="Cases" title="Selected case studies" description="From the original Eco Marina portfolio." />
+            <SectionHeading
+              eyebrow="Cases"
+              title="Selected case studies"
+              description="Representative projects across shipping, industry, coastal infrastructure, and nature-based treatment."
+            />
             <Link href="/projects" className="text-sm font-medium text-sea hover:underline">
               View all cases →
             </Link>
@@ -131,13 +135,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Original service categories */}
+      {/* Full service range */}
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
             eyebrow="Full service range"
             title="Consultancy, industry, marine & waste"
-            description="The complete service offering from eco-marina.com — still at the core of what we deliver."
+            description="Consultancy studies, industry services, tourism and marine work, and waste management."
             centered
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

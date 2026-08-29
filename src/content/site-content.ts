@@ -8,7 +8,6 @@ export const site = {
   linkedIn: "https://www.linkedin.com/in/adelregal",
   operatingRegions: ["Netherlands", "Egypt", "Malta", "Sweden", "Japan"],
   since: 1997,
-  /** Verified from archived homepage counters (2024) */
   stats: {
     projects: 75,
     countries: 6,
@@ -26,7 +25,7 @@ export const hero = {
   imageAlt: "Coastal waters — environmental consultancy for marine and coastal development",
 };
 
-/** Primary focus areas requested + mapped to original site offerings */
+/** Core consultancy services */
 export const coreServices = [
   {
     slug: "impact-assessment",
@@ -87,7 +86,7 @@ export const coreServices = [
   },
 ] as const;
 
-/** Original four service categories from eco-marina.com (2021–2024) */
+/** Additional service categories */
 export const legacyServices = [
   {
     slug: "consultancy-studies",
@@ -146,7 +145,7 @@ export const whyUs = [
   },
 ] as const;
 
-/** Verified case studies from archived eco-marina.com homepage */
+/** Selected case studies */
 export const projects = [
   {
     slug: "shipping-agency-regulations",
@@ -178,12 +177,10 @@ export const projects = [
   },
 ] as const;
 
-/** Verified and sourced information about Adel Regal */
 export const adelRegal = {
   name: "Adel Regal",
   title: "Environmental Consultant",
   tagline: "Bridging academic research and practical environmental implementation",
-  /** Original homepage copy, archived May 2024 */
   bioShort:
     "I help organisations solve water, energy, and ecosystem challenges through expertise backed by decades of scientific and organisational experience.",
   bioLong: [
@@ -207,7 +204,7 @@ export const adelRegal = {
     { period: "Present", label: "Based in Utrecht; serving clients across Europe and beyond" },
   ],
   quote: "If you want to run a business here, you need to know the language and the culture — the same applies to environmental work: local context matters.",
-  quoteSource: "Power by Peers interview, 2021",
+  quoteSource: "Power by Peers",
 };
 
 export const founder = adelRegal;

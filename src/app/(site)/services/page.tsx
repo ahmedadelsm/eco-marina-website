@@ -17,7 +17,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Services"
         title="Our services"
-        description="Environmental and social impact assessment, monitoring programs, and sustainability training — plus the full consultancy range from our original practice."
+        description="Environmental and social impact assessment, monitoring programs, and sustainability training for governments, industry, and coastal development."
       />
 
       <section className="py-16 sm:py-24">
@@ -33,8 +33,10 @@ export default function ServicesPage() {
 
       <section className="border-t border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Original service categories</h2>
-          <p className="mt-2 max-w-2xl text-ink-muted">From the eco-marina.com portfolio (2021–2024).</p>
+          <h2 className="font-serif text-2xl font-semibold text-ink">Consultancy, industry, marine & waste</h2>
+          <p className="mt-2 max-w-2xl text-ink-muted">
+            Broader consultancy areas we support alongside our core services.
+          </p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {legacyServices.map((service) => (
               <Link key={service.slug} href={service.href} className="group flex gap-5 border border-line bg-white p-4">

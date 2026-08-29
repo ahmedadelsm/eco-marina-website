@@ -15,7 +15,7 @@ export default function ProjectsPage() {
       <PageHero
         eyebrow="Cases"
         title="Case studies"
-        description="Selected projects from the Eco Marina portfolio. Images and titles from the original eco-marina.com website."
+        description="Environmental consulting projects across shipping, industry, wastewater treatment, and coastal infrastructure."
         image="/images/projects/shipping-agency.png"
         imageAlt="Environmental regulations implementation for shipping agency"
       />
@@ -27,9 +27,6 @@ export default function ProjectsPage() {
               <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
-          <p className="mt-12 text-center text-sm text-ink-light">
-            These case studies were published on eco-marina.com between 2021 and 2024.
-          </p>
           <div className="mt-8 text-center">
             <ButtonArrow href="/contact">Discuss a similar project</ButtonArrow>
           </div>
