@@ -36,7 +36,7 @@ export const coreServices = [
       "Apply environmental impact assessment studies and environmental services for all industrial, marine, touristic, and infrastructure activities — from scoping and baseline surveys through mitigation plans and regulatory submission.",
     href: "/services/impact-assessment",
     icon: "assessment" as const,
-    image: "/images/services/consultancy.png",
+    image: "/images/services/consultancy.jpg",
     deliverables: [
       "Environmental impact assessment (EIA) studies",
       "Scoping, screening & baseline environmental surveys",
@@ -74,7 +74,7 @@ export const coreServices = [
       "Expert-led training for professionals, government officers, entrepreneurs, and community leaders — covering EIA methodology, environmental monitoring, regulatory compliance, and practical sustainability practices.",
     href: "/training",
     icon: "training" as const,
-    image: "/images/services/tourism-marine.jpg",
+    image: "/images/services/training.jpg",
     deliverables: [
       "EIA and environmental assessment workshops",
       "Environmental monitoring technician training",
@@ -93,7 +93,7 @@ export const legacyServices = [
     title: "Consultancy Services & Studies",
     description:
       "Apply environmental impact assessment studies and environmental services for all industrial, marine, touristic, and infrastructure activities.",
-    image: "/images/services/consultancy.png",
+    image: "/images/services/consultancy.jpg",
     href: "/services/impact-assessment",
   },
   {
@@ -117,7 +117,7 @@ export const legacyServices = [
     title: "Waste Management Services",
     description:
       "Propose and control low-cost and multi-tech waste management for solid, gaseous, and liquid wastes.",
-    image: "/images/services/waste-management.png",
+    image: "/images/services/waste-management.jpg",
     href: "/services",
   },
 ] as const;
@@ -152,21 +152,21 @@ export const projects = [
     title: "Implementing environmental regulations within a shipping agency",
     category: "Marine & Shipping",
     summary: "Integrated environmental regulations into shipping agency operations.",
-    image: "/images/projects/shipping-agency.png",
+    image: "/images/projects/shipping-agency.jpg",
   },
   {
     slug: "cement-factory-approval",
     title: "Environmental approval of the construction of a Cement Factory",
     category: "Industrial EIA",
     summary: "Environmental assessment and approval support for major industrial construction.",
-    image: "/images/projects/cement-factory.png",
+    image: "/images/projects/cement-factory.jpg",
   },
   {
     slug: "seaweed-wastewater-treatment",
     title: "Developing and implementing industrial wastewater treatment using seaweed",
     category: "Nature-based Treatment",
     summary: "Designed and implemented industrial wastewater treatment using seaweed filtration technology.",
-    image: "/images/projects/seaweed-wastewater.png",
+    image: "/images/projects/seaweed-wastewater.jpg",
   },
   {
     slug: "oil-berth-construction",

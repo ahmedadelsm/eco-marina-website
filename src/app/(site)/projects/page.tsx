@@ -16,7 +16,7 @@ export default function ProjectsPage() {
         eyebrow="Cases"
         title="Case studies"
         description="Environmental consulting projects across shipping, industry, wastewater treatment, and coastal infrastructure."
-        image="/images/projects/shipping-agency.png"
+        image="/images/projects/shipping-agency.jpg"
         imageAlt="Environmental regulations implementation for shipping agency"
       />
 

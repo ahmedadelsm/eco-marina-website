@@ -54,3 +54,17 @@ body {
     color-mix(in oklab, var(--color-ink) 55%, transparent) 100%
   );
 }
+
+/* Unified photo treatment — ties imagery to brand palette */
+.photo-image {
+  filter: saturate(0.88) contrast(1.06) brightness(0.97);
+}
+
+.photo-tint {
+  background: linear-gradient(
+    to top,
+    color-mix(in oklab, var(--color-ink) 24%, transparent) 0%,
+    transparent 58%
+  );
+  pointer-events: none;
+}

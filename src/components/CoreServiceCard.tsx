@@ -23,9 +23,10 @@ export function CoreServiceCard({ service }: { service: CoreService }) {
           src={service.image}
           alt={service.title}
           fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          className="photo-image object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           sizes="(max-width: 768px) 100vw, 33vw"
         />
+        <div className="photo-tint absolute inset-0" aria-hidden />
       </div>
       <div className="p-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-sea">{service.shortTitle}</p>
@@ -57,9 +58,10 @@ export function ProjectCard({
           src={project.image}
           alt={project.title}
           fill
-          className="object-cover"
+          className="photo-image object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           sizes="(max-width: 768px) 100vw, 50vw"
         />
+        <div className="photo-tint absolute inset-0" aria-hidden />
       </div>
       <div className="p-6">
         <p className="text-xs font-semibold uppercase tracking-wider text-sea">{project.category}</p>
@@ -86,8 +88,9 @@ export function ServiceDetailLayout({
           <p className="mt-4 text-ink-muted leading-relaxed">{service.description}</p>
           {children}
         </div>
-        <div className="relative aspect-[4/3] overflow-hidden border border-line">
-          <Image src={service.image} alt={service.title} fill className="object-cover" sizes="50vw" />
+        <div className="relative aspect-[4/3] overflow-hidden border border-line bg-paper">
+          <Image src={service.image} alt={service.title} fill className="photo-image object-cover" sizes="50vw" />
+          <div className="photo-tint absolute inset-0" aria-hidden />
         </div>
       </div>
       <div className="mt-16 grid gap-8 border-t border-line pt-16 sm:grid-cols-2">

@@ -20,7 +20,7 @@ export default function HomePage() {
       {/* Hero */}
       <section className="relative min-h-[min(88vh,820px)] overflow-hidden bg-ink text-white">
         <div className="absolute inset-0">
-          <Image src={hero.image} alt={hero.imageAlt} fill className="object-cover opacity-35" priority sizes="100vw" />
+          <Image src={hero.image} alt={hero.imageAlt} fill className="photo-image object-cover object-center opacity-45" priority sizes="100vw" />
           <div className="hero-overlay absolute inset-0" aria-hidden />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:py-32">

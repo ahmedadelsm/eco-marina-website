@@ -43,7 +43,7 @@ export function PageHero({
       <section className="relative min-h-[420px] overflow-hidden bg-ink">
         <div className="absolute inset-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={image} alt={imageAlt ?? ""} className="h-full w-full object-cover opacity-40" />
+          <img src={image} alt={imageAlt ?? ""} className="photo-image h-full w-full object-cover" />
           <div className="page-hero-overlay absolute inset-0" aria-hidden />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28">
