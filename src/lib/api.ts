@@ -10,6 +10,7 @@ export const API = {
     admins: "/api/admin/admins",
     me: "/api/admin/me",
     logout: "/api/admin/logout",
+    password: "/api/admin/password",
   },
 } as const;
 

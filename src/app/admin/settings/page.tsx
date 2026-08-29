@@ -9,6 +9,12 @@ export default function AdminSettingsPage() {
   const [enabled, setEnabled] = useState(false);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     apiGet<{ enabled: boolean }>(API.admin.maintenance)
@@ -28,12 +34,41 @@ export default function AdminSettingsPage() {
     }
   }
 
+  async function changePassword(e: React.FormEvent) {
+    e.preventDefault();
+    setPasswordError("");
+    setPasswordMessage("");
+
+    if (newPassword.length < 8) {
+      setPasswordError("New password must be at least 8 characters.");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New passwords do not match.");
+      return;
+    }
+
+    setPasswordSaving(true);
+    try {
+      await apiPut(API.admin.password, { currentPassword, newPassword });
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setPasswordMessage("Password updated successfully.");
+    } catch (err) {
+      setPasswordError(err instanceof Error ? err.message : "Could not update password.");
+    } finally {
+      setPasswordSaving(false);
+    }
+  }
+
   if (loading) return <p className="text-ink-muted">Loading settings…</p>;
 
   return (
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Settings</h1>
-      <p className="mt-2 text-ink-muted">Site-wide configuration.</p>
+      <p className="mt-2 text-ink-muted">Site-wide configuration and your account.</p>
 
       <div className="mt-8 max-w-xl border border-line bg-white p-6">
         <div className="flex items-start justify-between gap-4">
@@ -65,6 +100,63 @@ export default function AdminSettingsPage() {
           Status: {enabled ? "Maintenance ON — public site hidden" : "Live — full website visible"}
         </p>
       </div>
+
+      <form onSubmit={changePassword} className="mt-8 max-w-xl border border-line bg-white p-6">
+        <h2 className="font-serif text-xl font-semibold text-ink">Change password</h2>
+        <p className="mt-2 text-sm text-ink-muted">Update the password for your admin account.</p>
+
+        <label className="mt-6 block text-sm font-medium text-ink" htmlFor="current-password">
+          Current password
+        </label>
+        <input
+          id="current-password"
+          type="password"
+          value={currentPassword}
+          onChange={(e) => setCurrentPassword(e.target.value)}
+          required
+          autoComplete="current-password"
+          className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
+        />
+
+        <label className="mt-4 block text-sm font-medium text-ink" htmlFor="new-password">
+          New password
+        </label>
+        <input
+          id="new-password"
+          type="password"
+          value={newPassword}
+          onChange={(e) => setNewPassword(e.target.value)}
+          required
+          minLength={8}
+          autoComplete="new-password"
+          className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
+        />
+
+        <label className="mt-4 block text-sm font-medium text-ink" htmlFor="confirm-password">
+          Confirm new password
+        </label>
+        <input
+          id="confirm-password"
+          type="password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          required
+          minLength={8}
+          autoComplete="new-password"
+          className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
+        />
+
+        {passwordError && <p className="mt-3 text-sm text-red-600">{passwordError}</p>}
+        {passwordMessage && <p className="mt-3 text-sm text-sea">{passwordMessage}</p>}
+
+        <button
+          type="submit"
+          disabled={passwordSaving}
+          className="mt-6 bg-sea px-5 py-2.5 text-sm font-semibold text-white hover:bg-sea-dark disabled:opacity-60"
+        >
+          {passwordSaving ? "Updating…" : "Update password"}
+        </button>
+      </form>
     </div>
   );
 }
