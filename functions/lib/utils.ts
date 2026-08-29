@@ -20,17 +20,22 @@ export function corsHeaders(origin = "*") {
   };
 }
 
-export async function readSession(request: Request, env: Env): Promise<boolean> {
+export async function readSession(request: Request, env: Env): Promise<{ id: number; email: string } | null> {
   const cookie = request.headers.get("Cookie") || "";
   const match = cookie.match(/admin_session=([^;]+)/);
-  if (!match) return false;
-  const session = await env.SETTINGS.get(`session:${match[1]}`);
-  return session === "1";
+  if (!match) return null;
+  const raw = await env.SETTINGS.get(`session:${match[1]}`);
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw) as { id: number; email: string };
+  } catch {
+    return null;
+  }
 }
 
-export async function createSession(env: Env): Promise<string> {
+export async function createSession(env: Env, admin: { id: number; email: string }): Promise<string> {
   const id = crypto.randomUUID();
-  await env.SETTINGS.put(`session:${id}`, "1", { expirationTtl: 86400 * 7 });
+  await env.SETTINGS.put(`session:${id}`, JSON.stringify(admin), { expirationTtl: 86400 * 7 });
   return id;
 }
 
@@ -39,7 +44,7 @@ export function sessionCookie(sessionId: string) {
 }
 
 export async function requireAdmin(request: Request, env: Env): Promise<Response | null> {
-  const ok = await readSession(request, env);
-  if (!ok) return json({ error: "Unauthorized" }, 401);
+  const admin = await readSession(request, env);
+  if (!admin) return json({ error: "Unauthorized" }, 401);
   return null;
 }

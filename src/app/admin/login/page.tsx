@@ -6,6 +6,7 @@ import { API, apiGet, apiPost } from "@/lib/api";
 
 export default function AdminLoginPage() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -19,10 +20,10 @@ export default function AdminLoginPage() {
     setLoading(true);
     setError("");
     try {
-      await apiPost(API.admin.login, { password });
+      await apiPost(API.admin.login, { email, password });
       router.replace("/admin");
     } catch {
-      setError("Invalid password");
+      setError("Invalid email or password");
     } finally {
       setLoading(false);
     }
@@ -33,8 +34,23 @@ export default function AdminLoginPage() {
       <form onSubmit={handleSubmit} className="w-full max-w-sm border border-white/10 bg-white p-8 shadow-xl">
         <p className="text-xs font-semibold uppercase tracking-[0.15em] text-sea">Eco Marina</p>
         <h1 className="mt-2 font-serif text-2xl font-semibold text-ink">Admin sign in</h1>
-        <p className="mt-2 text-sm text-ink-muted">Manage content, messages, and maintenance mode.</p>
-        <label className="mt-6 block text-sm font-medium text-ink" htmlFor="password">
+        <p className="mt-2 text-sm text-ink-muted">Sign in with your admin email and password.</p>
+
+        <label className="mt-6 block text-sm font-medium text-ink" htmlFor="email">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
+          required
+          autoFocus
+          autoComplete="email"
+        />
+
+        <label className="mt-4 block text-sm font-medium text-ink" htmlFor="password">
           Password
         </label>
         <input
@@ -44,8 +60,9 @@ export default function AdminLoginPage() {
           onChange={(e) => setPassword(e.target.value)}
           className="mt-1.5 w-full border border-line px-3 py-2.5 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20"
           required
-          autoFocus
+          autoComplete="current-password"
         />
+
         {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
         <button
           type="submit"

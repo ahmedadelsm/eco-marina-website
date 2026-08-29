@@ -7,6 +7,7 @@ export const API = {
     messages: "/api/admin/messages",
     content: "/api/admin/content",
     maintenance: "/api/admin/maintenance",
+    admins: "/api/admin/admins",
   },
 } as const;
 

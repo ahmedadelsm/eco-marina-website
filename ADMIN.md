@@ -1,41 +1,45 @@
-# Eco Marina Admin & Deployment
+# Eco Marina Admin
 
-## Admin panel
+## Sign in
 
-URL: **https://eco-marina.com/admin/login**
+**URL:** https://eco-marina.com/admin/login
 
-Set `ADMIN_PASSWORD` in Cloudflare Dashboard → Workers & Pages → eco-marina → Settings → Environment variables.
+### Temporary admin (change after first login)
 
-### Features
+| Field | Value |
+|-------|--------|
+| **Email** | `admin@eco-marina.com` |
+| **Password** | `EcoMarina2026!` |
 
-- **Dashboard** — message counts, maintenance status
-- **Messages** — contact form submissions (stored in D1)
-- **Content** — edit homepage headline, contact details
-- **Settings** — toggle maintenance mode instantly (no rebuild)
+Multiple admins are supported — each person signs in with their own email and password.
 
-## Cloudflare bindings (required)
+## Add more admins
 
-In Pages project **Settings → Functions**:
+1. Sign in as an existing admin
+2. Go to **Admin → Admins**
+3. Enter email, name, and password (min 8 characters)
+
+## Features
+
+- **Dashboard** — overview
+- **Messages** — contact form submissions
+- **Content** — edit homepage copy and contact details
+- **Admins** — add/remove admin users
+- **Settings** — toggle maintenance mode (instant, no rebuild)
+
+## Database setup
+
+```bash
+npx wrangler d1 execute eco-marina-admin --remote --file=schema-admins.sql
+node scripts/seed-admin.mjs admin@eco-marina.com "EcoMarina2026!" "Site Admin" > seed.sql
+npx wrangler d1 execute eco-marina-admin --remote --file=seed.sql
+```
+
+## Cloudflare bindings
 
 | Binding | Type | Name |
 |---------|------|------|
 | `DB` | D1 | `eco-marina-admin` |
 | `SETTINGS` | KV | `ECO_MARINA_SETTINGS` |
 
-Also set environment variable: `ADMIN_PASSWORD`
-
-## Build settings
-
-| Setting | Value |
-|---------|--------|
-| Build command | `npm run build` |
-| Output directory | `out` |
-| Node version | `20` |
-
-Maintenance mode is controlled at **runtime** via KV (admin toggle), not at build time.
-
-## Database
-
-```bash
-npx wrangler d1 execute eco-marina-admin --remote --file=schema.sql
-```
+No `ADMIN_PASSWORD` env var needed — auth uses the `admins` table in D1.
