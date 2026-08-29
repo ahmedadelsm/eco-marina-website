@@ -18,10 +18,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       maintenanceEnabled: maintenance !== "false",
     },
     200,
-    corsHeaders()
+    corsHeaders(context.request)
   );
 };
 
-export const onRequestOptions: PagesFunction = async () => {
-  return new Response(null, { status: 204, headers: corsHeaders() });
+export const onRequestOptions: PagesFunction<Env> = async (context) => {
+  return new Response(null, { status: 204, headers: corsHeaders(context.request) });
 };

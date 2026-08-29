@@ -6,7 +6,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   if (denied) return denied;
 
   const { results } = await env.DB.prepare("SELECT key, value, updated_at FROM content ORDER BY key").all();
-  return json({ content: results }, 200, corsHeaders());
+  return json({ content: results }, 200, corsHeaders(context.request));
 };
 
 export const onRequestPut: PagesFunction<Env> = async (context) => {
@@ -17,7 +17,7 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
   try {
     const body = (await request.json()) as { key?: string; value?: unknown };
     if (!body.key || body.value === undefined) {
-      return json({ error: "Missing key or value" }, 400, corsHeaders());
+      return json({ error: "Missing key or value" }, 400, corsHeaders(context.request));
     }
 
     const value = typeof body.value === "string" ? body.value : JSON.stringify(body.value);
@@ -28,12 +28,12 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
       .bind(body.key, value)
       .run();
 
-    return json({ ok: true }, 200, corsHeaders());
+    return json({ ok: true }, 200, corsHeaders(context.request));
   } catch {
-    return json({ error: "Save failed" }, 500, corsHeaders());
+    return json({ error: "Save failed" }, 500, corsHeaders(context.request));
   }
 };
 
-export const onRequestOptions: PagesFunction = async () => {
-  return new Response(null, { status: 204, headers: corsHeaders() });
+export const onRequestOptions: PagesFunction<Env> = async (context) => {
+  return new Response(null, { status: 204, headers: corsHeaders(context.request) });
 };

@@ -12,7 +12,7 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    apiGet(API.admin.stats).then(() => router.replace("/admin")).catch(() => {});
+    apiGet(API.admin.me).then(() => router.replace("/admin")).catch(() => {});
   }, [router]);
 
   async function handleSubmit(e: React.FormEvent) {

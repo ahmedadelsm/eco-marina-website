@@ -13,6 +13,10 @@
 
 Multiple admins are supported — each person signs in with their own email and password.
 
+**Important:** Use the same URL on all devices: **https://eco-marina.com/admin/login** (not `www.` — cookies now work on both, but stick to one for consistency).
+
+Each device signs in separately with the **same email and password** — you'll see the same messages and settings. The admin header shows which email you're signed in as.
+
 ## Add more admins
 
 1. Sign in as an existing admin

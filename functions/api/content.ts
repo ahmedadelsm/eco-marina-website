@@ -12,8 +12,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         content[row.key] = row.value;
       }
     }
-    return json({ content }, 200, corsHeaders());
+    return json({ content }, 200, corsHeaders(context.request));
   } catch {
-    return json({ content: {} }, 200, corsHeaders());
+    return json({ content: {} }, 200, corsHeaders(context.request));
   }
 };

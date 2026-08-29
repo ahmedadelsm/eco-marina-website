@@ -8,6 +8,8 @@ export const API = {
     content: "/api/admin/content",
     maintenance: "/api/admin/maintenance",
     admins: "/api/admin/admins",
+    me: "/api/admin/me",
+    logout: "/api/admin/logout",
   },
 } as const;
 

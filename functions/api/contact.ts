@@ -20,11 +20,11 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     const message = body.message?.trim();
 
     if (!firstName || !lastName || !email || !message) {
-      return json({ error: "Missing required fields" }, 400, corsHeaders());
+      return json({ error: "Missing required fields" }, 400, corsHeaders(context.request));
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return json({ error: "Invalid email" }, 400, corsHeaders());
+      return json({ error: "Invalid email" }, 400, corsHeaders(context.request));
     }
 
     await env.DB.prepare(
@@ -41,12 +41,12 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
       )
       .run();
 
-    return json({ ok: true }, 201, corsHeaders());
+    return json({ ok: true }, 201, corsHeaders(context.request));
   } catch {
-    return json({ error: "Failed to submit message" }, 500, corsHeaders());
+    return json({ error: "Failed to submit message" }, 500, corsHeaders(context.request));
   }
 };
 
-export const onRequestOptions: PagesFunction = async () => {
-  return new Response(null, { status: 204, headers: corsHeaders() });
+export const onRequestOptions: PagesFunction<Env> = async (context) => {
+  return new Response(null, { status: 204, headers: corsHeaders(context.request) });
 };
