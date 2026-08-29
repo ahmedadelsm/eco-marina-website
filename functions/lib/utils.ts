@@ -33,16 +33,22 @@ export function corsHeaders(request?: Request): Record<string, string> {
 }
 
 export async function readSession(request: Request, env: Env): Promise<{ id: number; email: string; name?: string | null } | null> {
-  const cookie = request.headers.get("Cookie") || "";
-  const match = cookie.match(/admin_session=([^;]+)/);
-  if (!match) return null;
-  const raw = await env.SETTINGS.get(`session:${match[1]}`);
+  const sessionId = getSessionIdFromCookie(request);
+  if (!sessionId) return null;
+  const raw = await env.SETTINGS.get(`session:${sessionId}`);
   if (!raw) return null;
   try {
     return JSON.parse(raw) as { id: number; email: string; name?: string | null };
   } catch {
     return null;
   }
+}
+
+export function getSessionIdFromCookie(request: Request): string | null {
+  const cookie = request.headers.get("Cookie") || "";
+  const match = cookie.match(/admin_session=([^;]+)/);
+  const value = match?.[1]?.trim();
+  return value || null;
 }
 
 export async function createSession(
@@ -59,7 +65,14 @@ export function sessionCookie(sessionId: string) {
 }
 
 export function clearSessionCookie() {
-  return `admin_session=; HttpOnly; Secure; SameSite=Lax; Path=/; Domain=.eco-marina.com; Max-Age=0`;
+  return clearSessionCookies()[0];
+}
+
+/** Clear domain + host-only cookies so logout works on apex and www. */
+export function clearSessionCookies(): string[] {
+  const expires = "Thu, 01 Jan 1970 00:00:00 GMT";
+  const base = `admin_session=; HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=0; Expires=${expires}`;
+  return [`${base}; Domain=.eco-marina.com`, base];
 }
 
 export async function requireAdmin(request: Request, env: Env): Promise<Response | null> {

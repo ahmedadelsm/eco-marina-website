@@ -1,11 +1,23 @@
-import { clearSessionCookie, corsHeaders, json, type Env } from "../../lib/utils";
+import { clearSessionCookies, corsHeaders, getSessionIdFromCookie, type Env } from "../../lib/utils";
 
 export const onRequestPost: PagesFunction<Env> = async (context) => {
-  const cors = corsHeaders(context.request);
-  return json({ ok: true }, 200, {
+  const { request, env } = context;
+  const cors = corsHeaders(request);
+
+  const sessionId = getSessionIdFromCookie(request);
+  if (sessionId) {
+    await env.SETTINGS.delete(`session:${sessionId}`);
+  }
+
+  const headers = new Headers({
+    "Content-Type": "application/json",
     ...cors,
-    "Set-Cookie": clearSessionCookie(),
   });
+  for (const cookie of clearSessionCookies()) {
+    headers.append("Set-Cookie", cookie);
+  }
+
+  return new Response(JSON.stringify({ ok: true }), { status: 200, headers });
 };
 
 export const onRequestOptions: PagesFunction<Env> = async (context) => {

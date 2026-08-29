@@ -60,5 +60,11 @@ export async function apiDelete<T>(url: string): Promise<T> {
 }
 
 export async function adminLogout(): Promise<void> {
-  await apiPost(API.admin.logout, {}).catch(() => {});
+  const res = await fetch(API.admin.logout, {
+    method: "POST",
+    credentials: "include",
+    headers: { "Content-Type": "application/json" },
+    body: "{}",
+  });
+  if (!res.ok) throw new Error("Logout failed");
 }

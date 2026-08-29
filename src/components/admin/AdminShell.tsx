@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API, adminLogout, apiGet } from "@/lib/api";
 
@@ -15,7 +15,6 @@ const nav = [
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const router = useRouter();
   const [email, setEmail] = useState<string | null>(null);
 
   useEffect(() => {
@@ -26,8 +25,12 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   async function logout() {
-    await adminLogout();
-    router.replace("/admin/login");
+    try {
+      await adminLogout();
+    } catch {
+      // Still redirect — server may have invalidated the session.
+    }
+    window.location.href = "/admin/login";
   }
 
   if (pathname === "/admin/login") {

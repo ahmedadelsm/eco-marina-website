@@ -1,12 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { API, adminLogout, apiGet } from "@/lib/api";
 
 export function AdminPreviewBar() {
-  const router = useRouter();
   const [email, setEmail] = useState<string | null>(null);
   const [maintenance, setMaintenance] = useState(false);
 
@@ -20,8 +18,12 @@ export function AdminPreviewBar() {
   }, []);
 
   async function logout() {
-    await adminLogout();
-    router.replace("/admin/login");
+    try {
+      await adminLogout();
+    } catch {
+      // Still redirect — server may have invalidated the session.
+    }
+    window.location.href = "/";
   }
 
   if (!email) return null;
