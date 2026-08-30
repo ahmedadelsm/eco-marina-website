@@ -928,13 +928,6 @@ export const pages = {
     serviceEyebrow: "Dienst",
     cta: "Ontwerp een monitoringprogramma",
   },
-  impact: {
-    title: "Casestudies",
-    description: "Casestudies van Eco Marina.",
-    heading: "Casestudies",
-    body: "Deze pagina is verplaatst. Onze projectimpact wordt gepresenteerd via gedetailleerde casestudies.",
-    cta: "Alle casestudies bekijken →",
-  },
 } as const;
 
 export const nav = [

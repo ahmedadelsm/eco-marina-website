@@ -99,7 +99,6 @@ type CmsContextValue = {
     services: { eyebrow: string; heading: string };
     faq: { eyebrow: string; heading: string };
     about: AboutPageCopyView;
-    impact: { heading: string; body: string; cta: string };
     impactAssessment: { serviceEyebrow: string; cta: string; overview: string; steps: string[] };
     monitoring: { serviceEyebrow: string; cta: string; overview: string; areas: MonitoringAreaView[] };
   };
@@ -379,11 +378,6 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
           heading: pickText(pagesData.faq.heading, locale),
         },
         about: toAboutPageCopy(pagesData.about, locale),
-        impact: {
-          heading: pickText(pagesData.impact.heading, locale),
-          body: pickText(pagesData.impact.body, locale),
-          cta: pickText(pagesData.impact.cta, locale),
-        },
         impactAssessment: {
           serviceEyebrow: pickText(pagesData.impactAssessment.serviceEyebrow, locale),
           cta: pickText(pagesData.impactAssessment.cta, locale),

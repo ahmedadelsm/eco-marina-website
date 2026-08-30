@@ -927,13 +927,6 @@ export const pages = {
     serviceEyebrow: "Service",
     cta: "Design a monitoring program",
   },
-  impact: {
-    title: "Case Studies",
-    description: "Environmental consulting case studies from Eco Marina.",
-    heading: "Case studies",
-    body: "This page has moved. Our project impact is presented through detailed case studies.",
-    cta: "View case studies →",
-  },
 } as const;
 
 export const nav = [

@@ -228,7 +228,6 @@ export interface CmsPages {
   services: { eyebrow: LocalizedText; heading: LocalizedText };
   faq: { eyebrow: LocalizedText; heading: LocalizedText };
   about: CmsAboutPageCopy;
-  impact: { heading: LocalizedText; body: LocalizedText; cta: LocalizedText };
   impactAssessment: CmsImpactAssessmentPage;
   monitoring: CmsMonitoringPage;
 }

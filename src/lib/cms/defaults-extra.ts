@@ -286,11 +286,6 @@ export function defaultCmsPages(): CmsPages {
       ourValues: pairText(en.pages.about.ourValues, nl.pages.about.ourValues),
       linkedIn: pairText(en.pages.about.linkedIn, nl.pages.about.linkedIn),
     },
-    impact: {
-      heading: pairText(en.pages.impact.heading, nl.pages.impact.heading),
-      body: pairText(en.pages.impact.body, nl.pages.impact.body),
-      cta: pairText(en.pages.impact.cta, nl.pages.impact.cta),
-    },
     impactAssessment: {
       serviceEyebrow: pairText(en.pages.impactAssessment.serviceEyebrow, nl.pages.impactAssessment.serviceEyebrow),
       cta: pairText(en.pages.impactAssessment.cta, nl.pages.impactAssessment.cta),

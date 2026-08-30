@@ -32,7 +32,7 @@ export default function AdminPagesPage() {
       <p className="mt-2 text-ink-muted">Hero text and CTAs for inner pages and service detail content.</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
-        {(["projects", "insights", "services", "faq", "about", "impact", "impactAssessment", "monitoring"] as const).map((key) => (
+        {(["projects", "insights", "services", "faq", "about", "impactAssessment", "monitoring"] as const).map((key) => (
           <button
             key={key}
             type="button"
@@ -98,14 +98,6 @@ export default function AdminPagesPage() {
             <LocalizedInput label="Countries" value={data.about.countries} onChange={(countries) => setData({ ...data, about: { ...data.about, countries } })} />
             <LocalizedInput label="Our values" value={data.about.ourValues} onChange={(ourValues) => setData({ ...data, about: { ...data.about, ourValues } })} />
             <LocalizedInput label="LinkedIn link text" value={data.about.linkedIn} onChange={(linkedIn) => setData({ ...data, about: { ...data.about, linkedIn } })} />
-          </PageBlock>
-        )}
-
-        {open === "impact" && (
-          <PageBlock title="Impact redirect page">
-            <LocalizedInput label="Heading" value={data.impact.heading} onChange={(heading) => setData({ ...data, impact: { ...data.impact, heading } })} />
-            <LocalizedTextarea label="Body" value={data.impact.body} onChange={(body) => setData({ ...data, impact: { ...data.impact, body } })} />
-            <LocalizedInput label="CTA" value={data.impact.cta} onChange={(cta) => setData({ ...data, impact: { ...data.impact, cta } })} />
           </PageBlock>
         )}
 

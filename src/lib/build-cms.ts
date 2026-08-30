@@ -85,13 +85,11 @@ function seoPathFor(page: string, locale: Locale): string {
                   ? "/about"
                   : page === "training"
                     ? "/training"
-                    : page === "impact"
-                      ? "/impact"
-                      : page === "impact-assessment"
-                        ? "/services/impact-assessment"
-                        : page === "monitoring"
-                          ? "/services/monitoring"
-                          : "/";
+                    : page === "impact-assessment"
+                      ? "/services/impact-assessment"
+                      : page === "monitoring"
+                        ? "/services/monitoring"
+                        : "/";
 
   return locale === "nl" && base !== "/" ? `/nl${base}` : base;
 }
@@ -170,17 +168,6 @@ export function getBuildTrainingPageMeta(locale: Locale) {
     title: pickText(trainingPage.title, locale),
     description: pickText(trainingPage.description, locale),
     image: service?.image,
-  };
-}
-
-export function getBuildImpactPageMeta(locale: Locale) {
-  const seo = getBuildSeo(seoPathFor("impact", locale), locale);
-  if (seo) return seo;
-
-  const { pages } = resolveBuildCms();
-  return {
-    title: pickText(pages.impact.heading, locale),
-    description: pickText(pages.impact.body, locale),
   };
 }
 
