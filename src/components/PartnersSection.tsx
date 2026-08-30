@@ -1,37 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCms } from "@/components/cms/CmsProvider";
 import { useSiteContent } from "@/components/locale/LocaleProvider";
-import { API, apiGet } from "@/lib/api";
-import { getVisiblePartners, type Partner } from "@/content/site-content";
 
 export function PartnersSection() {
   const { ui } = useSiteContent();
-  const [partners, setPartners] = useState<Partner[]>(getVisiblePartners());
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    apiGet<{ content: Record<string, unknown> }>(API.content)
-      .then((data) => {
-        setPartners(getVisiblePartners(data.content));
-      })
-      .catch(() => {
-        setPartners(getVisiblePartners());
-      })
-      .finally(() => setLoaded(true));
-  }, []);
-
-  if (!loaded) {
-    return (
-      <section className="py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">{ui.partners}</h2>
-          <p className="mt-4 text-sm text-ink-muted">{ui.loading}</p>
-        </div>
-      </section>
-    );
-  }
+  const { partners } = useCms();
 
   if (partners.length === 0) return null;
 

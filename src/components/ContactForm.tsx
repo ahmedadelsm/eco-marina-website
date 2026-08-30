@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { useCms } from "@/components/cms/CmsProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
 import { useSiteContent } from "@/components/locale/LocaleProvider";
 import { isTurnstileConfigured, TurnstileWidget } from "@/components/TurnstileWidget";
@@ -14,6 +15,7 @@ export function ContactForm() {
   const [turnstileReset, setTurnstileReset] = useState(0);
   const { email: contactEmail } = useSiteContact();
   const { ui } = useSiteContent();
+  const { contactServiceOptions } = useCms();
   const form = ui.form;
 
   const handleTurnstileToken = useCallback((token: string) => {
@@ -111,10 +113,11 @@ export function ContactForm() {
         </label>
         <select id="serviceType" name="serviceType" className={inputClass}>
           <option value="">{form.selectService}</option>
-          <option value="impact-assessment">{form.services.impact}</option>
-          <option value="monitoring">{form.services.monitoring}</option>
-          <option value="training">{form.services.training}</option>
-          <option value="other">{form.services.other}</option>
+          {contactServiceOptions.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
       <div>
@@ -147,6 +150,7 @@ export function ContactForm() {
 export function ContactPageContent() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
   const { ui } = useSiteContent();
+  const { contactPage } = useCms();
   const page = ui.contactPage;
 
   return (
@@ -155,7 +159,7 @@ export function ContactPageContent() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sea-light">{page.eyebrow}</p>
           <h1 className="mt-3 max-w-2xl font-serif text-4xl font-semibold">{page.title}</h1>
-          <p className="mt-4 max-w-xl text-white/75">{page.intro}</p>
+          <p className="mt-4 max-w-xl text-white/75">{contactPage.intro}</p>
         </div>
       </section>
 
@@ -164,7 +168,7 @@ export function ContactPageContent() {
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
               <h2 className="font-serif text-2xl font-semibold text-ink">{page.getInTouch}</h2>
-              <p className="mt-3 text-ink-muted">{page.responseTime}</p>
+              <p className="mt-3 text-ink-muted">{contactPage.responseTime}</p>
               <div className="mt-10 space-y-6">
                 {[
                   { label: page.email, value: email, href: mailto },

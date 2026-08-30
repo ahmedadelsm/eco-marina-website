@@ -1,19 +1,33 @@
 import type { Locale } from "@/lib/i18n";
 import type {
   CmsCompany,
+  CmsContactServiceOption,
   CmsCoreService,
   CmsFaqSection,
   CmsInsight,
+  CmsLegacyService,
+  CmsPartner,
+  CmsProcessStep,
   CmsProject,
+  CmsResourceGroup,
   CmsSeoEntry,
+  CmsServiceCategory,
   CmsTrainingCourse,
+  CmsWhyUsCard,
+  ContactServiceOptionView,
   CoreServiceView,
   FaqSectionView,
   InsightView,
+  LegacyServiceView,
   LocalizedList,
   LocalizedText,
+  PartnerView,
+  ProcessStepView,
   ProjectView,
+  ResourceGroupView,
+  ServiceCategoryView,
   TrainingCourseView,
+  WhyUsCardView,
 } from "./types";
 
 const SERVICE_ICONS: Record<string, CoreServiceView["icon"]> = {
@@ -126,6 +140,73 @@ export function toCoreServiceView(service: CmsCoreService, locale: Locale): Core
 
 export function mergeRecord<T>(defaults: T, override: T | null): T {
   return override ?? defaults;
+}
+
+export function mergeCmsObject<T extends object>(defaults: T, override: Partial<T> | null | undefined): T {
+  if (!override) return defaults;
+  return { ...defaults, ...override };
+}
+
+export function toWhyUsView(cards: CmsWhyUsCard[], locale: Locale): WhyUsCardView[] {
+  return cards.map((card) => ({
+    title: pickText(card.title, locale),
+    description: pickText(card.description, locale),
+  }));
+}
+
+export function toProcessStepView(steps: CmsProcessStep[], locale: Locale): ProcessStepView[] {
+  return steps.map((step) => ({
+    step: pickText(step.step, locale),
+    title: pickText(step.title, locale),
+    description: pickText(step.description, locale),
+  }));
+}
+
+export function toServiceCategoryView(categories: CmsServiceCategory[], locale: Locale): ServiceCategoryView[] {
+  return categories.map((cat) => ({
+    title: pickText(cat.title, locale),
+    description: pickText(cat.description, locale),
+    items: pickList(cat.items, locale),
+    image: cat.image,
+  }));
+}
+
+export function toLegacyServiceView(services: CmsLegacyService[], locale: Locale): LegacyServiceView[] {
+  return services.map((service) => ({
+    slug: service.slug,
+    title: pickText(service.title, locale),
+    description: pickText(service.description, locale),
+    image: service.image,
+    href: service.href,
+  }));
+}
+
+export function toPartnerView(partners: CmsPartner[], locale: Locale): PartnerView[] {
+  return partners
+    .filter((partner) => partner.published)
+    .map((partner) => ({
+      id: partner.id,
+      name: pickText(partner.name, locale),
+      location: pickText(partner.location, locale),
+      logo: partner.logo,
+    }));
+}
+
+export function toContactServiceOptions(options: CmsContactServiceOption[], locale: Locale): ContactServiceOptionView[] {
+  return options.map((option) => ({
+    value: option.value,
+    label: pickText(option.label, locale),
+  }));
+}
+
+export function toResourceGroups(groups: CmsResourceGroup[], locale: Locale): ResourceGroupView[] {
+  return groups.map((group) => ({
+    category: pickText(group.category, locale),
+    items: group.items.map((item) => ({
+      title: pickText(item.title, locale),
+      description: pickText(item.description, locale),
+    })),
+  }));
 }
 
 export function getSeoForPath(entries: CmsSeoEntry[], path: string, locale: Locale) {

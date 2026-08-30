@@ -5,36 +5,54 @@ import { useLocale } from "@/components/locale/LocaleProvider";
 import {
   defaultCmsAbout,
   defaultCmsCompany,
+  defaultCmsContact,
   defaultCmsFaq,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsPartners,
   defaultCmsProjects,
+  defaultCmsResources,
   defaultCmsSeo,
   defaultCmsServices,
   defaultCmsTraining,
+  defaultCmsTrainingPage,
 } from "@/lib/cms/defaults";
 import {
   getSeoForPath,
   mergeCompany,
-  mergeRecord,
+  mergeCmsObject,
   pickList,
   pickText,
+  toContactServiceOptions,
   toCoreServiceView,
   toFaqView,
   toInsightView,
+  toLegacyServiceView,
+  toPartnerView,
+  toProcessStepView,
   toProjectView,
+  toResourceGroups,
+  toServiceCategoryView,
   toTrainingView,
+  toWhyUsView,
 } from "@/lib/cms/localize";
 import type {
   CmsAbout,
   CmsInsight,
   CmsPayload,
   CmsProject,
+  ContactServiceOptionView,
   CoreServiceView,
   FaqSectionView,
   InsightView,
+  LegacyServiceView,
+  PartnerView,
+  ProcessStepView,
   ProjectView,
+  ResourceGroupView,
+  ServiceCategoryView,
   TrainingCourseView,
+  WhyUsCardView,
 } from "@/lib/cms/types";
 import type { Locale } from "@/lib/i18n";
 import { API, apiGet } from "@/lib/api";
@@ -46,6 +64,13 @@ type CmsContextValue = {
   faq: FaqSectionView[];
   insights: InsightView[];
   coreServices: CoreServiceView[];
+  specialistCategories: ServiceCategoryView[];
+  legacyServices: LegacyServiceView[];
+  whyUsCards: WhyUsCardView[];
+  processSteps: ProcessStepView[];
+  partners: PartnerView[];
+  contactServiceOptions: ContactServiceOptionView[];
+  resourceGroups: ResourceGroupView[];
   servicesPage: {
     intro: string;
     coreTitle: string;
@@ -69,6 +94,24 @@ type CmsContextValue = {
     casesEyebrow: string;
     casesTitle: string;
     casesDescription: string;
+    legacyEyebrow: string;
+    legacyTitle: string;
+    legacyDescription: string;
+    processEyebrow: string;
+    processTitle: string;
+  };
+  contactPage: {
+    intro: string;
+    responseTime: string;
+  };
+  resourcesPage: {
+    intro: string;
+    requestTitle: string;
+    requestIntro: string;
+  };
+  trainingPage: {
+    title: string;
+    description: string;
   };
   about: CmsAbout & {
     nameText: string;
@@ -109,6 +152,10 @@ const EMPTY: CmsPayload = {
   homepage: null,
   seo: null,
   services: null,
+  partners: null,
+  contact: null,
+  resources: null,
+  trainingPage: null,
 };
 
 function publishedProjects(payload: CmsPayload): CmsProject[] {
@@ -122,7 +169,7 @@ function publishedInsights(payload: CmsPayload): CmsInsight[] {
 }
 
 function buildAbout(locale: Locale, payload: CmsPayload) {
-  const about = mergeRecord(defaultCmsAbout(), payload.about);
+  const about = mergeCmsObject(defaultCmsAbout(), payload.about);
   return {
     ...about,
     nameText: pickText(about.name, locale),
@@ -146,7 +193,7 @@ function buildAbout(locale: Locale, payload: CmsPayload) {
 }
 
 function buildHomepage(locale: Locale, payload: CmsPayload) {
-  const home = mergeRecord(defaultCmsHomepage(), payload.homepage);
+  const home = mergeCmsObject(defaultCmsHomepage(), payload.homepage);
   return {
     servicesEyebrow: pickText(home.servicesEyebrow, locale),
     servicesTitle: pickText(home.servicesTitle, locale),
@@ -161,11 +208,18 @@ function buildHomepage(locale: Locale, payload: CmsPayload) {
     casesEyebrow: pickText(home.casesEyebrow, locale),
     casesTitle: pickText(home.casesTitle, locale),
     casesDescription: pickText(home.casesDescription, locale),
+    legacyEyebrow: pickText(home.legacyEyebrow, locale),
+    legacyTitle: pickText(home.legacyTitle, locale),
+    legacyDescription: pickText(home.legacyDescription, locale),
+    processEyebrow: pickText(home.processEyebrow, locale),
+    processTitle: pickText(home.processTitle, locale),
+    whyUsCards: toWhyUsView(home.whyUsCards, locale),
+    processSteps: toProcessStepView(home.processSteps, locale),
   };
 }
 
 function buildServicesPage(locale: Locale, payload: CmsPayload) {
-  const services = mergeRecord(defaultCmsServices(), payload.services);
+  const services = mergeCmsObject(defaultCmsServices(), payload.services);
   return {
     intro: pickText(services.intro, locale),
     coreTitle: pickText(services.coreTitle, locale),
@@ -175,6 +229,8 @@ function buildServicesPage(locale: Locale, payload: CmsPayload) {
     legacyIntro: pickText(services.legacyIntro, locale),
     cta: pickText(services.cta, locale),
     coreServices: services.coreServices.map((s) => toCoreServiceView(s, locale)),
+    specialistCategories: toServiceCategoryView(services.specialistCategories, locale),
+    legacyServices: toLegacyServiceView(services.legacyServices, locale),
   };
 }
 
@@ -198,7 +254,12 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     const lookupProjects = payload.projects ?? defaultCmsProjects();
     const lookupInsights = payload.insights ?? defaultCmsInsights();
     const servicesData = buildServicesPage(locale, payload);
+    const homepageData = buildHomepage(locale, payload);
     const seoEntries = payload.seo ?? defaultCmsSeo();
+    const contact = mergeCmsObject(defaultCmsContact(), payload.contact);
+    const resources = mergeCmsObject(defaultCmsResources(), payload.resources);
+    const trainingPage = mergeCmsObject(defaultCmsTrainingPage(), payload.trainingPage);
+    const partners = toPartnerView(payload.partners ?? defaultCmsPartners(), locale);
 
     return {
       ready,
@@ -209,8 +270,28 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       faq: toFaqView(payload.faq ?? defaultCmsFaq(), locale),
       insights,
       coreServices: servicesData.coreServices,
+      specialistCategories: servicesData.specialistCategories,
+      legacyServices: servicesData.legacyServices,
+      whyUsCards: homepageData.whyUsCards,
+      processSteps: homepageData.processSteps,
+      partners,
+      contactServiceOptions: toContactServiceOptions(contact.serviceOptions, locale),
+      resourceGroups: toResourceGroups(resources.groups, locale),
       servicesPage: servicesData,
-      homepage: buildHomepage(locale, payload),
+      homepage: homepageData,
+      contactPage: {
+        intro: pickText(contact.pageIntro, locale),
+        responseTime: pickText(contact.responseTime, locale),
+      },
+      resourcesPage: {
+        intro: pickText(resources.intro, locale),
+        requestTitle: pickText(resources.requestTitle, locale),
+        requestIntro: pickText(resources.requestIntro, locale),
+      },
+      trainingPage: {
+        title: pickText(trainingPage.title, locale),
+        description: pickText(trainingPage.description, locale),
+      },
       about: buildAbout(locale, payload),
       company: (() => {
         const merged = mergeCompany(defaultCmsCompany(), payload.company);

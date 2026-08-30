@@ -49,6 +49,9 @@ export default function AdminDashboardPage() {
     { label: "Case studies", href: "/admin/projects" },
     { label: "Training", href: "/admin/training" },
     { label: "FAQ", href: "/admin/faq" },
+    { label: "Partners", href: "/admin/partners" },
+    { label: "Contact page", href: "/admin/contact" },
+    { label: "Resources", href: "/admin/resources" },
     { label: "Media library", href: "/admin/media" },
     { label: "Hero & contact", href: "/admin/content" },
   ];

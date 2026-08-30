@@ -1,20 +1,27 @@
+"use client";
+
 import { ButtonArrow } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
 import { ResourcesContactEmail } from "@/components/ResourcesContactEmail";
+import { useCms } from "@/components/cms/CmsProvider";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ResourcesPageView({ locale }: { locale: Locale }) {
-  const { resources, pages, ui } = getContent(locale);
+  const { pages, ui } = getContent(locale);
+  const { resourceGroups, resourcesPage } = useCms();
   const path = (href: string) => localePath(locale, href);
+  const seoPath = locale === "nl" ? "/nl/resources" : "/resources";
 
   return (
     <>
-      <PageHero eyebrow={pages.resources.eyebrow} title={pages.resources.heading} description={pages.resources.intro} />
+      <PageSeo path={seoPath} fallbackTitle={pages.resources.title} fallbackDescription={pages.resources.description} />
+      <PageHero eyebrow={pages.resources.eyebrow} title={pages.resources.heading} description={resourcesPage.intro} />
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-2">
-            {resources.map((group) => (
+            {resourceGroups.map((group) => (
               <div key={group.category}>
                 <h2 className="font-serif text-xl font-semibold text-ink">{group.category}</h2>
                 <ul className="mt-6 space-y-4">
@@ -29,8 +36,8 @@ export function ResourcesPageView({ locale }: { locale: Locale }) {
             ))}
           </div>
           <div className="mt-16 border border-line bg-paper p-8 text-center sm:p-12">
-            <h2 className="font-serif text-2xl font-semibold text-ink">{pages.resources.requestTitle}</h2>
-            <p className="mx-auto mt-4 max-w-lg text-ink-muted">{pages.resources.requestIntro}</p>
+            <h2 className="font-serif text-2xl font-semibold text-ink">{resourcesPage.requestTitle}</h2>
+            <p className="mx-auto mt-4 max-w-lg text-ink-muted">{resourcesPage.requestIntro}</p>
             <ResourcesContactEmail />
             <ButtonArrow href={path("/contact")} className="mt-6 w-full sm:w-auto">
               {ui.getInTouch}

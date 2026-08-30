@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { API, apiGet, apiPut } from "@/lib/api";
-import { AdminPartnerToggles } from "@/components/admin/AdminPartnerToggles";
 import { AdminEmailSettings } from "@/components/admin/AdminEmailSettings";
 
 export default function AdminSettingsPage() {
@@ -118,8 +117,6 @@ export default function AdminSettingsPage() {
       )}
 
       {role === "super_admin" && <AdminEmailSettings />}
-
-      {role === "super_admin" && <AdminPartnerToggles />}
 
       <form onSubmit={changePassword} className="mt-8 max-w-xl border border-line bg-white p-6">
         <h2 className="font-serif text-xl font-semibold text-ink">Change password</h2>

@@ -89,10 +89,14 @@ export function defaultCmsCompany(): CmsCompany {
 
 export {
   defaultCmsAbout,
+  defaultCmsContact,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsPartners,
+  defaultCmsResources,
   defaultCmsSeo,
   defaultCmsServices,
+  defaultCmsTrainingPage,
   pairList,
   pairText,
 } from "./defaults-extra";

@@ -11,8 +11,8 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ServicesPageView({ locale }: { locale: Locale }) {
-  const { legacyServices, serviceCategories, pages } = getContent(locale);
-  const { coreServices, servicesPage } = useCms();
+  const { pages } = getContent(locale);
+  const { coreServices, servicesPage, specialistCategories, legacyServices } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/services" : "/services";
 
@@ -37,7 +37,7 @@ export function ServicesPageView({ locale }: { locale: Locale }) {
           <h2 className="font-serif text-2xl font-semibold text-ink">{servicesPage.specialistTitle}</h2>
           <p className="mt-2 max-w-2xl text-ink-muted">{servicesPage.specialistIntro}</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {serviceCategories.map((cat) => (
+            {specialistCategories.map((cat) => (
               <div key={cat.title} className="border border-line bg-white">
                 <div className="relative aspect-[16/7] overflow-hidden bg-paper">
                   <Image src={cat.image} alt={cat.title} fill className="photo-image object-cover" sizes="50vw" />

@@ -2,20 +2,38 @@ import { getCmsCollection } from "../lib/cms/storage";
 import type {
   CmsAbout,
   CmsCompany,
+  CmsContact,
   CmsFaqSection,
   CmsHomepage,
   CmsInsight,
+  CmsPartner,
   CmsProject,
+  CmsResources,
   CmsSeoEntry,
   CmsServices,
   CmsTrainingCourse,
+  CmsTrainingPage,
 } from "../lib/cms/types";
 import { corsHeaders, json, type Env } from "../lib/utils";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { env, request } = context;
   try {
-    const [projects, training, faq, company, insights, about, homepage, seo, services] = await Promise.all([
+    const [
+      projects,
+      training,
+      faq,
+      company,
+      insights,
+      about,
+      homepage,
+      seo,
+      services,
+      partners,
+      contact,
+      resources,
+      trainingPage,
+    ] = await Promise.all([
       getCmsCollection<CmsProject[]>(env, "projects"),
       getCmsCollection<CmsTrainingCourse[]>(env, "training"),
       getCmsCollection<CmsFaqSection[]>(env, "faq"),
@@ -25,6 +43,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       getCmsCollection<CmsHomepage>(env, "homepage"),
       getCmsCollection<CmsSeoEntry[]>(env, "seo"),
       getCmsCollection<CmsServices>(env, "services"),
+      getCmsCollection<CmsPartner[]>(env, "partners"),
+      getCmsCollection<CmsContact>(env, "contact"),
+      getCmsCollection<CmsResources>(env, "resources"),
+      getCmsCollection<CmsTrainingPage>(env, "training-page"),
     ]);
 
     return json(
@@ -38,6 +60,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         homepage,
         seo,
         services,
+        partners: partners?.filter((p) => p.published) ?? null,
+        contact,
+        resources,
+        trainingPage,
       },
       200,
       {
@@ -57,6 +83,10 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         homepage: null,
         seo: null,
         services: null,
+        partners: null,
+        contact: null,
+        resources: null,
+        trainingPage: null,
       },
       200,
       corsHeaders(request)

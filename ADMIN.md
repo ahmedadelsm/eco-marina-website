@@ -26,19 +26,16 @@ Multiple admins are supported — each person can have their own email and passw
 - **Dashboard** — overview with CMS collection count
 - **Messages** — contact form submissions (export CSV)
 - **Content** — edit homepage hero and contact details
-- **Homepage** — section headings and mission text
-- **Services** — core service cards and page copy
-- **Insights** — articles with EN + NL content
-- **About** — founder biography, timeline, values
-- **SEO** — per-page title and description overrides
-- **Company** — tagline, motto, stats, LinkedIn
-- **Case studies** — add/edit project pages (EN + NL)
-- **Training** — manage courses, pricing, and schedules
+- **Homepage** — section headings, why-us cards, process steps
+- **Services** — core services, specialist categories, legacy services
+- **Training** — page hero, courses, pricing, and schedules
 - **FAQ** — categories, questions, and answers
-- **Media** — upload images (R2) and copy URLs into content
+- **Partners** — full partner CRUD with publish toggle and logos
+- **Contact** — contact page intro and form dropdown labels
+- **Resources** — resource groups and request section copy
 - **Admins** — add/remove admin users
 - **Audit log** — admin action history (D1)
-- **Settings** — maintenance mode, contact form email (Zoho), and partner visibility
+- **Settings** — maintenance mode and contact form email (Zoho)
 
 ## Audit log (D1)
 

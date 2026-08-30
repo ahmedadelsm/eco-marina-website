@@ -8,8 +8,8 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function TrainingPageView({ locale }: { locale: Locale }) {
-  const { coreServices, trainingIntro, ui } = getContent(locale);
-  const { training: trainingCourses } = useCms();
+  const { coreServices, ui } = getContent(locale);
+  const { training: trainingCourses, trainingPage } = useCms();
   const service = coreServices[2];
   const path = (href: string) => localePath(locale, href);
 
@@ -17,8 +17,8 @@ export function TrainingPageView({ locale }: { locale: Locale }) {
     <>
       <PageHero
         eyebrow={locale === "nl" ? "Training" : "Training"}
-        title={trainingIntro.title}
-        description={trainingIntro.description}
+        title={trainingPage.title}
+        description={trainingPage.description}
         image={service.image}
         imageAlt={service.shortTitle}
       />

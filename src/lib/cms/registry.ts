@@ -1,9 +1,13 @@
 import {
   defaultCmsAbout,
+  defaultCmsContact,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsPartners,
+  defaultCmsResources,
   defaultCmsSeo,
   defaultCmsServices,
+  defaultCmsTrainingPage,
 } from "./defaults-extra";
 import {
   defaultCmsCompany,
@@ -23,8 +27,31 @@ const DEFAULTS: Record<CmsCollection, () => unknown> = {
   homepage: defaultCmsHomepage,
   seo: defaultCmsSeo,
   services: defaultCmsServices,
+  partners: defaultCmsPartners,
+  contact: defaultCmsContact,
+  resources: defaultCmsResources,
+  "training-page": defaultCmsTrainingPage,
 };
+
+const OBJECT_COLLECTIONS = new Set<CmsCollection>([
+  "company",
+  "about",
+  "homepage",
+  "services",
+  "contact",
+  "resources",
+  "training-page",
+]);
 
 export function getCmsDefault<T>(collection: CmsCollection): T {
   return DEFAULTS[collection]() as T;
+}
+
+export function mergeCmsWithDefaults<T>(collection: CmsCollection, data: T | null): T {
+  const defaults = getCmsDefault<T>(collection);
+  if (!data) return defaults;
+  if (OBJECT_COLLECTIONS.has(collection) && typeof defaults === "object" && defaults !== null && !Array.isArray(defaults)) {
+    return { ...defaults, ...data };
+  }
+  return data;
 }

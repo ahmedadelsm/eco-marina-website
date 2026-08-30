@@ -2,10 +2,14 @@ import * as en from "@/content/en/site-content";
 import * as nl from "@/content/nl/site-content";
 import type {
   CmsAbout,
+  CmsContact,
   CmsHomepage,
   CmsInsight,
+  CmsPartner,
+  CmsResources,
   CmsSeoEntry,
   CmsServices,
+  CmsTrainingPage,
 } from "./types";
 
 export function pairText(enText: string, nlText: string) {
@@ -81,9 +85,25 @@ export function defaultCmsHomepage(): CmsHomepage {
     missionApproach: pairText(en.mission.approach, nl.mission.approach),
     whyUsEyebrow: pairText(en.homePage.whyUs.eyebrow, nl.homePage.whyUs.eyebrow),
     whyUsTitle: pairText(en.homePage.whyUs.title, nl.homePage.whyUs.title),
+    whyUsCards: en.whyUs.map((card, index) => ({
+      id: `why-us-${index}`,
+      title: pairText(card.title, nl.whyUs[index].title),
+      description: pairText(card.description, nl.whyUs[index].description),
+    })),
     casesEyebrow: pairText(en.homePage.cases.eyebrow, nl.homePage.cases.eyebrow),
     casesTitle: pairText(en.homePage.cases.title, nl.homePage.cases.title),
     casesDescription: pairText(en.homePage.cases.description, nl.homePage.cases.description),
+    legacyEyebrow: pairText(en.homePage.legacy.eyebrow, nl.homePage.legacy.eyebrow),
+    legacyTitle: pairText(en.homePage.legacy.title, nl.homePage.legacy.title),
+    legacyDescription: pairText(en.homePage.legacy.description, nl.homePage.legacy.description),
+    processEyebrow: pairText(en.homePage.process.eyebrow, nl.homePage.process.eyebrow),
+    processTitle: pairText(en.homePage.process.title, nl.homePage.process.title),
+    processSteps: en.processSteps.map((step, index) => ({
+      id: `process-${index}`,
+      step: pairText(step.step, nl.processSteps[index].step),
+      title: pairText(step.title, nl.processSteps[index].title),
+      description: pairText(step.description, nl.processSteps[index].description),
+    })),
   };
 }
 
@@ -93,8 +113,23 @@ export function defaultCmsServices(): CmsServices {
     coreTitle: pairText(en.pages.services.coreTitle, nl.pages.services.coreTitle),
     specialistTitle: pairText(en.pages.services.specialistTitle, nl.pages.services.specialistTitle),
     specialistIntro: pairText(en.pages.services.specialistIntro, nl.pages.services.specialistIntro),
+    specialistCategories: en.serviceCategories.map((cat, index) => ({
+      id: `category-${index}`,
+      title: pairText(cat.title, nl.serviceCategories[index].title),
+      description: pairText(cat.description, nl.serviceCategories[index].description),
+      items: pairList([...cat.items], [...nl.serviceCategories[index].items]),
+      image: cat.image,
+    })),
     legacyTitle: pairText(en.pages.services.legacyTitle, nl.pages.services.legacyTitle),
     legacyIntro: pairText(en.pages.services.legacyIntro, nl.pages.services.legacyIntro),
+    legacyServices: en.legacyServices.map((service, index) => ({
+      id: service.slug,
+      slug: service.slug,
+      title: pairText(service.title, nl.legacyServices[index].title),
+      description: pairText(service.description, nl.legacyServices[index].description),
+      image: service.image,
+      href: service.href,
+    })),
     cta: pairText(en.pages.services.cta, nl.pages.services.cta),
     coreServices: en.coreServices.map((service, index) => {
       const nlService = nl.coreServices[index];
@@ -111,6 +146,69 @@ export function defaultCmsServices(): CmsServices {
         sectors: pairList([...service.sectors], [...nlService.sectors]),
       };
     }),
+  };
+}
+
+export function defaultCmsPartners(): CmsPartner[] {
+  return en.partners.map((partner, index) => ({
+    id: partner.id,
+    published: partner.enabledByDefault,
+    name: pairText(partner.name, nl.partners[index].name),
+    location: pairText(partner.location, nl.partners[index].location),
+    logo: partner.logo,
+  }));
+}
+
+export function defaultCmsContact(): CmsContact {
+  return {
+    pageIntro: pairText(en.ui.contactPage.intro, nl.ui.contactPage.intro),
+    responseTime: pairText(en.ui.contactPage.responseTime, nl.ui.contactPage.responseTime),
+    serviceOptions: [
+      {
+        id: "impact-assessment",
+        value: "impact-assessment",
+        label: pairText(en.ui.form.services.impact, nl.ui.form.services.impact),
+      },
+      {
+        id: "monitoring",
+        value: "monitoring",
+        label: pairText(en.ui.form.services.monitoring, nl.ui.form.services.monitoring),
+      },
+      {
+        id: "training",
+        value: "training",
+        label: pairText(en.ui.form.services.training, nl.ui.form.services.training),
+      },
+      {
+        id: "other",
+        value: "other",
+        label: pairText(en.ui.form.services.other, nl.ui.form.services.other),
+      },
+    ],
+  };
+}
+
+export function defaultCmsResources(): CmsResources {
+  return {
+    intro: pairText(en.pages.resources.intro, nl.pages.resources.intro),
+    requestTitle: pairText(en.pages.resources.requestTitle, nl.pages.resources.requestTitle),
+    requestIntro: pairText(en.pages.resources.requestIntro, nl.pages.resources.requestIntro),
+    groups: en.resources.map((group, groupIndex) => ({
+      id: `resource-group-${groupIndex}`,
+      category: pairText(group.category, nl.resources[groupIndex].category),
+      items: group.items.map((item, itemIndex) => ({
+        id: `resource-${groupIndex}-${itemIndex}`,
+        title: pairText(item.title, nl.resources[groupIndex].items[itemIndex].title),
+        description: pairText(item.description, nl.resources[groupIndex].items[itemIndex].description),
+      })),
+    })),
+  };
+}
+
+export function defaultCmsTrainingPage(): CmsTrainingPage {
+  return {
+    title: pairText(en.trainingIntro.title, nl.trainingIntro.title),
+    description: pairText(en.trainingIntro.description, nl.trainingIntro.description),
   };
 }
 

@@ -12,8 +12,8 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { homePage, site, whyUs, legacyServices, processSteps } = getContent(locale);
-  const { projects, homepage, coreServices, insights, about } = useCms();
+  const { homePage, site } = getContent(locale);
+  const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl" : "/";
 
@@ -69,7 +69,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading eyebrow={homepage.whyUsEyebrow} title={homepage.whyUsTitle} />
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
-            {whyUs.map((item) => (
+            {whyUsCards.map((item) => (
               <div key={item.title} className="border-l-2 border-brand-blue pl-6">
                 <h3 className="font-serif text-xl font-semibold text-ink">{item.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.description}</p>
@@ -165,9 +165,9 @@ export function HomePageView({ locale }: { locale: Locale }) {
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
-            eyebrow={homePage.legacy.eyebrow}
-            title={homePage.legacy.title}
-            description={homePage.legacy.description}
+            eyebrow={homepage.legacyEyebrow}
+            title={homepage.legacyTitle}
+            description={homepage.legacyDescription}
             centered
           />
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -188,7 +188,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
 
       <section className="border-t border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading eyebrow={homePage.process.eyebrow} title={homePage.process.title} centered />
+          <SectionHeading eyebrow={homepage.processEyebrow} title={homepage.processTitle} centered />
           <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {processSteps.map((step) => (
               <li key={step.step} className="border border-line bg-white p-6">

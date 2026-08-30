@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { CmsCollection } from "@/lib/cms/types";
-import { getCmsDefault } from "@/lib/cms/registry";
+import { getCmsDefault, mergeCmsWithDefaults } from "@/lib/cms/registry";
 import { API, apiGet, apiPut } from "@/lib/api";
 
 export function useAdminCms<T>(collection: CmsCollection) {
@@ -16,7 +16,7 @@ export function useAdminCms<T>(collection: CmsCollection) {
     let cancelled = false;
     apiGet<{ data: T | null }>(API.admin.cms(collection))
       .then((res) => {
-        if (!cancelled) setData(res.data ?? getCmsDefault<T>(collection));
+        if (!cancelled) setData(mergeCmsWithDefaults<T>(collection, res.data));
       })
       .catch(() => {
         if (!cancelled) {

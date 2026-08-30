@@ -7,14 +7,16 @@ import {
   LocalizedListField,
   LocalizedTextarea,
 } from "@/components/admin/cms/CmsFormFields";
-import type { CmsTrainingCourse } from "@/lib/cms/types";
+import type { CmsTrainingCourse, CmsTrainingPage } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
 export default function AdminTrainingPage() {
-  const { data, setData, loading, saving, save, revert, message, error } = useAdminCms<CmsTrainingCourse[]>("training");
+  const courses = useAdminCms<CmsTrainingCourse[]>("training");
+  const page = useAdminCms<CmsTrainingPage>("training-page");
+  const { data, setData, loading, saving, save, revert, message, error } = courses;
   const [openId, setOpenId] = useState<string | null>(null);
 
-  if (loading) return <p className="text-ink-muted">Loading training courses…</p>;
+  if (loading || page.loading) return <p className="text-ink-muted">Loading training courses…</p>;
 
   function updateCourse(index: number, course: CmsTrainingCourse) {
     setData(data.map((item, i) => (i === index ? course : item)));
@@ -45,10 +47,18 @@ export default function AdminTrainingPage() {
 
   return (
     <div>
-      <h1 className="font-serif text-3xl font-semibold text-ink">Training courses</h1>
-      <p className="mt-2 text-ink-muted">Manage training programmes, pricing, and scheduling copy.</p>
+      <h1 className="font-serif text-3xl font-semibold text-ink">Training</h1>
+      <p className="mt-2 text-ink-muted">Training page hero and course listings.</p>
+
+      <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
+        <h2 className="font-serif text-lg font-semibold text-ink">Page hero</h2>
+        <LocalizedInput label="Title" value={page.data.title} onChange={(title) => page.setData({ ...page.data, title })} />
+        <LocalizedTextarea label="Description" value={page.data.description} onChange={(description) => page.setData({ ...page.data, description })} />
+        <AdminSaveBar saving={page.saving} message={page.message} error={page.error} onSave={page.save} onRevert={page.revert} />
+      </div>
 
       <div className="mt-8 space-y-4">
+        <h2 className="font-serif text-lg font-semibold text-ink">Courses</h2>
         {data.map((course, index) => {
           const isOpen = openId === course.id;
           return (

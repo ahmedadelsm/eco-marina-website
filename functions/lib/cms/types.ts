@@ -7,7 +7,11 @@ export type CmsCollection =
   | "about"
   | "homepage"
   | "seo"
-  | "services";
+  | "services"
+  | "partners"
+  | "contact"
+  | "resources"
+  | "training-page";
 
 export type LocalizedText = { en: string; nl: string };
 export type LocalizedList = { en: string[]; nl: string[] };
@@ -109,6 +113,19 @@ export interface CmsAbout {
   values: LocalizedList;
 }
 
+export interface CmsWhyUsCard {
+  id: string;
+  title: LocalizedText;
+  description: LocalizedText;
+}
+
+export interface CmsProcessStep {
+  id: string;
+  step: LocalizedText;
+  title: LocalizedText;
+  description: LocalizedText;
+}
+
 export interface CmsHomepage {
   servicesEyebrow: LocalizedText;
   servicesTitle: LocalizedText;
@@ -120,9 +137,16 @@ export interface CmsHomepage {
   missionApproach: LocalizedText;
   whyUsEyebrow: LocalizedText;
   whyUsTitle: LocalizedText;
+  whyUsCards: CmsWhyUsCard[];
   casesEyebrow: LocalizedText;
   casesTitle: LocalizedText;
   casesDescription: LocalizedText;
+  legacyEyebrow: LocalizedText;
+  legacyTitle: LocalizedText;
+  legacyDescription: LocalizedText;
+  processEyebrow: LocalizedText;
+  processTitle: LocalizedText;
+  processSteps: CmsProcessStep[];
 }
 
 export interface CmsSeoEntry {
@@ -145,15 +169,78 @@ export interface CmsCoreService {
   sectors: LocalizedList;
 }
 
+export interface CmsServiceCategory {
+  id: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  items: LocalizedList;
+  image: string;
+}
+
+export interface CmsLegacyService {
+  id: string;
+  slug: string;
+  title: LocalizedText;
+  description: LocalizedText;
+  image: string;
+  href: string;
+}
+
 export interface CmsServices {
   intro: LocalizedText;
   coreTitle: LocalizedText;
   specialistTitle: LocalizedText;
   specialistIntro: LocalizedText;
+  specialistCategories: CmsServiceCategory[];
   legacyTitle: LocalizedText;
   legacyIntro: LocalizedText;
+  legacyServices: CmsLegacyService[];
   cta: LocalizedText;
   coreServices: CmsCoreService[];
+}
+
+export interface CmsPartner {
+  id: string;
+  published: boolean;
+  name: LocalizedText;
+  location: LocalizedText;
+  logo?: string;
+}
+
+export interface CmsContactServiceOption {
+  id: string;
+  value: string;
+  label: LocalizedText;
+}
+
+export interface CmsContact {
+  pageIntro: LocalizedText;
+  responseTime: LocalizedText;
+  serviceOptions: CmsContactServiceOption[];
+}
+
+export interface CmsResourceItem {
+  id: string;
+  title: LocalizedText;
+  description: LocalizedText;
+}
+
+export interface CmsResourceGroup {
+  id: string;
+  category: LocalizedText;
+  items: CmsResourceItem[];
+}
+
+export interface CmsResources {
+  intro: LocalizedText;
+  requestTitle: LocalizedText;
+  requestIntro: LocalizedText;
+  groups: CmsResourceGroup[];
+}
+
+export interface CmsTrainingPage {
+  title: LocalizedText;
+  description: LocalizedText;
 }
 
 export interface CmsMediaItem {
@@ -175,6 +262,10 @@ export const CMS_COLLECTIONS = new Set<CmsCollection>([
   "homepage",
   "seo",
   "services",
+  "partners",
+  "contact",
+  "resources",
+  "training-page",
 ]);
 
 export function cmsStorageKey(collection: CmsCollection): string {
