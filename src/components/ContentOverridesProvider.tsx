@@ -7,12 +7,31 @@ type ContentOverrides = Record<string, unknown>;
 
 const ContentOverridesContext = createContext<ContentOverrides | null>(null);
 
+const CACHE_KEY = "eco-marina-content-overrides";
+
+function readCachedOverrides(): ContentOverrides {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = sessionStorage.getItem(CACHE_KEY);
+    return raw ? (JSON.parse(raw) as ContentOverrides) : {};
+  } catch {
+    return {};
+  }
+}
+
 export function ContentOverridesProvider({ children }: { children: React.ReactNode }) {
-  const [overrides, setOverrides] = useState<ContentOverrides>({});
+  const [overrides, setOverrides] = useState<ContentOverrides>(readCachedOverrides);
 
   useEffect(() => {
     apiGet<{ content: ContentOverrides }>(API.content)
-      .then((data) => setOverrides(data.content))
+      .then((data) => {
+        setOverrides(data.content);
+        try {
+          sessionStorage.setItem(CACHE_KEY, JSON.stringify(data.content));
+        } catch {
+          // Ignore quota errors — defaults still render correctly.
+        }
+      })
       .catch(() => {});
   }, []);
 

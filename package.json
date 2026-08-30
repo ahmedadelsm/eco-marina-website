@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/generate-sitemap.js",
     "build": "next build --webpack",
-    "build:cloudflare": "next build --webpack",
-    "build:production": "next build --webpack",
+    "build:cloudflare": "npm run build",
+    "build:production": "npm run build",
     "start": "next start",
     "lint": "eslint src",
     "typecheck:functions": "tsc -p functions/tsconfig.json --noEmit",

@@ -16,7 +16,13 @@ const sourceSerif = Source_Serif_4({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://eco-marina.com"),
-  icons: { icon: "/favicon.png" },
+  icons: {
+    icon: [
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/favicon.png",
+  },
 };
 
 export const viewport: Viewport = {

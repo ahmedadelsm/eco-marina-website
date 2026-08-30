@@ -10,7 +10,8 @@ export function buildPageMetadata(options: {
   image?: string;
   type?: "website" | "article";
 }): Metadata {
-  const title = options.title ?? `${site.name} | ${site.tagline}`;
+  const pageTitle = options.title;
+  const socialTitle = pageTitle ? `${pageTitle} | ${site.name}` : `${site.name} | ${site.tagline}`;
   const description =
     options.description ??
     "Environmental and social impact assessment, monitoring programs, and sustainability training. Based in Utrecht, Netherlands.";
@@ -19,11 +20,11 @@ export function buildPageMetadata(options: {
   const imageUrl = image.startsWith("http") ? image : `https://eco-marina.com${image}`;
 
   return {
-    title,
+    ...(pageTitle ? { title: pageTitle } : {}),
     description,
     alternates: { canonical: url },
     openGraph: {
-      title,
+      title: socialTitle,
       description,
       url,
       siteName: site.name,
@@ -33,7 +34,7 @@ export function buildPageMetadata(options: {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
       images: [imageUrl],
     },

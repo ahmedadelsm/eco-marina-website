@@ -19,7 +19,6 @@ import {
 } from "@/content/site-content";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Eco Marina | Environmental Consultancy",
   description:
     "Environmental and social impact assessment, monitoring programs, and sustainability training. Based in Utrecht, Netherlands.",
   path: "/",
