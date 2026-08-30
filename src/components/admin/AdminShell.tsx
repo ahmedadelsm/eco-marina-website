@@ -107,7 +107,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const visibleGroups = navGroups
     .map((group) => ({ ...group, items: group.items.filter((item) => role && item.roles.includes(role)) }))
     .filter((group) => group.items.length > 0);
-  const visibleNav = visibleGroups.flatMap((group) => group.items);
 
   return (
     <div className="flex min-h-screen bg-paper">
@@ -166,33 +165,34 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               {email && <p className="text-xs text-ink-muted">Signed in as {email}</p>}
             </div>
             <div className="flex items-center gap-3">
-              <Link href="/" className="text-sm font-medium text-sea hover:text-sea-dark">
+              <Link href="/" className="shrink-0 text-sm font-medium text-sea hover:text-sea-dark">
                 View site
               </Link>
               <button
                 type="button"
                 onClick={logout}
-                className="rounded-md border border-red-200 bg-red-50 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100"
+                className="shrink-0 whitespace-nowrap rounded-md border border-red-200 bg-red-50 px-2.5 py-1.5 text-sm font-medium text-red-700 hover:bg-red-100 sm:px-3"
               >
                 Log out
               </button>
             </div>
           </div>
-          <nav className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:hidden" aria-label="Admin navigation">
-            {visibleNav.map((item) => {
-              const active = pathname === item.href;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`shrink-0 rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                    active ? "bg-sea-light text-sea-dark" : "border border-line text-ink-muted hover:bg-paper hover:text-ink"
-                  }`}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
+          <nav className="mt-4 lg:hidden" aria-label="Admin navigation">
+            <label className="sr-only" htmlFor="admin-navigation">Navigate admin</label>
+            <select
+              id="admin-navigation"
+              value={pathname}
+              onChange={(event) => router.push(event.target.value)}
+              className="min-h-11 w-full border border-line bg-white px-3 text-sm font-medium text-ink"
+            >
+              {visibleGroups.map((group) => (
+                <optgroup key={group.label} label={group.label}>
+                  {group.items.map((item) => (
+                    <option key={item.href} value={item.href}>{item.label}</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
           </nav>
         </header>
         <div className="flex-1 p-4 sm:p-8">{children}</div>
