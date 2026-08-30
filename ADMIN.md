@@ -29,11 +29,12 @@ Multiple admins are supported — each person can have their own email and passw
 - **Hero** — homepage hero image, eyebrow, CTAs, headline defaults
 - **Page copy** — inner page heroes, about labels, service detail content
 - **Navigation** — header and footer menu labels
+- **UI strings** — header, footer, forms, case study and training labels
 - **Services** — core services, specialist categories, legacy services
 - **Training** — page hero, courses, pricing, and schedules
 - **FAQ** — categories, questions, and answers
 - **Partners** — full partner CRUD with publish toggle and logos
-- **Contact** — contact page intro and form dropdown labels
+- **Contact** — contact page hero, intro, labels, and form dropdown options
 - **Resources** — resource groups and request section copy
 - **Admins** — add/remove admin users
 - **Audit log** — admin action history (D1)

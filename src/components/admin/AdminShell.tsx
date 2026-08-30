@@ -23,6 +23,7 @@ const nav = [
   { href: "/admin/hero", label: "Hero", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/pages", label: "Page copy", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/navigation", label: "Navigation", roles: ["super_admin", "editor"] as AdminRole[] },
+  { href: "/admin/ui", label: "UI strings", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/partners", label: "Partners", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/contact", label: "Contact", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/resources", label: "Resources", roles: ["super_admin", "editor"] as AdminRole[] },

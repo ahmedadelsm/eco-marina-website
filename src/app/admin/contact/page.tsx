@@ -13,8 +13,14 @@ export default function AdminContactPage() {
       <h1 className="font-serif text-3xl font-semibold text-ink">Contact page</h1>
       <p className="mt-2 text-ink-muted">Contact page intro text and form dropdown labels. Email and phone are edited under Content.</p>
       <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
+        <LocalizedInput label="Eyebrow" value={data.eyebrow} onChange={(eyebrow) => setData({ ...data, eyebrow })} />
+        <LocalizedInput label="Page title" value={data.title} onChange={(title) => setData({ ...data, title })} />
         <LocalizedTextarea label="Page intro" value={data.pageIntro} onChange={(pageIntro) => setData({ ...data, pageIntro })} />
-        <LocalizedInput label="Response time note" value={data.responseTime} onChange={(responseTime) => setData({ ...data, responseTime })} />
+        <LocalizedTextarea label="Response time note" value={data.responseTime} onChange={(responseTime) => setData({ ...data, responseTime })} />
+        <LocalizedInput label="Get in touch heading" value={data.getInTouch} onChange={(getInTouch) => setData({ ...data, getInTouch })} />
+        <LocalizedInput label="Email label" value={data.emailLabel} onChange={(emailLabel) => setData({ ...data, emailLabel })} />
+        <LocalizedInput label="Phone label" value={data.phoneLabel} onChange={(phoneLabel) => setData({ ...data, phoneLabel })} />
+        <LocalizedInput label="Office label" value={data.officeLabel} onChange={(officeLabel) => setData({ ...data, officeLabel })} />
       </div>
       <div className="mt-8 max-w-4xl border border-line bg-white p-6">
         <h2 className="font-serif text-xl font-semibold text-ink">Form service options</h2>

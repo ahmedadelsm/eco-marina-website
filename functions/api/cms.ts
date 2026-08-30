@@ -16,6 +16,7 @@ import type {
   CmsServices,
   CmsTrainingCourse,
   CmsTrainingPage,
+  CmsUi,
 } from "../lib/cms/types";
 import { corsHeaders, json, type Env } from "../lib/utils";
 
@@ -39,6 +40,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       hero,
       pages,
       navigation,
+      ui,
     ] = await Promise.all([
       getCmsCollection<CmsProject[]>(env, "projects"),
       getCmsCollection<CmsTrainingCourse[]>(env, "training"),
@@ -56,6 +58,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       getCmsCollection<CmsHero>(env, "hero"),
       getCmsCollection<CmsPages>(env, "pages"),
       getCmsCollection<CmsNavigation>(env, "navigation"),
+      getCmsCollection<CmsUi>(env, "ui"),
     ]);
 
     return json(
@@ -76,6 +79,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         hero,
         pages,
         navigation,
+        ui,
       },
       200,
       {
@@ -102,6 +106,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         hero: null,
         pages: null,
         navigation: null,
+        ui: null,
       },
       200,
       corsHeaders(request)

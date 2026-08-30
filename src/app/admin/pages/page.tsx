@@ -32,7 +32,7 @@ export default function AdminPagesPage() {
       <p className="mt-2 text-ink-muted">Hero text and CTAs for inner pages and service detail content.</p>
 
       <div className="mt-6 flex flex-wrap gap-2">
-        {(["projects", "insights", "faq", "about", "impact", "impactAssessment", "monitoring"] as const).map((key) => (
+        {(["projects", "insights", "services", "faq", "about", "impact", "impactAssessment", "monitoring"] as const).map((key) => (
           <button
             key={key}
             type="button"
@@ -60,6 +60,16 @@ export default function AdminPagesPage() {
             <LocalizedInput label="Eyebrow" value={data.insights.eyebrow} onChange={(eyebrow) => setData({ ...data, insights: { ...data.insights, eyebrow } })} />
             <LocalizedInput label="Heading" value={data.insights.heading} onChange={(heading) => setData({ ...data, insights: { ...data.insights, heading } })} />
             <LocalizedTextarea label="Intro" value={data.insights.intro} onChange={(intro) => setData({ ...data, insights: { ...data.insights, intro } })} />
+            <LocalizedInput label="Written by" value={data.insights.writtenBy} onChange={(writtenBy) => setData({ ...data, insights: { ...data.insights, writtenBy } })} />
+            <LocalizedInput label="Founder note" value={data.insights.founderNote} onChange={(founderNote) => setData({ ...data, insights: { ...data.insights, founderNote } })} />
+            <LocalizedInput label="Discuss CTA" value={data.insights.discuss} onChange={(discuss) => setData({ ...data, insights: { ...data.insights, discuss } })} />
+          </PageBlock>
+        )}
+
+        {open === "services" && (
+          <PageBlock title="Services list page">
+            <LocalizedInput label="Eyebrow" value={data.services.eyebrow} onChange={(eyebrow) => setData({ ...data, services: { ...data.services, eyebrow } })} />
+            <LocalizedInput label="Heading" value={data.services.heading} onChange={(heading) => setData({ ...data, services: { ...data.services, heading } })} />
           </PageBlock>
         )}
 

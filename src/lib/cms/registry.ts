@@ -11,6 +11,7 @@ import {
   defaultCmsSeo,
   defaultCmsServices,
   defaultCmsTrainingPage,
+  defaultCmsUi,
 } from "./defaults-extra";
 import {
   defaultCmsCompany,
@@ -37,6 +38,7 @@ const DEFAULTS: Record<CmsCollection, () => unknown> = {
   hero: defaultCmsHero,
   pages: defaultCmsPages,
   navigation: defaultCmsNavigation,
+  ui: defaultCmsUi,
 };
 
 const OBJECT_COLLECTIONS = new Set<CmsCollection>([
@@ -50,6 +52,7 @@ const OBJECT_COLLECTIONS = new Set<CmsCollection>([
   "hero",
   "pages",
   "navigation",
+  "ui",
 ]);
 
 export function getCmsDefault<T>(collection: CmsCollection): T {

@@ -11,8 +11,7 @@ import { localePath, type Locale } from "@/lib/i18n";
 
 export function ProjectDetailView({ locale, slug }: { locale: Locale; slug: string }) {
   const content = getContent(locale);
-  const { ui } = content;
-  const { getProject, projects } = useCms();
+  const { getProject, projects, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
 
   const staticProject = content.getProject(slug);

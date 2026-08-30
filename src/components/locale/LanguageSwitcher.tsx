@@ -2,14 +2,15 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLocale, useSiteContent } from "./LocaleProvider";
+import { useCms } from "@/components/cms/CmsProvider";
+import { useLocale } from "./LocaleProvider";
 import { localeLabels, parseLocalePath } from "@/lib/i18n";
 import { setLocaleCookie } from "@/lib/locale-cookie";
 
 export function LanguageSwitcher() {
   const pathname = usePathname() ?? "/";
   const { locale, alternatePath } = useLocale();
-  const { ui } = useSiteContent();
+  const { ui } = useCms();
   const { path: basePath } = parseLocalePath(pathname);
   const otherLocale = locale === "en" ? "nl" : "en";
   const enHref = locale === "en" ? pathname : alternatePath(basePath);

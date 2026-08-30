@@ -52,6 +52,7 @@ export default function AdminDashboardPage() {
     { label: "Hero", href: "/admin/hero" },
     { label: "Page copy", href: "/admin/pages" },
     { label: "Navigation", href: "/admin/navigation" },
+    { label: "UI strings", href: "/admin/ui" },
     { label: "Partners", href: "/admin/partners" },
     { label: "Contact page", href: "/admin/contact" },
     { label: "Resources", href: "/admin/resources" },

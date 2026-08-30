@@ -3,7 +3,6 @@
 import { useCallback, useState } from "react";
 import { useCms } from "@/components/cms/CmsProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
-import { useSiteContent } from "@/components/locale/LocaleProvider";
 import { isTurnstileConfigured, TurnstileWidget } from "@/components/TurnstileWidget";
 import { API, apiPost } from "@/lib/api";
 
@@ -14,8 +13,7 @@ export function ContactForm() {
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileReset, setTurnstileReset] = useState(0);
   const { email: contactEmail } = useSiteContact();
-  const { ui } = useSiteContent();
-  const { contactServiceOptions } = useCms();
+  const { contactServiceOptions, ui } = useCms();
   const form = ui.form;
 
   const handleTurnstileToken = useCallback((token: string) => {
@@ -149,9 +147,8 @@ export function ContactForm() {
 
 export function ContactPageContent() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
-  const { ui } = useSiteContent();
   const { contactPage } = useCms();
-  const page = ui.contactPage;
+  const page = contactPage;
 
   return (
     <>
@@ -171,9 +168,9 @@ export function ContactPageContent() {
               <p className="mt-3 text-ink-muted">{contactPage.responseTime}</p>
               <div className="mt-10 space-y-6">
                 {[
-                  { label: page.email, value: email, href: mailto },
-                  { label: page.phone, value: phone, href: phoneHref },
-                  { label: page.office, value: office },
+                  { label: page.emailLabel, value: email, href: mailto },
+                  { label: page.phoneLabel, value: phone, href: phoneHref },
+                  { label: page.officeLabel, value: office },
                 ].map((item) => (
                   <div key={item.label}>
                     <p className="text-xs font-semibold uppercase tracking-wider text-ink-light">{item.label}</p>

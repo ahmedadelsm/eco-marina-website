@@ -9,8 +9,8 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ResourcesPageView({ locale }: { locale: Locale }) {
-  const { pages, ui } = getContent(locale);
-  const { resourceGroups, resourcesPage } = useCms();
+  const { pages } = getContent(locale);
+  const { resourceGroups, resourcesPage, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/resources" : "/resources";
 

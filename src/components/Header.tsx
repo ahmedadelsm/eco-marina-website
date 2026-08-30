@@ -14,8 +14,8 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const { phone, phoneHref } = useSiteContact();
   const { path } = useLocale();
-  const { site, ui } = useSiteContent();
-  const { headerNav } = useCms();
+  const { site } = useSiteContent();
+  const { headerNav, ui } = useCms();
 
   useEffect(() => {
     if (!open) return;

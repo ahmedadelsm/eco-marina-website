@@ -2,11 +2,9 @@
 
 import Image from "next/image";
 import { useCms } from "@/components/cms/CmsProvider";
-import { useSiteContent } from "@/components/locale/LocaleProvider";
 
 export function PartnersSection() {
-  const { ui } = useSiteContent();
-  const { partners } = useCms();
+  const { partners, ui } = useCms();
 
   if (partners.length === 0) return null;
 

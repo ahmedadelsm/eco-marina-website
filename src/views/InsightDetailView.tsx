@@ -12,8 +12,7 @@ import { localePath, type Locale } from "@/lib/i18n";
 import { articleJsonLd } from "@/lib/structured-data";
 
 export function InsightDetailView({ locale, slug }: { locale: Locale; slug: string }) {
-  const { pages } = getContent(locale);
-  const { getInsight, ready } = useCms();
+  const { getInsight, ready, pageCopy } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? `/nl/insights/${slug}` : `/insights/${slug}`;
 
@@ -46,14 +45,14 @@ export function InsightDetailView({ locale, slug }: { locale: Locale; slug: stri
 
           <div className="mt-16 border-t border-line pt-10">
             <p className="text-sm text-ink-muted">
-              {pages.insights.writtenBy}{" "}
+              {pageCopy.insights.writtenBy}{" "}
               <Link href={path("/about")} className="font-medium text-sea hover:underline">
                 Adel Regal
               </Link>
-              {pages.insights.founderNote}
+              {pageCopy.insights.founderNote}
             </p>
             <ButtonArrow href={path("/contact")} className="mt-6">
-              {pages.insights.discuss}
+              {pageCopy.insights.discuss}
             </ButtonArrow>
           </div>
         </div>

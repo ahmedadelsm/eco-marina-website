@@ -10,8 +10,8 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function AboutPageView({ locale }: { locale: Locale }) {
-  const { site, pages, ui } = getContent(locale);
-  const { about, company, pageCopy } = useCms();
+  const { site, pages } = getContent(locale);
+  const { about, company, pageCopy, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/about" : "/about";
   const copy = pageCopy.about;

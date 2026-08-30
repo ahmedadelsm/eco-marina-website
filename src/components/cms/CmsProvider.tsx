@@ -19,6 +19,7 @@ import {
   defaultCmsServices,
   defaultCmsTraining,
   defaultCmsTrainingPage,
+  defaultCmsUi,
 } from "@/lib/cms/defaults";
 import {
   getSeoForPath,
@@ -43,6 +44,7 @@ import {
   toResourceGroups,
   toServiceCategoryView,
   toTrainingView,
+  toUiView,
   toWhyUsView,
 } from "@/lib/cms/localize";
 import type {
@@ -67,6 +69,7 @@ import type {
   ResourceGroupView,
   ServiceCategoryView,
   TrainingCourseView,
+  UiView,
   WhyUsCardView,
 } from "@/lib/cms/types";
 import type { Locale } from "@/lib/i18n";
@@ -89,9 +92,11 @@ type CmsContextValue = {
   hero: HeroView;
   headerNav: NavItemView[];
   footerNav: FooterNavItemView[];
+  ui: UiView;
   pageCopy: {
     projects: PageHeroView;
-    insights: PageHeroView;
+    insights: PageHeroView & { writtenBy: string; founderNote: string; discuss: string };
+    services: { eyebrow: string; heading: string };
     faq: { eyebrow: string; heading: string };
     about: AboutPageCopyView;
     impact: { heading: string; body: string; cta: string };
@@ -141,8 +146,14 @@ type CmsContextValue = {
     homeCtaButton: string;
   };
   contactPage: {
+    eyebrow: string;
+    title: string;
     intro: string;
     responseTime: string;
+    getInTouch: string;
+    emailLabel: string;
+    phoneLabel: string;
+    officeLabel: string;
   };
   resourcesPage: {
     intro: string;
@@ -199,6 +210,7 @@ const EMPTY: CmsPayload = {
   hero: null,
   pages: null,
   navigation: null,
+  ui: null,
 };
 
 function publishedProjects(payload: CmsPayload): CmsProject[] {
@@ -319,6 +331,7 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     const heroData = toHeroView(mergeCmsObject(defaultCmsHero(), payload.hero), locale);
     const pagesData = mergeCmsObject(defaultCmsPages(), payload.pages);
     const navigationData = mergeCmsObject(defaultCmsNavigation(), payload.navigation);
+    const uiData = toUiView(mergeCmsObject(defaultCmsUi(), payload.ui), locale);
 
     return {
       ready,
@@ -339,9 +352,19 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       hero: heroData,
       headerNav: toNavItems(navigationData.header, locale),
       footerNav: toFooterNav(navigationData.footer, locale),
+      ui: uiData,
       pageCopy: {
         projects: toPageHeroView(pagesData.projects, locale),
-        insights: toPageHeroView(pagesData.insights, locale),
+        insights: {
+          ...toPageHeroView(pagesData.insights, locale),
+          writtenBy: pickText(pagesData.insights.writtenBy, locale),
+          founderNote: pickText(pagesData.insights.founderNote, locale),
+          discuss: pickText(pagesData.insights.discuss, locale),
+        },
+        services: {
+          eyebrow: pickText(pagesData.services.eyebrow, locale),
+          heading: pickText(pagesData.services.heading, locale),
+        },
         faq: {
           eyebrow: pickText(pagesData.faq.eyebrow, locale),
           heading: pickText(pagesData.faq.heading, locale),
@@ -368,8 +391,14 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       servicesPage: servicesData,
       homepage: homepageData,
       contactPage: {
+        eyebrow: pickText(contact.eyebrow, locale),
+        title: pickText(contact.title, locale),
         intro: pickText(contact.pageIntro, locale),
         responseTime: pickText(contact.responseTime, locale),
+        getInTouch: pickText(contact.getInTouch, locale),
+        emailLabel: pickText(contact.emailLabel, locale),
+        phoneLabel: pickText(contact.phoneLabel, locale),
+        officeLabel: pickText(contact.officeLabel, locale),
       },
       resourcesPage: {
         intro: pickText(resources.intro, locale),

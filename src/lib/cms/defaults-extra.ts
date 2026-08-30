@@ -13,6 +13,7 @@ import type {
   CmsSeoEntry,
   CmsServices,
   CmsTrainingPage,
+  CmsUi,
 } from "./types";
 
 export function pairText(enText: string, nlText: string) {
@@ -177,8 +178,14 @@ export function defaultCmsPartners(): CmsPartner[] {
 
 export function defaultCmsContact(): CmsContact {
   return {
+    eyebrow: pairText(en.ui.contactPage.eyebrow, nl.ui.contactPage.eyebrow),
+    title: pairText(en.ui.contactPage.title, nl.ui.contactPage.title),
     pageIntro: pairText(en.ui.contactPage.intro, nl.ui.contactPage.intro),
     responseTime: pairText(en.ui.contactPage.responseTime, nl.ui.contactPage.responseTime),
+    getInTouch: pairText(en.ui.contactPage.getInTouch, nl.ui.contactPage.getInTouch),
+    emailLabel: pairText(en.ui.contactPage.email, nl.ui.contactPage.email),
+    phoneLabel: pairText(en.ui.contactPage.phone, nl.ui.contactPage.phone),
+    officeLabel: pairText(en.ui.contactPage.office, nl.ui.contactPage.office),
     serviceOptions: [
       {
         id: "impact-assessment",
@@ -253,6 +260,13 @@ export function defaultCmsPages(): CmsPages {
       eyebrow: pairText(en.pages.insights.eyebrow, nl.pages.insights.eyebrow),
       heading: pairText(en.pages.insights.heading, nl.pages.insights.heading),
       intro: pairText(en.pages.insights.intro, nl.pages.insights.intro),
+      writtenBy: pairText(en.pages.insights.writtenBy, nl.pages.insights.writtenBy),
+      founderNote: pairText(en.pages.insights.founderNote, nl.pages.insights.founderNote),
+      discuss: pairText(en.pages.insights.discuss, nl.pages.insights.discuss),
+    },
+    services: {
+      eyebrow: pairText(en.pages.services.eyebrow, nl.pages.services.eyebrow),
+      heading: pairText(en.pages.services.heading, nl.pages.services.heading),
     },
     faq: {
       eyebrow: pairText(en.pages.faq.eyebrow, nl.pages.faq.eyebrow),
@@ -360,4 +374,59 @@ export function defaultCmsSeo(): CmsSeoEntry[] {
       description: pairText(enDescription, nlDescription),
     };
   });
+}
+
+export function defaultCmsUi(): CmsUi {
+  return {
+    contact: pairText(en.ui.contact, nl.ui.contact),
+    skipToContent: pairText(en.ui.skipToContent, nl.ui.skipToContent),
+    openMenu: pairText(en.ui.openMenu, nl.ui.openMenu),
+    closeMenu: pairText(en.ui.closeMenu, nl.ui.closeMenu),
+    pagesLabel: pairText(en.ui.pages, nl.ui.pages),
+    connect: pairText(en.ui.connect, nl.ui.connect),
+    footerSince: pairText(en.ui.footerSince, nl.ui.footerSince),
+    footerServices: pairText(en.ui.footerServices, nl.ui.footerServices),
+    footerRegions: pairText(en.ui.footerRegions, nl.ui.footerRegions),
+    projects: pairText(en.ui.projects, nl.ui.projects),
+    countries: pairText(en.ui.countries, nl.ui.countries),
+    since: pairText(en.ui.since, nl.ui.since),
+    challenge: pairText(en.ui.challenge, nl.ui.challenge),
+    approach: pairText(en.ui.approach, nl.ui.approach),
+    outcomes: pairText(en.ui.outcomes, nl.ui.outcomes),
+    projectDetails: pairText(en.ui.projectDetails, nl.ui.projectDetails),
+    location: pairText(en.ui.location, nl.ui.location),
+    client: pairText(en.ui.client, nl.ui.client),
+    category: pairText(en.ui.category, nl.ui.category),
+    servicesDelivered: pairText(en.ui.servicesDelivered, nl.ui.servicesDelivered),
+    discussSimilar: pairText(en.ui.discussSimilar, nl.ui.discussSimilar),
+    moreCaseStudies: pairText(en.ui.moreCaseStudies, nl.ui.moreCaseStudies),
+    getInTouch: pairText(en.ui.getInTouch, nl.ui.getInTouch),
+    topics: pairText(en.ui.topics, nl.ui.topics),
+    audience: pairText(en.ui.audience, nl.ui.audience),
+    groundedIn: pairText(en.ui.groundedIn, nl.ui.groundedIn),
+    pricing: pairText(en.ui.pricing, nl.ui.pricing),
+    schedule: pairText(en.ui.schedule, nl.ui.schedule),
+    trainingCta: pairText(en.ui.trainingCta, nl.ui.trainingCta),
+    requestTraining: pairText(en.ui.requestTraining, nl.ui.requestTraining),
+    deliverables: pairText(en.ui.deliverables, nl.ui.deliverables),
+    sectors: pairText(en.ui.sectors, nl.ui.sectors),
+    detailsLink: pairText(en.ui.detailsLink, nl.ui.detailsLink),
+    loading: pairText(en.ui.loading, nl.ui.loading),
+    partners: pairText(en.ui.partners, nl.ui.partners),
+    language: pairText(en.ui.language, nl.ui.language),
+    formFirstName: pairText(en.ui.form.firstName, nl.ui.form.firstName),
+    formLastName: pairText(en.ui.form.lastName, nl.ui.form.lastName),
+    formEmail: pairText(en.ui.form.email, nl.ui.form.email),
+    formOrganization: pairText(en.ui.form.organization, nl.ui.form.organization),
+    formServiceInterest: pairText(en.ui.form.serviceInterest, nl.ui.form.serviceInterest),
+    formSelectService: pairText(en.ui.form.selectService, nl.ui.form.selectService),
+    formMessage: pairText(en.ui.form.message, nl.ui.form.message),
+    formMessagePlaceholder: pairText(en.ui.form.messagePlaceholder, nl.ui.form.messagePlaceholder),
+    formSend: pairText(en.ui.form.send, nl.ui.form.send),
+    formSending: pairText(en.ui.form.sending, nl.ui.form.sending),
+    formCaptcha: pairText(en.ui.form.captcha, nl.ui.form.captcha),
+    formError: pairText(en.ui.form.error, nl.ui.form.error),
+    formThankYou: pairText(en.ui.form.thankYou, nl.ui.form.thankYou),
+    formReceived: pairText(en.ui.form.received, nl.ui.form.received),
+  };
 }

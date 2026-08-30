@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
+import { useCms } from "@/components/cms/CmsProvider";
+import { useLocale } from "@/components/locale/LocaleProvider";
 import { ArrowRightIcon, CheckIcon } from "./Icon";
 
 type CoreService = {
@@ -20,7 +21,7 @@ type CoreService = {
 
 export function CoreServiceCard({ service }: { service: CoreService }) {
   const { path } = useLocale();
-  const { ui } = useSiteContent();
+  const { ui } = useCms();
   return (
     <Link href={path(service.href)} className="group block border border-line bg-white transition-shadow hover:shadow-md">
       <div className="relative aspect-[16/10] overflow-hidden bg-paper">
@@ -131,7 +132,7 @@ export function ServiceDetailLayout({
   children: React.ReactNode;
   showTitle?: boolean;
 }) {
-  const { ui } = useSiteContent();
+  const { ui } = useCms();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">

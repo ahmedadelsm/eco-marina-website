@@ -100,6 +100,7 @@ export {
   defaultCmsSeo,
   defaultCmsServices,
   defaultCmsTrainingPage,
+  defaultCmsUi,
   pairList,
   pairText,
 } from "./defaults-extra";

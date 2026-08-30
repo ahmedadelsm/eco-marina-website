@@ -17,6 +17,7 @@ const CMS_KEYS = [
   "cms.hero",
   "cms.pages",
   "cms.navigation",
+  "cms.ui",
 ];
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {

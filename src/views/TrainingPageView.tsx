@@ -4,12 +4,10 @@ import Image from "next/image";
 import { ButtonArrow } from "@/components/Button";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageHero } from "@/components/PageHero";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function TrainingPageView({ locale }: { locale: Locale }) {
-  const { coreServices, ui } = getContent(locale);
-  const { training: trainingCourses, trainingPage } = useCms();
+  const { coreServices, training: trainingCourses, trainingPage, ui } = useCms();
   const service = coreServices[2];
   const path = (href: string) => localePath(locale, href);
 

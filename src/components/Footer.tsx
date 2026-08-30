@@ -10,8 +10,8 @@ import { Icons } from "./Icons";
 export function Footer() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
   const { path } = useLocale();
-  const { site, ui } = useSiteContent();
-  const { company, footerNav } = useCms();
+  const { site } = useSiteContent();
+  const { company, footerNav, ui } = useCms();
 
   return (
     <footer className="border-t border-line bg-ink text-white">

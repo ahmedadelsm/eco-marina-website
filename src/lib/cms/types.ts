@@ -14,7 +14,8 @@ export type CmsCollection =
   | "training-page"
   | "hero"
   | "pages"
-  | "navigation";
+  | "navigation"
+  | "ui";
 
 export type LocalizedText = { en: string; nl: string };
 export type LocalizedList = { en: string[]; nl: string[] };
@@ -216,7 +217,8 @@ export interface CmsMonitoringPage {
 
 export interface CmsPages {
   projects: CmsPageHero;
-  insights: CmsPageHero;
+  insights: CmsPageHero & { writtenBy: LocalizedText; founderNote: LocalizedText; discuss: LocalizedText };
+  services: { eyebrow: LocalizedText; heading: LocalizedText };
   faq: { eyebrow: LocalizedText; heading: LocalizedText };
   about: CmsAboutPageCopy;
   impact: { heading: LocalizedText; body: LocalizedText; cta: LocalizedText };
@@ -313,9 +315,68 @@ export interface CmsContactServiceOption {
 }
 
 export interface CmsContact {
+  eyebrow: LocalizedText;
+  title: LocalizedText;
   pageIntro: LocalizedText;
   responseTime: LocalizedText;
+  getInTouch: LocalizedText;
+  emailLabel: LocalizedText;
+  phoneLabel: LocalizedText;
+  officeLabel: LocalizedText;
   serviceOptions: CmsContactServiceOption[];
+}
+
+export interface CmsUi {
+  contact: LocalizedText;
+  skipToContent: LocalizedText;
+  openMenu: LocalizedText;
+  closeMenu: LocalizedText;
+  pagesLabel: LocalizedText;
+  connect: LocalizedText;
+  footerSince: LocalizedText;
+  footerServices: LocalizedText;
+  footerRegions: LocalizedText;
+  projects: LocalizedText;
+  countries: LocalizedText;
+  since: LocalizedText;
+  challenge: LocalizedText;
+  approach: LocalizedText;
+  outcomes: LocalizedText;
+  projectDetails: LocalizedText;
+  location: LocalizedText;
+  client: LocalizedText;
+  category: LocalizedText;
+  servicesDelivered: LocalizedText;
+  discussSimilar: LocalizedText;
+  moreCaseStudies: LocalizedText;
+  getInTouch: LocalizedText;
+  topics: LocalizedText;
+  audience: LocalizedText;
+  groundedIn: LocalizedText;
+  pricing: LocalizedText;
+  schedule: LocalizedText;
+  trainingCta: LocalizedText;
+  requestTraining: LocalizedText;
+  deliverables: LocalizedText;
+  sectors: LocalizedText;
+  detailsLink: LocalizedText;
+  loading: LocalizedText;
+  partners: LocalizedText;
+  language: LocalizedText;
+  formFirstName: LocalizedText;
+  formLastName: LocalizedText;
+  formEmail: LocalizedText;
+  formOrganization: LocalizedText;
+  formServiceInterest: LocalizedText;
+  formSelectService: LocalizedText;
+  formMessage: LocalizedText;
+  formMessagePlaceholder: LocalizedText;
+  formSend: LocalizedText;
+  formSending: LocalizedText;
+  formCaptcha: LocalizedText;
+  formError: LocalizedText;
+  formThankYou: LocalizedText;
+  formReceived: LocalizedText;
 }
 
 export interface CmsResourceItem {
@@ -368,6 +429,7 @@ export interface CmsPayload {
   hero: CmsHero | null;
   pages: CmsPages | null;
   navigation: CmsNavigation | null;
+  ui: CmsUi | null;
 }
 
 export interface ProjectView {
@@ -498,6 +560,61 @@ export interface HeroView {
   imageAlt: string;
 }
 
+export interface UiView {
+  contact: string;
+  skipToContent: string;
+  openMenu: string;
+  closeMenu: string;
+  pages: string;
+  connect: string;
+  footerSince: string;
+  footerServices: string;
+  footerRegions: string;
+  projects: string;
+  countries: string;
+  since: string;
+  challenge: string;
+  approach: string;
+  outcomes: string;
+  projectDetails: string;
+  location: string;
+  client: string;
+  category: string;
+  servicesDelivered: string;
+  discussSimilar: string;
+  moreCaseStudies: string;
+  getInTouch: string;
+  topics: string;
+  audience: string;
+  groundedIn: string;
+  pricing: string;
+  schedule: string;
+  trainingCta: string;
+  requestTraining: string;
+  deliverables: string;
+  sectors: string;
+  detailsLink: string;
+  loading: string;
+  partners: string;
+  language: string;
+  form: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    organization: string;
+    serviceInterest: string;
+    selectService: string;
+    message: string;
+    messagePlaceholder: string;
+    send: string;
+    sending: string;
+    captcha: string;
+    error: string;
+    thankYou: string;
+    received: string;
+  };
+}
+
 export interface PageHeroView {
   eyebrow: string;
   heading: string;
@@ -539,4 +656,5 @@ export const CMS_COLLECTION_NAMES: CmsCollection[] = [
   "hero",
   "pages",
   "navigation",
+  "ui",
 ];
