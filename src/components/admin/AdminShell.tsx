@@ -7,29 +7,51 @@ import { API, adminLogout, apiGet } from "@/lib/api";
 
 type AdminRole = "super_admin" | "editor";
 
-const nav = [
-  { href: "/admin", label: "Dashboard", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/messages", label: "Messages", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/company", label: "Company", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/projects", label: "Case studies", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/training", label: "Training", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/faq", label: "FAQ", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/homepage", label: "Homepage", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/services", label: "Services", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/insights", label: "Insights", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/about", label: "About", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/seo", label: "SEO", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/hero", label: "Hero", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/pages", label: "Page copy", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/navigation", label: "Navigation", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/ui", label: "UI strings", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/partners", label: "Partners", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/contact", label: "Contact", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/resources", label: "Resources", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/media", label: "Media", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/admins", label: "Admins", roles: ["super_admin"] as AdminRole[] },
-  { href: "/admin/audit", label: "Audit log", roles: ["super_admin"] as AdminRole[] },
-  { href: "/admin/settings", label: "Settings", roles: ["super_admin", "editor"] as AdminRole[] },
+type NavItem = { href: string; label: string; roles: AdminRole[] };
+
+const navGroups: { label: string; items: NavItem[] }[] = [
+  {
+    label: "Overview",
+    items: [
+      { href: "/admin", label: "Dashboard", roles: ["super_admin", "editor"] },
+      { href: "/admin/messages", label: "Messages", roles: ["super_admin", "editor"] },
+    ],
+  },
+  {
+    label: "Content",
+    items: [
+      { href: "/admin/homepage", label: "Homepage", roles: ["super_admin", "editor"] },
+      { href: "/admin/company", label: "Company", roles: ["super_admin", "editor"] },
+      { href: "/admin/services", label: "Services", roles: ["super_admin", "editor"] },
+      { href: "/admin/projects", label: "Case studies", roles: ["super_admin", "editor"] },
+      { href: "/admin/training", label: "Training", roles: ["super_admin", "editor"] },
+      { href: "/admin/insights", label: "Insights", roles: ["super_admin", "editor"] },
+      { href: "/admin/about", label: "About", roles: ["super_admin", "editor"] },
+      { href: "/admin/resources", label: "Resources", roles: ["super_admin", "editor"] },
+      { href: "/admin/partners", label: "Partners", roles: ["super_admin", "editor"] },
+      { href: "/admin/contact", label: "Contact", roles: ["super_admin", "editor"] },
+      { href: "/admin/media", label: "Media", roles: ["super_admin", "editor"] },
+    ],
+  },
+  {
+    label: "Site setup",
+    items: [
+      { href: "/admin/hero", label: "Hero", roles: ["super_admin", "editor"] },
+      { href: "/admin/pages", label: "Page copy", roles: ["super_admin", "editor"] },
+      { href: "/admin/navigation", label: "Navigation", roles: ["super_admin", "editor"] },
+      { href: "/admin/ui", label: "UI strings", roles: ["super_admin", "editor"] },
+      { href: "/admin/seo", label: "SEO", roles: ["super_admin", "editor"] },
+      { href: "/admin/faq", label: "FAQ", roles: ["super_admin", "editor"] },
+      { href: "/admin/settings", label: "Settings", roles: ["super_admin", "editor"] },
+    ],
+  },
+  {
+    label: "Administration",
+    items: [
+      { href: "/admin/admins", label: "Admins", roles: ["super_admin"] },
+      { href: "/admin/audit", label: "Audit log", roles: ["super_admin"] },
+    ],
+  },
 ];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
@@ -82,11 +104,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
     return null;
   }
 
-  const visibleNav = nav.filter((item) => role && item.roles.includes(role));
+  const visibleGroups = navGroups
+    .map((group) => ({ ...group, items: group.items.filter((item) => role && item.roles.includes(role)) }))
+    .filter((group) => group.items.length > 0);
+  const visibleNav = visibleGroups.flatMap((group) => group.items);
 
   return (
     <div className="flex min-h-screen bg-paper">
-      <aside className="relative hidden w-56 shrink-0 border-r border-line bg-white lg:block">
+      <aside className="sticky top-0 hidden h-screen w-56 shrink-0 flex-col border-r border-line bg-white lg:flex">
         <div className="border-b border-line px-5 py-6">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-sea">Eco Marina</p>
           <p className="mt-1 font-serif text-lg font-semibold text-ink">Admin</p>
@@ -97,23 +122,30 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             </p>
           )}
         </div>
-        <nav className="space-y-1 p-3">
-          {visibleNav.map((item) => {
-            const active = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
-                  active ? "bg-sea-light text-sea-dark" : "text-ink-muted hover:bg-paper hover:text-ink"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+        <nav className="min-h-0 flex-1 space-y-5 overflow-y-auto p-3" aria-label="Admin navigation">
+          {visibleGroups.map((group) => (
+            <div key={group.label}>
+              <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-ink-light">{group.label}</p>
+              <div className="space-y-1">
+                {group.items.map((item) => {
+                  const active = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className={`block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+                        active ? "bg-sea-light text-sea-dark" : "text-ink-muted hover:bg-paper hover:text-ink"
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </nav>
-        <div className="absolute bottom-0 w-56 space-y-2 border-t border-line p-4">
+        <div className="w-full shrink-0 space-y-2 border-t border-line p-4">
           <Link href="/" className="block text-sm text-ink-muted hover:text-ink">
             ← View website
           </Link>

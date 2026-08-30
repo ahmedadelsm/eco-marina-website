@@ -37,24 +37,35 @@ export default function AdminDashboardPage() {
     },
   ];
 
-  const quickLinks = [
-    { label: "Homepage sections", href: "/admin/homepage" },
-    { label: "Services", href: "/admin/services" },
-    { label: "Insights", href: "/admin/insights" },
-    { label: "About page", href: "/admin/about" },
-    { label: "SEO", href: "/admin/seo" },
-    { label: "Company info", href: "/admin/company" },
-    { label: "Case studies", href: "/admin/projects" },
-    { label: "Training", href: "/admin/training" },
-    { label: "FAQ", href: "/admin/faq" },
-    { label: "Hero", href: "/admin/hero" },
-    { label: "Page copy", href: "/admin/pages" },
-    { label: "Navigation", href: "/admin/navigation" },
-    { label: "UI strings", href: "/admin/ui" },
-    { label: "Partners", href: "/admin/partners" },
-    { label: "Contact page", href: "/admin/contact" },
-    { label: "Resources", href: "/admin/resources" },
-    { label: "Media library", href: "/admin/media" },
+  const contentGroups = [
+    {
+      title: "Page content",
+      description: "Edit the information visitors read and the items they browse.",
+      links: [
+        { label: "Homepage", href: "/admin/homepage" },
+        { label: "Company", href: "/admin/company" },
+        { label: "Services", href: "/admin/services" },
+        { label: "Case studies", href: "/admin/projects" },
+        { label: "Training", href: "/admin/training" },
+        { label: "Insights", href: "/admin/insights" },
+        { label: "About", href: "/admin/about" },
+        { label: "Resources", href: "/admin/resources" },
+      ],
+    },
+    {
+      title: "Site experience",
+      description: "Manage shared imagery, navigation, labels, discovery, and enquiries.",
+      links: [
+        { label: "Hero", href: "/admin/hero" },
+        { label: "Navigation", href: "/admin/navigation" },
+        { label: "UI strings", href: "/admin/ui" },
+        { label: "SEO", href: "/admin/seo" },
+        { label: "FAQ", href: "/admin/faq" },
+        { label: "Partners", href: "/admin/partners" },
+        { label: "Contact", href: "/admin/contact" },
+        { label: "Media library", href: "/admin/media" },
+      ],
+    },
   ];
 
   return (
@@ -73,19 +84,24 @@ export default function AdminDashboardPage() {
           </Link>
         ))}
       </div>
-      <div className="mt-8">
-        <h2 className="font-serif text-xl font-semibold text-ink">Manage content</h2>
-        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {quickLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="border border-line bg-white px-4 py-3 text-sm font-medium text-ink-muted transition-colors hover:border-sea hover:text-sea"
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+      <div className="mt-8 grid gap-6 xl:grid-cols-2">
+        {contentGroups.map((group) => (
+          <section key={group.title} className="border border-line bg-white p-5 sm:p-6">
+            <h2 className="font-serif text-xl font-semibold text-ink">{group.title}</h2>
+            <p className="mt-1 text-sm text-ink-muted">{group.description}</p>
+            <div className="mt-5 grid gap-2 sm:grid-cols-2">
+              {group.links.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="border border-line px-3 py-2.5 text-sm font-medium text-ink-muted transition-colors hover:border-sea hover:text-sea"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
       {stats.maintenanceEnabled && (
         <div className="mt-8 border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">
