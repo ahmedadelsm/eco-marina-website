@@ -1,20 +1,25 @@
+"use client";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ButtonArrow } from "@/components/Button";
 import { CheckIcon } from "@/components/Icon";
+import { useCms } from "@/components/cms/CmsProvider";
 import { DetailHero } from "@/components/DetailHero";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ProjectDetailView({ locale, slug }: { locale: Locale; slug: string }) {
   const content = getContent(locale);
-  const project = getContent(locale).getProject(slug);
   const { ui } = content;
+  const { getProject, projects } = useCms();
   const path = (href: string) => localePath(locale, href);
 
+  const staticProject = content.getProject(slug);
+  const project = getProject(slug) ?? staticProject;
   if (!project) notFound();
 
-  const others = content.projects.filter((p) => p.slug !== slug).slice(0, 2);
+  const others = projects.filter((p) => p.slug !== slug).slice(0, 2);
 
   return (
     <>
@@ -48,43 +53,44 @@ export function ProjectDetailView({ locale, slug }: { locale: Locale; slug: stri
                 {project.outcomes.map((outcome) => (
                   <li key={outcome} className="flex items-start gap-2 text-ink-muted">
                     <CheckIcon className="mt-1 h-4 w-4 shrink-0 text-sea" />
-                    {outcome}
+                    <span>{outcome}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <aside className="space-y-6">
+            <aside className="space-y-8">
               <div className="border border-line bg-paper p-6">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-sea">{ui.projectDetails}</h3>
-                <dl className="mt-4 space-y-3 text-sm">
+                <h2 className="font-serif text-lg font-semibold text-ink">{ui.projectDetails}</h2>
+                <dl className="mt-4 space-y-4 text-sm">
                   <div>
-                    <dt className="text-ink-light">{ui.location}</dt>
-                    <dd className="text-ink-muted">{project.location}</dd>
+                    <dt className="font-medium text-ink">{ui.location}</dt>
+                    <dd className="mt-1 text-ink-muted">{project.location}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-light">{ui.client}</dt>
-                    <dd className="text-ink-muted">{project.client}</dd>
+                    <dt className="font-medium text-ink">{ui.client}</dt>
+                    <dd className="mt-1 text-ink-muted">{project.client}</dd>
                   </div>
                   <div>
-                    <dt className="text-ink-light">{ui.category}</dt>
-                    <dd className="text-ink-muted">{project.category}</dd>
+                    <dt className="font-medium text-ink">{ui.category}</dt>
+                    <dd className="mt-1 text-ink-muted">{project.category}</dd>
                   </div>
                 </dl>
               </div>
+
               <div className="border border-line bg-white p-6">
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-sea">{ui.servicesDelivered}</h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.services.map((s) => (
-                    <span key={s} className="border border-line bg-paper px-3 py-1 text-xs text-ink-muted">
-                      {s}
-                    </span>
+                <h2 className="font-serif text-lg font-semibold text-ink">{ui.servicesDelivered}</h2>
+                <ul className="mt-4 space-y-2">
+                  {project.services.map((service) => (
+                    <li key={service} className="flex items-start gap-2 text-sm text-ink-muted">
+                      <CheckIcon className="mt-0.5 h-4 w-4 shrink-0 text-sea" />
+                      {service}
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
-              <ButtonArrow href={path("/contact")} className="w-full justify-center">
-                {ui.discussSimilar}
-              </ButtonArrow>
+
+              <ButtonArrow href={path("/contact")}>{ui.discussSimilar}</ButtonArrow>
             </aside>
           </div>
         </div>
@@ -97,9 +103,9 @@ export function ProjectDetailView({ locale, slug }: { locale: Locale; slug: stri
             <div className="mt-8 grid gap-6 sm:grid-cols-2">
               {others.map((p) => (
                 <Link key={p.slug} href={path(`/projects/${p.slug}`)} className="group border border-line bg-white p-6">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-sea">{p.category}</p>
-                  <h3 className="mt-2 font-serif font-semibold text-ink group-hover:text-sea">{p.title}</h3>
-                  <p className="mt-2 text-sm text-ink-muted line-clamp-2">{p.summary}</p>
+                  <p className="text-xs font-semibold uppercase tracking-wider text-brand-blue">{p.category}</p>
+                  <h3 className="mt-2 font-serif text-lg font-semibold text-ink group-hover:text-brand-blue">{p.title}</h3>
+                  <p className="mt-2 text-sm text-ink-muted">{p.summary}</p>
                 </Link>
               ))}
             </div>

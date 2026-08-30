@@ -1,15 +1,19 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
 import { CoreServiceCard, InsightCard, ProjectCard } from "@/components/CoreServiceCard";
+import { useCms } from "@/components/cms/CmsProvider";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { homePage, coreServices, mission, site, whyUs, projects, adelRegal, insights, legacyServices, processSteps } =
+  const { homePage, coreServices, mission, site, whyUs, adelRegal, insights, legacyServices, processSteps } =
     getContent(locale);
+  const { projects } = useCms();
   const path = (href: string) => localePath(locale, href);
 
   return (

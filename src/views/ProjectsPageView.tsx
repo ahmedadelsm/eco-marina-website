@@ -1,11 +1,15 @@
+"use client";
+
 import { ButtonArrow } from "@/components/Button";
 import { ProjectCard } from "@/components/CoreServiceCard";
+import { useCms } from "@/components/cms/CmsProvider";
 import { PageHero } from "@/components/PageHero";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ProjectsPageView({ locale }: { locale: Locale }) {
-  const { projects, pages, homePage } = getContent(locale);
+  const { pages, homePage } = getContent(locale);
+  const { projects } = useCms();
   const path = (href: string) => localePath(locale, href);
 
   return (

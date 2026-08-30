@@ -1,6 +1,7 @@
 "use client";
 
 import { AdminPreviewBar } from "@/components/admin/AdminPreviewBar";
+import { CmsProvider } from "@/components/cms/CmsProvider";
 import { ContentOverridesProvider } from "@/components/ContentOverridesProvider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -24,6 +25,7 @@ export function SiteChrome({
     <LocaleProvider locale={locale}>
       {locale === "nl" ? <SetHtmlLang locale="nl" /> : null}
       <ContentOverridesProvider>
+        <CmsProvider>
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), professionalServiceJsonLd()]} />
         <a
           href="#main-content"
@@ -39,6 +41,7 @@ export function SiteChrome({
           </main>
           <Footer />
         </div>
+        </CmsProvider>
       </ContentOverridesProvider>
     </LocaleProvider>
   );

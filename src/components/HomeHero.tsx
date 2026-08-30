@@ -3,12 +3,14 @@
 import Image from "next/image";
 import { Button, ButtonArrow } from "@/components/Button";
 import { useContentOverride } from "@/components/ContentOverridesProvider";
+import { useCms } from "@/components/cms/CmsProvider";
 import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { CMS_KEYS } from "@/lib/content-keys";
 
 export function HomeHero() {
   const { path, locale } = useLocale();
   const { hero, site, ui } = useSiteContent();
+  const { company } = useCms();
   const headlineKey = locale === "nl" ? CMS_KEYS.heroHeadlineNl : CMS_KEYS.heroHeadline;
   const subheadlineKey = locale === "nl" ? CMS_KEYS.heroSubheadlineNl : CMS_KEYS.heroSubheadline;
   const headline = useContentOverride(headlineKey, hero.headline);
@@ -32,7 +34,7 @@ export function HomeHero() {
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 sm:pt-32 lg:min-h-[min(88vh,820px)] lg:justify-center lg:py-32">
         <div className="hero-copy max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">{hero.eyebrow}</p>
-          <p className="mt-3 max-w-xl text-sm font-medium tracking-wide text-white/85">{site.motto}</p>
+          <p className="mt-3 max-w-xl text-sm font-medium tracking-wide text-white/85">{company.motto}</p>
           <h1 className="hero-title mt-5 font-serif text-[1.75rem] font-semibold leading-[1.15] sm:text-4xl lg:text-5xl">
             {headline}
           </h1>
@@ -51,15 +53,15 @@ export function HomeHero() {
 
         <dl className="mt-12 grid grid-cols-3 gap-3 border-t border-white/20 pt-8 sm:mt-14 sm:max-w-md sm:gap-6">
           <div>
-            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.stats.projects}+</dt>
+            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{company.statsProjects}+</dt>
             <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.projects}</dd>
           </div>
           <div>
-            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.stats.countries}</dt>
+            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{company.statsCountries}</dt>
             <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.countries}</dd>
           </div>
           <div>
-            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.since}</dt>
+            <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{company.since}</dt>
             <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.since}</dd>
           </div>
         </dl>

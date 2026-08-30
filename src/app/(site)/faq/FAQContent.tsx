@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
+import { useCms } from "@/components/cms/CmsProvider";
 import { useSiteContent } from "@/components/locale/LocaleProvider";
 
 export function FAQContent() {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
-  const { faq, pages } = useSiteContent();
+  const { pages } = useSiteContent();
+  const { faq } = useCms();
 
   return (
     <>

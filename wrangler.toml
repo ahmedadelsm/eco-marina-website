@@ -10,3 +10,7 @@ database_id = "44cf3247-4cb1-48b1-956c-5c057d68ad8a"
 [[kv_namespaces]]
 binding = "SETTINGS"
 id = "0c4554f2657741109b2f20a532826826"
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "eco-marina-media"

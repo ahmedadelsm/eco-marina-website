@@ -25,7 +25,12 @@ Multiple admins are supported — each person can have their own email and passw
 
 - **Dashboard** — overview
 - **Messages** — contact form submissions
-- **Content** — edit homepage copy and contact details
+- **Content** — edit homepage hero and contact details
+- **Company** — tagline, motto, stats, LinkedIn
+- **Case studies** — add/edit project pages (EN + NL)
+- **Training** — manage courses, pricing, and schedules
+- **FAQ** — categories, questions, and answers
+- **Media** — upload images (R2) and copy URLs into content
 - **Admins** — add/remove admin users
 - **Settings** — maintenance mode, contact form email (Zoho), and partner visibility
 
@@ -55,6 +60,13 @@ OAuth credentials are stored as Cloudflare secrets (not in the admin panel):
 Required OAuth scope: `ZohoMail.messages.CREATE`
 
 After adding variables, redeploy the site, then run **Send test email** in Settings.
+
+## Media uploads (R2)
+
+1. In Cloudflare, create R2 bucket `eco-marina-media`
+2. Attach the `MEDIA` binding to the Pages project (see `wrangler.toml`)
+3. Use **Admin → Media** to upload images
+4. Copy the URL into case study or training image fields
 
 ## Database setup (local only)
 

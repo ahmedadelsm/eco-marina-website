@@ -12,6 +12,7 @@ export interface Env {
   ZOHO_REFRESH_TOKEN?: string;
   ZOHO_DC?: string;
   ZOHO_ACCOUNT_ID?: string;
+  MEDIA?: R2Bucket;
 }
 
 export type AdminRole = "super_admin" | "editor";

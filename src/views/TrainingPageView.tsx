@@ -1,11 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { ButtonArrow } from "@/components/Button";
+import { useCms } from "@/components/cms/CmsProvider";
 import { PageHero } from "@/components/PageHero";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function TrainingPageView({ locale }: { locale: Locale }) {
-  const { coreServices, trainingCourses, trainingIntro, ui } = getContent(locale);
+  const { coreServices, trainingIntro, ui } = getContent(locale);
+  const { training: trainingCourses } = useCms();
   const service = coreServices[2];
   const path = (href: string) => localePath(locale, href);
 
@@ -38,51 +42,46 @@ export function TrainingPageView({ locale }: { locale: Locale }) {
                   </div>
                   <div className="p-6 sm:p-8">
                     <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
-                      <h2 className="font-serif text-xl font-semibold text-ink">{course.title}</h2>
-                      <span className="text-sm text-ink-light">
+                      <h2 className="font-serif text-xl font-semibold text-ink sm:text-2xl">{course.title}</h2>
+                      <p className="text-sm text-ink-muted">
                         {course.duration} · {course.format}
-                      </span>
-                    </div>
-                    <p className="mt-3 text-ink-muted">{course.description}</p>
-                    {"summaryNl" in course && course.summaryNl && locale === "nl" ? (
-                      <p className="mt-2 text-sm text-ink-muted/90 italic">{course.summaryNl}</p>
-                    ) : null}
-                    <div className="mt-4 flex flex-wrap gap-4 text-sm text-ink-muted">
-                      <p>
-                        <span className="font-semibold text-ink">{ui.pricing}:</span> {course.pricing}
-                      </p>
-                      <p>
-                        <span className="font-semibold text-ink">{ui.schedule}:</span> {course.schedule}
                       </p>
                     </div>
-                    <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    <p className="mt-4 leading-relaxed text-ink-muted">{course.description}</p>
+                    <div className="mt-6 grid gap-6 sm:grid-cols-2">
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-sea">{ui.topics}</p>
-                        <ul className="mt-2 space-y-1">
-                          {course.topics.map((t) => (
-                            <li key={t} className="text-sm text-ink-muted">
-                              · {t}
-                            </li>
+                        <h3 className="text-sm font-semibold text-ink">{ui.topics}</h3>
+                        <ul className="mt-2 space-y-1 text-sm text-ink-muted">
+                          {course.topics.map((topic) => (
+                            <li key={topic}>· {topic}</li>
                           ))}
                         </ul>
                       </div>
                       <div>
-                        <p className="text-xs font-semibold uppercase tracking-wider text-sea">{ui.audience}</p>
+                        <h3 className="text-sm font-semibold text-ink">{ui.audience}</h3>
                         <p className="mt-2 text-sm text-ink-muted">{course.audience}</p>
-                      </div>
-                      <div className="sm:col-span-2 lg:col-span-1">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-sea">{ui.groundedIn}</p>
+                        <h3 className="mt-4 text-sm font-semibold text-ink">{ui.groundedIn}</h3>
                         <p className="mt-2 text-sm text-ink-muted">{course.experience}</p>
                       </div>
                     </div>
+                    <dl className="mt-6 grid gap-3 border-t border-line pt-6 text-sm sm:grid-cols-2">
+                      <div>
+                        <dt className="font-semibold text-ink">{ui.pricing}</dt>
+                        <dd className="mt-1 text-ink-muted">{course.pricing}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-semibold text-ink">{ui.schedule}</dt>
+                        <dd className="mt-1 text-ink-muted">{course.schedule}</dd>
+                      </div>
+                    </dl>
                   </div>
                 </div>
               </article>
             ))}
           </div>
 
-          <div className="mt-12 border border-line bg-paper p-8 text-center">
-            <p className="text-ink-muted">{ui.trainingCta}</p>
+          <div className="mt-12 border border-line bg-paper p-6 sm:p-8">
+            <p className="max-w-2xl text-ink-muted">{ui.trainingCta}</p>
             <ButtonArrow href={path("/contact")} className="mt-6">
               {ui.requestTraining}
             </ButtonArrow>

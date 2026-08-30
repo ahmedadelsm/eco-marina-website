@@ -1,6 +1,7 @@
 export const API = {
   contact: "/api/contact",
   content: "/api/content",
+  cms: "/api/cms",
   admin: {
     login: "/api/admin/login",
     stats: "/api/admin/stats",
@@ -8,6 +9,8 @@ export const API = {
     content: "/api/admin/content",
     maintenance: "/api/admin/maintenance",
     emailSettings: "/api/admin/email-settings",
+    cms: (collection: string) => `/api/admin/cms/${collection}`,
+    media: "/api/admin/media",
     admins: "/api/admin/admins",
     me: "/api/admin/me",
     logout: "/api/admin/logout",
