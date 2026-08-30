@@ -71,7 +71,7 @@ export default function HomePage() {
       </section>
 
       {/* Why Eco Marina */}
-      <section className="border-y border-line bg-paper py-16 sm:py-24">
+      <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading eyebrow="Why Eco Marina" title="Why work with us" />
           <div className="mt-12 grid gap-8 sm:grid-cols-2">

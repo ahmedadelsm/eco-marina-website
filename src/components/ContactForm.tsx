@@ -107,7 +107,7 @@ export function ContactForm() {
           <option value="">Select a service</option>
           <option value="impact-assessment">Environmental & Social Impact Assessment</option>
           <option value="monitoring">Environmental Monitoring Program</option>
-          <option value="training">Training & Certification</option>
+          <option value="training">Training & Workshops</option>
           <option value="other">Other / General Inquiry</option>
         </select>
       </div>

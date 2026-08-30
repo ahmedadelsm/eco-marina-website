@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { ButtonArrow } from "@/components/Button";
 import { PageHero } from "@/components/PageHero";
-import { coreServices, trainingCourses } from "@/content/site-content";
+import { coreServices, trainingCourses, trainingIntro } from "@/content/site-content";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "Training Courses",
-  description: "Environmental and sustainability training — EIA workshops, monitoring courses, compliance seminars, and community programs.",
+  title: "Training & Workshops",
+  description:
+    "Practical environmental training — EIA workshops, marine monitoring, port compliance, industrial pollution control, and community awareness sessions.",
   path: "/training",
 });
 
@@ -17,8 +18,8 @@ export default function TrainingPage() {
     <>
       <PageHero
         eyebrow="Training"
-        title={service.title}
-        description="Advice and training on environmental topics — for professionals, government, industry, and community groups."
+        title={trainingIntro.title}
+        description={trainingIntro.description}
         image={service.image}
         imageAlt="Environmental and sustainability training workshop"
       />
@@ -32,21 +33,29 @@ export default function TrainingPage() {
               <article key={course.id} className="border border-line bg-white p-6 sm:p-8">
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                   <h2 className="font-serif text-xl font-semibold text-ink">{course.title}</h2>
-                  <span className="text-sm text-ink-light">{course.duration} · {course.format}</span>
+                  <span className="text-sm text-ink-light">
+                    {course.duration} · {course.format}
+                  </span>
                 </div>
                 <p className="mt-3 text-ink-muted">{course.description}</p>
-                <div className="mt-6 grid gap-6 sm:grid-cols-2">
+                <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wider text-sea">Topics</p>
                     <ul className="mt-2 space-y-1">
                       {course.topics.map((t) => (
-                        <li key={t} className="text-sm text-ink-muted">· {t}</li>
+                        <li key={t} className="text-sm text-ink-muted">
+                          · {t}
+                        </li>
                       ))}
                     </ul>
                   </div>
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-wider text-sea">Audience</p>
                     <p className="mt-2 text-sm text-ink-muted">{course.audience}</p>
+                  </div>
+                  <div className="sm:col-span-2 lg:col-span-1">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-sea">Grounded in</p>
+                    <p className="mt-2 text-sm text-ink-muted">{course.experience}</p>
                   </div>
                 </div>
               </article>
@@ -55,7 +64,8 @@ export default function TrainingPage() {
 
           <div className="mt-12 border border-line bg-paper p-8 text-center">
             <p className="text-ink-muted">
-              Adel Regal also offers accessible environmental awareness programs for newcomers in the Netherlands — practical guidance on waste separation, pollution prevention, and local environmental practices.
+              Need a tailored in-house programme or a quote for your team? Tell us your sector, group size, and
+              location — we will suggest the right format.
             </p>
             <ButtonArrow href="/contact" className="mt-6">
               Request training information

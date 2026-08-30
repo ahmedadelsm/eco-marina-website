@@ -23,9 +23,9 @@ export const site = {
 
 export const hero = {
   eyebrow: "Environmental Consultancy · Utrecht, Netherlands",
-  headline: "Eco Marina Environmental Consultancy",
+  headline: "Environmental consultancy for coasts, industry, and communities",
   subheadline:
-    "Environmental and social impact assessment studies, environmental monitoring programs, and sustainability training — for governments, industry, and coastal development across Europe, Africa, and Asia.",
+    "Impact assessment, environmental monitoring, and professional training — based in Utrecht and working with clients across Europe, Africa, and Asia.",
   cta: "Book a Consultation",
   ctaSecondary: "View Case Studies",
   image: "/images/hero-coastal.jpg",
@@ -40,7 +40,7 @@ export const coreServices = [
     shortTitle: "Impact Assessment",
     tagline: "EIA and environmental studies for industrial, marine, tourism, and infrastructure projects",
     description:
-      "Apply environmental impact assessment studies and environmental services for all industrial, marine, touristic, and infrastructure activities — from scoping and baseline surveys through mitigation plans and regulatory submission.",
+      "We carry out environmental and social impact assessments from first screening through baseline surveys, impact prediction, mitigation planning, and regulatory submission — for factories, ports, coastal developments, and infrastructure.",
     href: "/services/impact-assessment",
     icon: "assessment" as const,
     image: "/images/services/consultancy.jpg",
@@ -59,7 +59,7 @@ export const coreServices = [
     shortTitle: "Monitoring",
     tagline: "Control, monitor, and adapt environmental activities across air, water, and ecosystems",
     description:
-      "Design and run environmental monitoring programs for industrial, coastal, and marine settings — studying and assessing qualitative and quantitative contamination with solid, gaseous, and liquid parameters.",
+      "We design and run monitoring programmes for industrial sites, coastlines, and marine settings — measuring contamination in water, air, soil, and effluents, and turning results into clear compliance reports.",
     href: "/services/monitoring",
     icon: "monitoring" as const,
     image: "/images/services/monitoring.jpg",
@@ -74,20 +74,20 @@ export const coreServices = [
   },
   {
     slug: "training",
-    title: "Environmental & Sustainability Training Courses",
+    title: "Environmental Training & Workshops",
     shortTitle: "Training",
-    tagline: "Professional workshops and community programs that turn knowledge into action",
+    tagline: "Workshops and courses grounded in real project experience",
     description:
-      "Expert-led training for professionals, government officers, entrepreneurs, and community leaders — covering EIA methodology, environmental monitoring, regulatory compliance, and practical sustainability practices.",
+      "Courses for professionals, government staff, industry teams, and community groups — covering EIA practice, marine and coastal monitoring, port and shipping compliance, industrial pollution control, and practical environmental awareness.",
     href: "/training",
     icon: "training" as const,
     image: "/images/services/training.jpg",
     deliverables: [
       "EIA and environmental assessment workshops",
-      "Environmental monitoring technician training",
-      "Regulatory compliance and permitting guidance",
-      "Community environmental awareness programs",
-      "Custom in-house courses for organisations",
+      "Marine and coastal monitoring training",
+      "Port, shipping, and industrial compliance seminars",
+      "Community environmental awareness sessions",
+      "Tailored in-house programmes",
     ],
     sectors: ["Government agencies", "Industry & developers", "NGOs", "Educators & newcomers", "Consultancies"],
   },
@@ -99,7 +99,7 @@ export const legacyServices = [
     slug: "consultancy-studies",
     title: "Consultancy Services & Studies",
     description:
-      "Apply environmental impact assessment studies and environmental services for all industrial, marine, touristic, and infrastructure activities.",
+      "Environmental impact assessment and studies for industrial, marine, tourism, and infrastructure projects.",
     image: "/images/services/consultancy.jpg",
     href: "/services/impact-assessment",
   },
@@ -107,7 +107,7 @@ export const legacyServices = [
     slug: "industry-services",
     title: "Industry Services",
     description:
-      "Control, monitor, and adapt environmental industrial activities. Study and assess qualitative and quantitative contaminations with solid, gaseous, and liquid parameters.",
+      "Monitoring and assessment of industrial emissions, effluents, and contamination — solid, liquid, and gaseous parameters.",
     image: "/images/services/industry.jpg",
     href: "/services/monitoring",
   },
@@ -115,7 +115,7 @@ export const legacyServices = [
     slug: "tourism-marine",
     title: "Tourism & Marine Services",
     description:
-      "Adapt monitoring, protection, and planning for coastal, fresh, and marine ecosystems.",
+      "Monitoring, protection, and planning for coastal, freshwater, and marine ecosystems.",
     image: "/images/services/tourism-marine.jpg",
     href: "/services/monitoring",
   },
@@ -123,7 +123,7 @@ export const legacyServices = [
     slug: "waste-management",
     title: "Waste Management Services",
     description:
-      "Propose and control low-cost and multi-tech waste management for solid, gaseous, and liquid wastes.",
+      "Practical waste management approaches for solid, liquid, and gaseous wastes at industrial and community scale.",
     image: "/images/services/waste-management.jpg",
     href: "/services",
   },
@@ -131,24 +131,24 @@ export const legacyServices = [
 
 export const whyUs = [
   {
-    title: "International Experience",
+    title: "International experience, local delivery",
     description:
-      "International academic and professional experience, working with different international environmental organizations and institutes. Strong links with multidisciplinary communities allow bringing the international context locally.",
+      "Three decades of work across Egypt, Japan, Malta, Sweden, and the Netherlands — combining academic research, government advisory, and hands-on project delivery. Global standards applied to your local regulatory context.",
   },
   {
-    title: "Work Capabilities",
+    title: "Clients across sectors",
     description:
-      "Experience with governments, local and regional authorities, international organizations, civil and non-governmental bodies, multinational corporations, and the business/private sector.",
+      "Governments, port authorities, industrial developers, shipping agencies, NGOs, and private operators. We understand both the environmental science and the operational realities on site.",
   },
   {
-    title: "Competitive Rates",
+    title: "Clear scope, fair pricing",
     description:
-      "Environmental-friendliness should be democratized and not be an unreachable organizational process. Time efficiency brings cost reductions — higher quality service at better rates.",
+      "Environmental work should be transparent, not over-engineered. We scope assignments tightly, explain requirements in plain language, and focus on deliverables you can use in practice.",
   },
   {
-    title: "Highly Qualified Experts",
+    title: "Specialists when needed",
     description:
-      "A network of highly qualified experts assigned to projects as needed, working together toward a better environment.",
+      "Larger or highly technical projects draw on a trusted network of marine scientists, engineers, and regulatory experts — brought in for the work, not to inflate the team.",
   },
 ] as const;
 
@@ -180,7 +180,7 @@ export const projects = [
   },
   {
     slug: "cement-factory-approval",
-    title: "Environmental approval of the construction of a Cement Factory",
+    title: "Environmental approval for a cement factory",
     category: "Industrial EIA",
     summary:
       "Full environmental assessment and approval support for major industrial construction — screening, baseline surveys, impact prediction, and mitigation planning for emissions and effluents.",
@@ -229,7 +229,7 @@ export const projects = [
   },
   {
     slug: "oil-berth-construction",
-    title: "Implementation of ecosystem-conscious Oil Berth construction plans",
+    title: "Oil berth construction in sensitive coastal waters",
     category: "Coastal Infrastructure",
     summary:
       "Ecosystem-conscious construction planning for oil berth infrastructure in sensitive coastal areas — balancing industrial needs with marine habitat protection.",
@@ -302,51 +302,108 @@ export const mission = {
   mission:
     "To make professional environmental assessment, monitoring, and training accessible to governments, industry, and communities — grounded in science and focused on practical results.",
   vision:
-    "A thriving ocean where biodiversity flourishes, coastal communities are resilient, and sustainable innovation leads global change.",
+    "Coastal and marine environments where development and industry operate responsibly, communities understand their impact, and ecosystems are protected for the long term.",
   approach:
-    "Eco Marina combines international environmental science with local implementation, delivering services from initial assessment through compliance and ongoing monitoring. Environmental-friendliness should be democratized — not an unreachable organizational process.",
+    "We work from initial assessment through compliance and ongoing monitoring — explaining what the science means, what regulators expect, and what your team needs to do next. No unnecessary complexity.",
 };
+
+export const trainingIntro = {
+  title: "Training & workshops",
+  description:
+    "Practical courses led by Adel Regal, built from decades of EIA delivery, marine monitoring, industrial compliance work, and community education in the Netherlands and internationally.",
+} as const;
 
 export const trainingCourses = [
   {
-    id: "eia-workshop",
-    title: "Environmental Impact Assessment (EIA) Workshop",
-    duration: "2–3 days",
-    format: "In-person or hybrid",
-    description:
-      "Core methodology for conducting environmental impact assessments — from screening and scoping through baseline studies, impact prediction, and report preparation.",
-    topics: ["Legal frameworks", "Scoping & baselines", "Impact assessment methods", "Mitigation planning", "Report writing"],
-    audience: "Environmental consultants, project managers, government officers",
-  },
-  {
-    id: "monitoring-course",
-    title: "Environmental Monitoring & Sampling",
-    duration: "3–5 days",
-    format: "In-person",
-    description:
-      "Practical training in designing monitoring programs, field sampling techniques, and quality assurance for water, air, and soil parameters.",
-    topics: ["Monitoring design", "Sampling protocols", "QA/QC procedures", "Data recording", "Compliance reporting"],
-    audience: "Field technicians, environmental officers, lab staff",
-  },
-  {
-    id: "compliance-seminar",
-    title: "Regulatory Compliance & Permitting",
-    duration: "1–2 days",
+    id: "eia-practitioners",
+    title: "Environmental Impact Assessment (EIA) for Practitioners",
+    duration: "2 days",
     format: "In-person or online",
     description:
-      "Navigating environmental permitting processes — understanding requirements, preparing applications, and managing compliance obligations.",
-    topics: ["Permit types", "Application preparation", "Stakeholder consultation", "Compliance monitoring", "Cross-border regulations"],
-    audience: "Developers, project managers, legal and compliance teams",
+      "A hands-on walkthrough of the EIA process — from deciding whether an assessment is needed through scoping, baseline studies, impact prediction, and mitigation. Suitable for people who need to commission, review, or deliver EIAs.",
+    topics: [
+      "When an EIA is required",
+      "Scoping and study boundaries",
+      "Baseline surveys (air, water, land, communities)",
+      "Impact prediction and significance",
+      "Mitigation and Environmental Management Plans",
+      "Preparing documentation for regulators",
+    ],
+    audience: "Environmental consultants, project managers, government reviewers, developers",
+    experience:
+      "Draws on EIA work for cement plants, oil berth infrastructure, coastal developments, and industrial facilities across Egypt and Europe.",
   },
   {
-    id: "community-program",
-    title: "Community Environmental Awareness",
-    duration: "Half-day to 1 day",
+    id: "marine-coastal-monitoring",
+    title: "Marine & Coastal Environmental Monitoring",
+    duration: "3 days",
+    format: "In-person (includes field demonstration)",
+    description:
+      "How to design and run monitoring programmes for harbours, marinas, industrial coastlines, and nearshore waters — from sampling design through quality assurance to compliance reporting.",
+    topics: [
+      "Designing site-specific monitoring plans",
+      "Water quality and sediment sampling",
+      "Effluent and discharge monitoring",
+      "Data quality assurance (QA/QC)",
+      "Interpreting results against limits and standards",
+      "Reporting for regulators and management",
+    ],
+    audience: "Environmental officers, port operators, marina managers, field technicians",
+    experience:
+      "Grounded in marine chemistry practice and long-term monitoring across Mediterranean and Red Sea coastal sites.",
+  },
+  {
+    id: "port-shipping-compliance",
+    title: "Marine Environmental Regulations for Ports & Shipping",
+    duration: "1 day",
+    format: "In-person or online",
+    description:
+      "A practical orientation to environmental requirements affecting shipping agencies, port operators, and vessel reception facilities — mapping regulations to daily operations.",
+    topics: [
+      "National and international marine environmental obligations",
+      "Waste reception, ballast, and emissions considerations",
+      "Integrating compliance into agency and port workflows",
+      "Documentation, inspections, and record-keeping",
+      "Working with authorities and flag-state requirements",
+    ],
+    audience: "Shipping agency staff, port operators, maritime logistics managers",
+    experience:
+      "Developed from implementing environmental regulations within a shipping agency operation in the Mediterranean.",
+  },
+  {
+    id: "industrial-pollution-control",
+    title: "Industrial Pollution Control & Wastewater Management",
+    duration: "2 days",
+    format: "In-person or hybrid",
+    description:
+      "Managing solid, liquid, and gaseous emissions at industrial sites — understanding contamination pathways, treatment options (including nature-based approaches), and ongoing compliance.",
+    topics: [
+      "Characterising industrial effluents and emissions",
+      "Conventional and nature-based treatment options",
+      "Monitoring contamination in soil, water, and air",
+      "Permit conditions and operational compliance",
+      "Practical reduction measures for expanding facilities",
+    ],
+    audience: "Plant managers, EHS leads, industrial developers, facility coordinators",
+    experience:
+      "Includes lessons from seaweed-based wastewater treatment pilots and large-scale factory environmental approvals.",
+  },
+  {
+    id: "netherlands-community-awareness",
+    title: "Environmental Awareness for Newcomers in the Netherlands",
+    duration: "Half day",
     format: "In-person",
     description:
-      "Accessible seminars for newcomers and community groups on practical environmental practices in the Netherlands — waste separation, pollution prevention, and local ecosystem care.",
-    topics: ["Local environmental rules", "Waste & recycling", "Water and energy saving", "Community action"],
-    audience: "Municipalities, NGOs, community leaders, educators",
+      "Plain-language sessions for residents and community groups — covering Dutch waste separation, water and energy use, pollution prevention, and local environmental contacts.",
+    topics: [
+      "Dutch household waste and recycling systems",
+      "Reducing water and energy use at home",
+      "Preventing pollution in neighbourhoods and waterways",
+      "Who to contact for local environmental concerns",
+    ],
+    audience: "Municipal programmes, NGOs, community centres, schools, newcomer organisations",
+    experience:
+      "Delivered as accessible outreach aligned with Eco Marina's community education work in Utrecht and the Netherlands.",
   },
 ] as const;
 
@@ -406,11 +463,15 @@ export const faq = [
     questions: [
       {
         q: "Who are your training courses for?",
-        a: "Government officers, environmental consultants, industry professionals, NGOs, educators, and community groups. We also offer accessible programs for newcomers on practical environmental practices.",
+        a: "Environmental consultants, government reviewers, port and shipping staff, industrial EHS teams, NGOs, and community groups. Courses range from technical EIA and monitoring workshops to plain-language awareness sessions for newcomers in the Netherlands.",
       },
       {
         q: "Can courses be tailored to our organisation?",
-        a: "Yes. We design custom workshops and in-house programs based on your sector, regulatory context, and team needs.",
+        a: "Yes. We regularly adapt content, duration, and examples to your sector — for example, a port authority team, an industrial plant, or a municipal newcomer programme. Contact us with your team size, location, and goals.",
+      },
+      {
+        q: "Are certificates issued?",
+        a: "Participants receive a course completion summary. These are professional development workshops, not accredited degree programmes — the focus is practical skills you can apply on the job.",
       },
     ],
   },
@@ -493,8 +554,8 @@ export const insights = [
         body: "Today's travellers and investors expect experiences that respect ecosystems. Privacy that preserves habitats, comfort designed with resource efficiency, and authenticity rooted in local ecology are becoming the benchmark for coastal development — not optional extras.",
       },
       {
-        heading: "Case insight: Red Sea region",
-        body: "In Egypt's Red Sea region, a resort reduced water usage by 28% without affecting guest satisfaction. The intervention included landscaping redesign, fixture upgrades, and operational changes — followed by green certification. Sustainable operations and guest experience are not mutually exclusive.",
+        heading: "Case insight: coastal hospitality",
+        body: "In the Red Sea region, resorts that invest early in water efficiency, landscaping suited to local conditions, and staff training often see smoother permit processes and lower operating costs. The point is not perfection on day one — it is building environmental performance into how the property runs, not bolting it on later.",
       },
       {
         heading: "Why it matters for developers",
@@ -518,8 +579,8 @@ export const insights = [
     image: "/images/insights/environmental-compliance.jpg",
     sections: [
       {
-        heading: "Democratising environmental compliance",
-        body: "Environmental-friendliness should not be an unreachable organisational process reserved for large corporations. Time-efficient, well-scoped consultancy delivers higher quality outcomes at proportionate cost — whether for a marina operator, an industrial facility, or a coastal developer.",
+        heading: "Keeping consultancy proportionate",
+        body: "Environmental work does not have to mean open-ended studies with unclear endpoints. A well-scoped assignment — what regulation requires, what the site conditions demand, what deliverables you actually need — keeps costs fair whether you run a marina, a factory, or a coastal development.",
       },
       {
         heading: "Transparent proposals",
@@ -545,11 +606,11 @@ export const resources = [
     items: [
       {
         title: "Sustainable Site Assessment Checklist",
-        description: "Identify sensitive zones, ecosystem overlaps, and regulatory flags before breaking ground.",
+        description: "Identify sensitive zones, ecosystem overlaps, and regulatory flags before breaking ground. Available on request.",
       },
       {
         title: "Coastal Risk Evaluation Template",
-        description: "Quick-fill worksheet for infrastructure and waterfront planning in sensitive areas.",
+        description: "Worksheet for infrastructure and waterfront planning in sensitive areas. Available on request.",
       },
     ],
   },
@@ -558,11 +619,11 @@ export const resources = [
     items: [
       {
         title: "Green Operations Guide for Hotels & Resorts",
-        description: "Water-saving, energy reduction, and biodiversity-respect practices for coastal hospitality.",
+        description: "Water-saving, energy reduction, and biodiversity-respect practices for coastal hospitality. Available on request.",
       },
       {
         title: "Eco-Awareness Training Module (Staff Edition)",
-        description: "Slide-ready content for internal sustainability workshops and staff onboarding.",
+        description: "Slide-ready content for internal sustainability workshops and staff onboarding. Available on request.",
       },
     ],
   },
@@ -571,15 +632,15 @@ export const resources = [
     items: [
       {
         title: "Marine Protection Primer",
-        description: "Accessible overview of marine ecosystems, threats, and protective actions for educators and community groups.",
+        description: "Accessible overview of marine ecosystems, threats, and protective actions for educators and community groups. Available on request.",
       },
       {
         title: "Environmental Law Explained",
-        description: "Plain-language guide to permitting processes and how business decisions affect ecosystems.",
+        description: "Plain-language guide to permitting processes and how business decisions affect ecosystems. Available on request.",
       },
       {
         title: "Coastal Living & Eco-Awareness Toolkit",
-        description: "Practical guidance on waste, water, and biodiversity for households and tourism operators.",
+        description: "Practical guidance on waste, water, and biodiversity for households and tourism operators. Available on request.",
       },
     ],
   },
@@ -588,11 +649,11 @@ export const resources = [
     items: [
       {
         title: "Environmental Permit Roadmap",
-        description: "Step-by-step overview for navigating approval processes across project types.",
+        description: "Step-by-step overview for navigating approval processes across project types. Available on request.",
       },
       {
         title: "EU Ecolabel Prep Checklist",
-        description: "Criteria breakdown and project readiness tasks for tourism and coastal operators.",
+        description: "Criteria breakdown and readiness tasks for tourism and coastal operators. Available on request.",
       },
     ],
   },

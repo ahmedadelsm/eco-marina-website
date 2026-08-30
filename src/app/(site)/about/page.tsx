@@ -56,30 +56,31 @@ export default function AboutPage() {
 
       <section className="border-y border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Credentials</h2>
-          <ul className="mt-6 grid gap-3 sm:grid-cols-2">
-            {adelRegal.credentials.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-ink-muted">
-                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sea" />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="border-y border-line bg-paper py-16 sm:py-24">
-        <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Career timeline</h2>
-          <ol className="relative mt-10 border-l border-line pl-8">
-            {adelRegal.timeline.map((item) => (
-              <li key={item.label} className="relative pb-8 last:pb-0">
-                <span className="absolute -left-[2.35rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-sea" />
-                <span className="text-sm font-semibold text-sea">{item.period}</span>
-                <p className="mt-1 text-ink-muted">{item.label}</p>
-              </li>
-            ))}
-          </ol>
+          <div className="grid gap-12 lg:grid-cols-2">
+            <div>
+              <h2 className="font-serif text-2xl font-semibold text-ink">Credentials</h2>
+              <ul className="mt-6 grid gap-3">
+                {adelRegal.credentials.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-ink-muted">
+                    <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-sea" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="font-serif text-2xl font-semibold text-ink">Career timeline</h2>
+              <ol className="relative mt-10 border-l border-line pl-8">
+                {adelRegal.timeline.map((item) => (
+                  <li key={item.label} className="relative pb-8 last:pb-0">
+                    <span className="absolute -left-[2.35rem] top-1.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-sea" />
+                    <span className="text-sm font-semibold text-sea">{item.period}</span>
+                    <p className="mt-1 text-ink-muted">{item.label}</p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       </section>
 
