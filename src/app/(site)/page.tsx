@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/Button";
-import { CoreServiceCard, ProjectCard } from "@/components/CoreServiceCard";
+import { CoreServiceCard, InsightCard, ProjectCard } from "@/components/CoreServiceCard";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { buildPageMetadata } from "@/lib/seo";
@@ -164,15 +164,9 @@ export default function HomePage() {
               All insights →
             </Link>
           </div>
-          <div className="mt-10 grid gap-6 md:grid-cols-2">
+          <div className="mt-10 grid gap-8 md:grid-cols-2">
             {insights.map((article) => (
-              <Link key={article.slug} href={`/insights/${article.slug}`} className="group border border-line bg-white p-6">
-                <p className="text-xs font-semibold uppercase tracking-wider text-sea">
-                  {article.category} · {article.readTime}
-                </p>
-                <h3 className="mt-2 font-serif text-lg font-semibold text-ink group-hover:text-sea">{article.title}</h3>
-                <p className="mt-2 text-sm text-ink-muted line-clamp-2">{article.excerpt}</p>
-              </Link>
+              <InsightCard key={article.slug} article={article} />
             ))}
           </div>
         </div>

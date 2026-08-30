@@ -12,16 +12,23 @@ import { API, apiGet, apiPut } from "@/lib/api";
 export function AdminPartnerToggles() {
   const router = useRouter();
   const [enabledIds, setEnabledIds] = useState<string[]>(getDefaultEnabledPartnerIds());
+  const [savedIds, setSavedIds] = useState<string[]>(getDefaultEnabledPartnerIds());
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+
+  const dirty =
+    enabledIds.length !== savedIds.length ||
+    enabledIds.some((id) => !savedIds.includes(id));
 
   useEffect(() => {
     apiGet<{ content: Record<string, unknown> }>(API.content)
       .then((data) => {
         const override = data.content[PARTNERS_CONTENT_KEY];
         if (Array.isArray(override)) {
-          setEnabledIds(override.filter((id): id is string => typeof id === "string"));
+          const ids = override.filter((id): id is string => typeof id === "string");
+          setEnabledIds(ids);
+          setSavedIds(ids);
         }
       })
       .catch(() => router.replace("/admin/login"))
@@ -39,6 +46,7 @@ export function AdminPartnerToggles() {
     setSaving(true);
     try {
       await apiPut(API.admin.content, { key: PARTNERS_CONTENT_KEY, value: enabledIds });
+      setSavedIds(enabledIds);
       setSaved(true);
       setTimeout(() => setSaved(false), 2000);
     } finally {
@@ -52,8 +60,14 @@ export function AdminPartnerToggles() {
     <div className="mt-8 max-w-xl border border-line bg-white p-6">
       <h2 className="font-serif text-xl font-semibold text-ink">Partners</h2>
       <p className="mt-2 text-sm text-ink-muted">
-        Choose which partners appear on the About page. Disabled partners are hidden from the public site immediately.
+        Choose which partners appear on the About page. Changes are hidden from the public site until you save.
       </p>
+
+      {dirty && (
+        <p className="mt-4 border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+          You have unsaved partner changes.
+        </p>
+      )}
 
       <ul className="mt-6 space-y-4">
         {partners.map((partner) => {

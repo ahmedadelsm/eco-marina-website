@@ -263,7 +263,7 @@ export const adelRegal = {
   name: "Adel Regal",
   title: "Marine Chemist & Environmental Consultant",
   tagline: "Bridging academic research and practical environmental implementation",
-  image: "/images/team/adel-regal.png",
+  image: "/images/team/adel-regal.jpg",
   imageAlt: "Adel Regal — founder of Eco Marina Environmental Consultancy",
   bioShort:
     "Marine chemist and environmental consultant with three decades of experience across the Red Sea, Mediterranean, and Gulf of Suez, delivering impact assessments, monitoring programmes, and regulatory advisory for industry and coastal development.",
@@ -297,8 +297,6 @@ export const adelRegal = {
   quote: "Science must serve the sea — not just study it.",
   quoteSource: "Adel Regal",
 };
-
-export const founder = adelRegal;
 
 export const mission = {
   mission:
@@ -488,7 +486,7 @@ export const insights = [
     readTime: "4 min read",
     date: "July 2025",
     datePublished: "2025-07-01",
-    image: "/images/services/tourism-marine.jpg",
+    image: "/images/insights/sustainable-tourism.jpg",
     sections: [
       {
         heading: "From opulence to responsibility",
@@ -517,7 +515,7 @@ export const insights = [
     readTime: "3 min read",
     date: "July 2025",
     datePublished: "2025-07-15",
-    image: "/images/services/consultancy.jpg",
+    image: "/images/insights/environmental-compliance.jpg",
     sections: [
       {
         heading: "Democratising environmental compliance",
@@ -650,13 +648,15 @@ export const nav = [
     children: [
       { label: "Impact Assessment", href: "/services/impact-assessment" },
       { label: "Monitoring Programs", href: "/services/monitoring" },
+      { label: "Training", href: "/training" },
       { label: "All Services", href: "/services" },
     ],
   },
   { label: "Cases", href: "/projects" },
   { label: "Insights", href: "/insights" },
-  { label: "Training", href: "/training" },
+  { label: "Resources", href: "/resources" },
   { label: "About Adel", href: "/about" },
+  { label: "FAQ", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -672,22 +672,9 @@ export const footerNav = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-// Legacy exports for pages still referencing these
-export const pillars = whyUs.map((w, i) => ({
-  title: w.title,
-  description: w.description,
-  icon: (["science", "globe", "chart", "regulation"] as const)[i],
-}));
-export const testimonials: readonly { quote: string; author: string; location: string; service: string }[] = [];
-export const impact = { highlights: [] as { metric: string; label: string; detail: string }[], recognition: [] as string[] };
 export const processSteps = [
   { step: "01", title: "Initial consultation", description: "Understand your project, location, and regulatory requirements." },
   { step: "02", title: "Assessment & planning", description: "Field work, baseline data, or program design tailored to your site." },
   { step: "03", title: "Delivery", description: "Reports, monitoring systems, or training with full documentation." },
   { step: "04", title: "Follow-up", description: "Permit support, compliance reporting, and ongoing advisory." },
 ] as const;
-export const supportingServices = legacyServices.map((s) => ({
-  slug: s.slug,
-  title: s.title,
-  description: s.description,
-}));
