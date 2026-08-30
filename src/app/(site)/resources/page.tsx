@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildListPageMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { ResourcesPageView } from "@/views/ResourcesPageView";
 
-const { pages } = getContent("en");
+const meta = getBuildListPageMeta("resources", "en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: pages.resources.title,
-  description: pages.resources.description,
+  title: meta?.title,
+  description: meta?.description,
   path: "/resources",
 });
 

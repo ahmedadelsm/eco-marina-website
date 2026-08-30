@@ -2,18 +2,12 @@
 
 import Image from "next/image";
 import { Button, ButtonArrow } from "@/components/Button";
-import { useContentOverride } from "@/components/ContentOverridesProvider";
 import { useCms } from "@/components/cms/CmsProvider";
-import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
-import { CMS_KEYS } from "@/lib/content-keys";
+import { useLocale } from "@/components/locale/LocaleProvider";
 
 export function HomeHero() {
-  const { path, locale } = useLocale();
+  const { path } = useLocale();
   const { company, hero, ui } = useCms();
-  const headlineKey = locale === "nl" ? CMS_KEYS.heroHeadlineNl : CMS_KEYS.heroHeadline;
-  const subheadlineKey = locale === "nl" ? CMS_KEYS.heroSubheadlineNl : CMS_KEYS.heroSubheadline;
-  const headline = useContentOverride(headlineKey, hero.headline);
-  const subheadline = useContentOverride(subheadlineKey, hero.subheadline);
 
   return (
     <section className="relative min-h-[min(100svh,880px)] overflow-hidden bg-ink text-white">
@@ -35,10 +29,10 @@ export function HomeHero() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-brand-green">{hero.eyebrow}</p>
           <p className="mt-3 max-w-xl text-sm font-medium tracking-wide text-white/85">{company.motto}</p>
           <h1 className="hero-title mt-5 font-serif text-[1.75rem] font-semibold leading-[1.15] sm:text-4xl lg:text-5xl">
-            {headline}
+            {hero.headline}
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/90 sm:mt-6 sm:text-lg">
-            {subheadline}
+            {hero.subheadline}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ButtonArrow href={path("/contact")} size="lg" className="w-full sm:w-auto">
@@ -71,11 +65,8 @@ export function HomeHero() {
 
 export function HomeCta() {
   const { path } = useLocale();
-  const { site } = useSiteContent();
-  const { homepage } = useCms();
-  const email = useContentOverride(CMS_KEYS.siteEmail, site.email);
-  const phone = useContentOverride(CMS_KEYS.sitePhone, site.phone);
-  const office = useContentOverride(CMS_KEYS.siteOffice, site.office);
+  const { company, homepage } = useCms();
+  const { email, phone, office } = company;
 
   return (
     <section className="border-t border-line py-16 sm:py-20">

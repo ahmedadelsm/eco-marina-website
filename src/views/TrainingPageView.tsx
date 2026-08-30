@@ -14,7 +14,7 @@ export function TrainingPageView({ locale }: { locale: Locale }) {
   return (
     <>
       <PageHero
-        eyebrow={locale === "nl" ? "Training" : "Training"}
+        eyebrow={trainingPage.eyebrow}
         title={trainingPage.title}
         description={trainingPage.description}
         image={service.image}

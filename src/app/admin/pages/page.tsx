@@ -52,6 +52,14 @@ export default function AdminPagesPage() {
             <LocalizedTextarea label="Intro" value={data.projects.intro} onChange={(intro) => setData({ ...data, projects: { ...data.projects, intro } })} />
             <LocalizedInput label="CTA" value={data.projects.cta!} onChange={(cta) => setData({ ...data, projects: { ...data.projects, cta } })} />
             <LocalizedInput label="Image alt" value={data.projects.imageAlt!} onChange={(imageAlt) => setData({ ...data, projects: { ...data.projects, imageAlt } })} />
+            <div>
+              <label className="text-sm font-medium text-ink">Hero image URL</label>
+              <input
+                value={data.projects.image ?? ""}
+                onChange={(e) => setData({ ...data, projects: { ...data.projects, image: e.target.value } })}
+                className="mt-1 w-full border border-line px-3 py-2 text-sm"
+              />
+            </div>
           </PageBlock>
         )}
 

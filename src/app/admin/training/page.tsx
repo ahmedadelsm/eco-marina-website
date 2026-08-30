@@ -52,6 +52,7 @@ export default function AdminTrainingPage() {
 
       <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
         <h2 className="font-serif text-lg font-semibold text-ink">Page hero</h2>
+        <LocalizedInput label="Eyebrow" value={page.data.eyebrow} onChange={(eyebrow) => page.setData({ ...page.data, eyebrow })} />
         <LocalizedInput label="Title" value={page.data.title} onChange={(title) => page.setData({ ...page.data, title })} />
         <LocalizedTextarea label="Description" value={page.data.description} onChange={(description) => page.setData({ ...page.data, description })} />
         <AdminSaveBar saving={page.saving} message={page.message} error={page.error} onSave={page.save} onRevert={page.revert} />

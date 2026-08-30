@@ -21,6 +21,8 @@ export default function AdminResourcesPage() {
       <h1 className="font-serif text-3xl font-semibold text-ink">Resources</h1>
       <p className="mt-2 text-ink-muted">Resources page copy and downloadable item listings.</p>
       <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
+        <LocalizedInput label="Eyebrow" value={data.eyebrow} onChange={(eyebrow) => setData({ ...data, eyebrow })} />
+        <LocalizedInput label="Heading" value={data.heading} onChange={(heading) => setData({ ...data, heading })} />
         <LocalizedTextarea label="Page intro" value={data.intro} onChange={(intro) => setData({ ...data, intro })} />
         <LocalizedInput label="Request section title" value={data.requestTitle} onChange={(requestTitle) => setData({ ...data, requestTitle })} />
         <LocalizedTextarea label="Request section intro" value={data.requestIntro} onChange={(requestIntro) => setData({ ...data, requestIntro })} />

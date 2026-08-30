@@ -104,6 +104,10 @@ export function toFaqView(sections: CmsFaqSection[], locale: Locale): FaqSection
 export function mergeCompany(defaults: CmsCompany, override: CmsCompany | null): CmsCompany {
   if (!override) return defaults;
   return {
+    name: {
+      en: override.name?.en?.trim() || defaults.name.en,
+      nl: override.name?.nl?.trim() || defaults.name.nl,
+    },
     tagline: {
       en: override.tagline?.en?.trim() || defaults.tagline.en,
       nl: override.tagline?.nl?.trim() || defaults.tagline.nl,
@@ -112,10 +116,21 @@ export function mergeCompany(defaults: CmsCompany, override: CmsCompany | null):
       en: override.motto?.en?.trim() || defaults.motto.en,
       nl: override.motto?.nl?.trim() || defaults.motto.nl,
     },
+    email: override.email?.trim() || defaults.email,
+    phone: override.phone?.trim() || defaults.phone,
+    office: {
+      en: override.office?.en?.trim() || defaults.office.en,
+      nl: override.office?.nl?.trim() || defaults.office.nl,
+    },
+    domain: override.domain?.trim() || defaults.domain,
     linkedIn: override.linkedIn?.trim() || defaults.linkedIn,
     since: override.since ?? defaults.since,
     statsProjects: override.statsProjects ?? defaults.statsProjects,
     statsCountries: override.statsCountries ?? defaults.statsCountries,
+    operatingRegions: {
+      en: override.operatingRegions?.en?.length ? override.operatingRegions.en : defaults.operatingRegions.en,
+      nl: override.operatingRegions?.nl?.length ? override.operatingRegions.nl : defaults.operatingRegions.nl,
+    },
   };
 }
 
@@ -234,12 +249,13 @@ export function toHeroView(hero: CmsHero, locale: Locale): HeroView {
   };
 }
 
-export function toPageHeroView(block: { eyebrow: LocalizedText; heading: LocalizedText; intro: LocalizedText; cta?: LocalizedText; imageAlt?: LocalizedText }, locale: Locale): PageHeroView {
+export function toPageHeroView(block: { eyebrow: LocalizedText; heading: LocalizedText; intro: LocalizedText; cta?: LocalizedText; image?: string; imageAlt?: LocalizedText }, locale: Locale): PageHeroView {
   return {
     eyebrow: pickText(block.eyebrow, locale),
     heading: pickText(block.heading, locale),
     intro: pickText(block.intro, locale),
     cta: block.cta ? pickText(block.cta, locale) : undefined,
+    image: block.image,
     imageAlt: block.imageAlt ? pickText(block.imageAlt, locale) : undefined,
   };
 }

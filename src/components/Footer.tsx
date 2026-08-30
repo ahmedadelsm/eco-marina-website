@@ -4,13 +4,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useCms } from "@/components/cms/CmsProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
-import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
+import { useLocale } from "@/components/locale/LocaleProvider";
 import { Icons } from "./Icons";
 
 export function Footer() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
   const { path } = useLocale();
-  const { site } = useSiteContent();
   const { company, footerNav, ui } = useCms();
 
   return (
@@ -21,7 +20,7 @@ export function Footer() {
           <div className="md:col-span-5">
             <Image
               src="/images/logo.png"
-              alt={site.name}
+              alt={company.name}
               width={200}
               height={50}
               className="h-9 w-auto brightness-0 invert"
@@ -56,7 +55,7 @@ export function Footer() {
             <p className="text-xs font-semibold uppercase tracking-wider text-white/60">{ui.connect}</p>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
               {ui.footerSince} {company.since}. {company.tagline} — {ui.footerServices}{" "}
-              {site.operatingRegions.slice(0, 3).join(", ")}, {ui.footerRegions}
+              {company.operatingRegions.slice(0, 3).join(", ")}, {ui.footerRegions}
             </p>
             <a
               href={company.linkedIn}
@@ -69,7 +68,7 @@ export function Footer() {
           </div>
         </div>
         <p className="mt-10 border-t border-white/10 pt-6 text-xs text-white/40">
-          © {new Date().getFullYear()} {site.name}. {office}.
+          © {new Date().getFullYear()} {company.name}. {office}.
         </p>
       </div>
     </footer>

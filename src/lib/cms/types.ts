@@ -65,12 +65,18 @@ export interface CmsFaqSection {
 }
 
 export interface CmsCompany {
+  name: LocalizedText;
   tagline: LocalizedText;
   motto: LocalizedText;
+  email: string;
+  phone: string;
+  office: LocalizedText;
+  domain: string;
   linkedIn: string;
   since: number;
   statsProjects: number;
   statsCountries: number;
+  operatingRegions: LocalizedList;
 }
 
 export interface CmsInsightSection {
@@ -181,6 +187,7 @@ export interface CmsPageHero {
   heading: LocalizedText;
   intro: LocalizedText;
   cta?: LocalizedText;
+  image?: string;
   imageAlt?: LocalizedText;
 }
 
@@ -392,6 +399,8 @@ export interface CmsResourceGroup {
 }
 
 export interface CmsResources {
+  eyebrow: LocalizedText;
+  heading: LocalizedText;
   intro: LocalizedText;
   requestTitle: LocalizedText;
   requestIntro: LocalizedText;
@@ -399,6 +408,7 @@ export interface CmsResources {
 }
 
 export interface CmsTrainingPage {
+  eyebrow: LocalizedText;
   title: LocalizedText;
   description: LocalizedText;
 }
@@ -620,6 +630,7 @@ export interface PageHeroView {
   heading: string;
   intro: string;
   cta?: string;
+  image?: string;
   imageAlt?: string;
 }
 

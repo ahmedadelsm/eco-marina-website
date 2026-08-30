@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { ContactPageContent } from "@/components/ContactForm";
-import { getContent } from "@/content";
+import { getBuildSeo } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 
-const { pages, site } = getContent("en");
+const seo = getBuildSeo("/contact", "en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: pages.contact.title,
-  description: pages.contact.description.replace("Eco Marina", site.name),
+  title: seo?.title,
+  description: seo?.description,
   path: "/contact",
 });
 

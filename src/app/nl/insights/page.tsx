@@ -1,8 +1,16 @@
-import { getContent } from "@/content";
+import { getBuildListPageMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { InsightsPageView } from "@/views/InsightsPageView";
 
-const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.insights.title, description: pages.insights.description, path: "/nl/insights" });
+const meta = getBuildListPageMeta("insights", "nl");
 
-export default function Page() { return <InsightsPageView locale="nl" />; }
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/insights",
+});
+
+export default function Page() {
+  return <InsightsPageView locale="nl" />;
+}

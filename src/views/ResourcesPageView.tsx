@@ -5,19 +5,17 @@ import { PageHero } from "@/components/PageHero";
 import { ResourcesContactEmail } from "@/components/ResourcesContactEmail";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageSeo } from "@/components/cms/PageSeo";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ResourcesPageView({ locale }: { locale: Locale }) {
-  const { pages } = getContent(locale);
   const { resourceGroups, resourcesPage, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/resources" : "/resources";
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={pages.resources.title} fallbackDescription={pages.resources.description} />
-      <PageHero eyebrow={pages.resources.eyebrow} title={pages.resources.heading} description={resourcesPage.intro} />
+      <PageSeo path={seoPath} fallbackTitle={resourcesPage.heading} fallbackDescription={resourcesPage.intro} />
+      <PageHero eyebrow={resourcesPage.eyebrow} title={resourcesPage.heading} description={resourcesPage.intro} />
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-2">

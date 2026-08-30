@@ -213,6 +213,8 @@ export function defaultCmsContact(): CmsContact {
 
 export function defaultCmsResources(): CmsResources {
   return {
+    eyebrow: pairText(en.pages.resources.eyebrow, nl.pages.resources.eyebrow),
+    heading: pairText(en.pages.resources.heading, nl.pages.resources.heading),
     intro: pairText(en.pages.resources.intro, nl.pages.resources.intro),
     requestTitle: pairText(en.pages.resources.requestTitle, nl.pages.resources.requestTitle),
     requestIntro: pairText(en.pages.resources.requestIntro, nl.pages.resources.requestIntro),
@@ -230,6 +232,7 @@ export function defaultCmsResources(): CmsResources {
 
 export function defaultCmsTrainingPage(): CmsTrainingPage {
   return {
+    eyebrow: pairText("Training", "Training"),
     title: pairText(en.trainingIntro.title, nl.trainingIntro.title),
     description: pairText(en.trainingIntro.description, nl.trainingIntro.description),
   };
@@ -254,6 +257,7 @@ export function defaultCmsPages(): CmsPages {
       heading: pairText(en.pages.projects.heading, nl.pages.projects.heading),
       intro: pairText(en.pages.projects.intro, nl.pages.projects.intro),
       cta: pairText(en.pages.projects.cta, nl.pages.projects.cta),
+      image: "/images/projects/shipping-agency.jpg",
       imageAlt: pairText(en.pages.projects.imageAlt, nl.pages.projects.imageAlt),
     },
     insights: {

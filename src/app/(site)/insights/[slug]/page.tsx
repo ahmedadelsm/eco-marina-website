@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getContent } from "@/content";
+import { getBuildInsight, getBuildInsightSlugs } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { InsightDetailView } from "@/views/InsightDetailView";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getContent("en").insights.map((i) => ({ slug: i.slug }));
+  return getBuildInsightSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = getContent("en").getInsight(slug);
+  const article = getBuildInsight(slug, "en");
   if (!article) return { title: "Insight" };
   return buildPageMetadata({
     locale: "en",
@@ -26,6 +26,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function InsightDetailPage({ params }: Props) {
   const { slug } = await params;
-  if (!getContent("en").getInsight(slug)) notFound();
+  if (!getBuildInsight(slug, "en")) notFound();
   return <InsightDetailView locale="en" slug={slug} />;
 }

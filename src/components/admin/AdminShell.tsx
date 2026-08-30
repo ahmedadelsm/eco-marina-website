@@ -10,7 +10,6 @@ type AdminRole = "super_admin" | "editor";
 const nav = [
   { href: "/admin", label: "Dashboard", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/messages", label: "Messages", roles: ["super_admin", "editor"] as AdminRole[] },
-  { href: "/admin/content", label: "Content", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/company", label: "Company", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/projects", label: "Case studies", roles: ["super_admin", "editor"] as AdminRole[] },
   { href: "/admin/training", label: "Training", roles: ["super_admin", "editor"] as AdminRole[] },

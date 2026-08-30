@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildCompany } from "@/lib/build-cms";
 import { localePath, openGraphLocale, type Locale } from "@/lib/i18n";
 
 const DEFAULT_OG_IMAGE = "/images/hero-coastal.jpg";
@@ -14,9 +14,9 @@ export function buildPageMetadata(options: {
   type?: "website" | "article";
 }): Metadata {
   const locale = options.locale ?? "en";
-  const { site } = getContent(locale);
+  const company = getBuildCompany(locale);
   const pageTitle = options.title;
-  const socialTitle = pageTitle ? `${pageTitle} | ${site.name}` : `${site.name} | ${site.tagline}`;
+  const socialTitle = pageTitle ? `${pageTitle} | ${company.name}` : `${company.name} | ${company.tagline}`;
   const description =
     options.description ??
     (locale === "nl"
@@ -46,10 +46,10 @@ export function buildPageMetadata(options: {
       title: socialTitle,
       description,
       url,
-      siteName: site.name,
+      siteName: company.name,
       locale: openGraphLocale(locale),
       type: options.type ?? "website",
-      images: [{ url: imageUrl, alt: site.name }],
+      images: [{ url: imageUrl, alt: company.name }],
     },
     twitter: {
       card: "summary_large_image",

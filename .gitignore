@@ -40,9 +40,11 @@ seed.sql
 # database backups (local only)
 /backups/
 
+# generated at build time from live CMS (optional)
+/src/generated/
+
 # typescript
 *.tsbuildinfo
-next-env.d.ts
 
 # wrangler local state
 .wrangler/

@@ -6,11 +6,9 @@ import { PartnersSection } from "@/components/PartnersSection";
 import { PageHero } from "@/components/PageHero";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageSeo } from "@/components/cms/PageSeo";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function AboutPageView({ locale }: { locale: Locale }) {
-  const { site, pages } = getContent(locale);
   const { about, company, pageCopy, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/about" : "/about";
@@ -18,11 +16,11 @@ export function AboutPageView({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={pages.about.title} fallbackDescription={pages.about.description} />
+      <PageSeo path={seoPath} fallbackTitle={about.nameText} fallbackDescription={about.bioShortText} />
       <PageHero
         eyebrow={copy.eyebrow}
         title={about.nameText}
-        description={`${about.titleText} · ${copy.founderOf} ${site.name}`}
+        description={`${about.titleText} · ${copy.founderOf} ${company.name}`}
       />
 
       <section className="py-16 sm:py-24">
@@ -112,7 +110,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
 
       <section className="border-t border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">{site.name}</h2>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{company.name}</h2>
           <p className="mt-2 text-sm font-medium uppercase tracking-wider text-sea">{company.motto}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{about.missionText}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{about.approachText}</p>

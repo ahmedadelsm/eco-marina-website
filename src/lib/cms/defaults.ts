@@ -78,12 +78,18 @@ export function defaultCmsFaq(): CmsFaqSection[] {
 
 export function defaultCmsCompany(): CmsCompany {
   return {
+    name: pairText(enSite.name, nlSite.name),
     tagline: pairText(enSite.tagline, nlSite.tagline),
     motto: pairText(enSite.motto, nlSite.motto),
+    email: enSite.email,
+    phone: enSite.phone,
+    office: pairText(enSite.office, nlSite.office),
+    domain: enSite.domain,
     linkedIn: enSite.linkedIn,
     since: enSite.since,
     statsProjects: enSite.stats.projects,
     statsCountries: enSite.stats.countries,
+    operatingRegions: pairList([...enSite.operatingRegions], [...nlSite.operatingRegions]),
   };
 }
 

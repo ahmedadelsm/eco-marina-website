@@ -8,12 +8,10 @@ import { useCms } from "@/components/cms/CmsProvider";
 import { PageSeo } from "@/components/cms/PageSeo";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { site } = getContent(locale);
-  const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps } = useCms();
+  const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps, company } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl" : "/";
 
@@ -21,7 +19,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
     <>
       <PageSeo
         path={seoPath}
-        fallbackTitle={`${site.name} — ${site.tagline}`}
+        fallbackTitle={`${company.name} — ${company.tagline}`}
         fallbackDescription={homepage.servicesDescription}
       />
       <HomeHero />

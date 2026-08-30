@@ -6,16 +6,13 @@ import { ButtonArrow } from "@/components/Button";
 import { CheckIcon } from "@/components/Icon";
 import { useCms } from "@/components/cms/CmsProvider";
 import { DetailHero } from "@/components/DetailHero";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ProjectDetailView({ locale, slug }: { locale: Locale; slug: string }) {
-  const content = getContent(locale);
   const { getProject, projects, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
 
-  const staticProject = content.getProject(slug);
-  const project = getProject(slug) ?? staticProject;
+  const project = getProject(slug);
   if (!project) notFound();
 
   const others = projects.filter((p) => p.slug !== slug).slice(0, 2);

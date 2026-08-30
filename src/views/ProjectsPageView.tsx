@@ -5,23 +5,21 @@ import { ProjectCard } from "@/components/CoreServiceCard";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageHero } from "@/components/PageHero";
 import { PageSeo } from "@/components/cms/PageSeo";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ProjectsPageView({ locale }: { locale: Locale }) {
-  const { pages } = getContent(locale);
   const { projects, homepage, pageCopy } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/projects" : "/projects";
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={pages.projects.title} fallbackDescription={pages.projects.description} />
+      <PageSeo path={seoPath} fallbackTitle={pageCopy.projects.heading} fallbackDescription={pageCopy.projects.intro} />
       <PageHero
         eyebrow={pageCopy.projects.eyebrow}
         title={pageCopy.projects.heading}
         description={pageCopy.projects.intro}
-        image="/images/projects/shipping-agency.jpg"
+        image={pageCopy.projects.image}
         imageAlt={pageCopy.projects.imageAlt}
       />
 

@@ -25,8 +25,8 @@ Multiple admins are supported — each person can have their own email and passw
 
 - **Dashboard** — overview with CMS collection count
 - **Messages** — contact form submissions (export CSV)
-- **Content** — edit homepage hero and contact details
 - **Hero** — homepage hero image, eyebrow, CTAs, headline defaults
+- **Company** — site name, email, phone, office, tagline, stats, operating regions
 - **Page copy** — inner page heroes, about labels, service detail content
 - **Navigation** — header and footer menu labels
 - **UI strings** — header, footer, forms, case study and training labels
@@ -51,6 +51,17 @@ npx wrangler d1 execute eco-marina-admin --remote --file=schema-audit.sql
 ## Dynamic sitemap
 
 `/sitemap.xml` is generated at request time from CMS project and insight slugs. No static sitemap is written at build time.
+
+## Build-time CMS sync
+
+Production builds fetch live CMS data before `next build` so new case study and insight URLs are included in the static export.
+
+```bash
+# Optional: point at a preview/staging API
+CMS_API_URL=https://eco-marina.com/api/cms npm run build
+```
+
+If the API is unreachable, the build falls back to code defaults from `site-content.ts`.
 
 ## Messages export
 

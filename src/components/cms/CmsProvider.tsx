@@ -156,11 +156,14 @@ type CmsContextValue = {
     officeLabel: string;
   };
   resourcesPage: {
+    eyebrow: string;
+    heading: string;
     intro: string;
     requestTitle: string;
     requestIntro: string;
   };
   trainingPage: {
+    eyebrow: string;
     title: string;
     description: string;
   };
@@ -181,12 +184,18 @@ type CmsContextValue = {
     timelineView: { period: string; label: string }[];
   };
   company: {
+    name: string;
     tagline: string;
     motto: string;
+    email: string;
+    phone: string;
+    office: string;
+    domain: string;
     linkedIn: string;
     since: number;
     statsProjects: number;
     statsCountries: number;
+    operatingRegions: string[];
   };
   getProject: (slug: string) => ProjectView | undefined;
   getInsight: (slug: string) => InsightView | undefined;
@@ -401,11 +410,14 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         officeLabel: pickText(contact.officeLabel, locale),
       },
       resourcesPage: {
+        eyebrow: pickText(resources.eyebrow, locale),
+        heading: pickText(resources.heading, locale),
         intro: pickText(resources.intro, locale),
         requestTitle: pickText(resources.requestTitle, locale),
         requestIntro: pickText(resources.requestIntro, locale),
       },
       trainingPage: {
+        eyebrow: pickText(trainingPage.eyebrow, locale),
         title: pickText(trainingPage.title, locale),
         description: pickText(trainingPage.description, locale),
       },
@@ -413,12 +425,18 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       company: (() => {
         const merged = mergeCompany(defaultCmsCompany(), payload.company);
         return {
+          name: pickText(merged.name, locale),
           tagline: pickText(merged.tagline, locale),
           motto: pickText(merged.motto, locale),
+          email: merged.email,
+          phone: merged.phone,
+          office: pickText(merged.office, locale),
+          domain: merged.domain,
           linkedIn: merged.linkedIn,
           since: merged.since,
           statsProjects: merged.statsProjects,
           statsCountries: merged.statsCountries,
+          operatingRegions: pickList(merged.operatingRegions, locale),
         };
       })(),
       getProject: (slug: string) => {

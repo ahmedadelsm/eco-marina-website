@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { LanguageSwitcher } from "@/components/locale/LanguageSwitcher";
 import { useCms } from "@/components/cms/CmsProvider";
-import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
+import { useLocale } from "@/components/locale/LocaleProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
 
 export function Header() {
@@ -14,8 +14,7 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const { phone, phoneHref } = useSiteContact();
   const { path } = useLocale();
-  const { site } = useSiteContent();
-  const { headerNav, ui } = useCms();
+  const { company, headerNav, ui } = useCms();
 
   useEffect(() => {
     if (!open) return;
@@ -33,7 +32,7 @@ export function Header() {
         <Link href={path("/")} className="shrink-0" onClick={() => setOpen(false)}>
           <Image
             src="/images/logo.png"
-            alt={site.name}
+            alt={company.name}
             width={220}
             height={56}
             className="h-9 w-auto sm:h-10"

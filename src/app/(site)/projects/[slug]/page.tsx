@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getContent } from "@/content";
+import { getBuildProject, getBuildProjectSlugs } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { ProjectDetailView } from "@/views/ProjectDetailView";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getContent("en").projects.map((p) => ({ slug: p.slug }));
+  return getBuildProjectSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getContent("en").getProject(slug);
+  const project = getBuildProject(slug, "en");
   if (!project) return { title: "Case Study" };
   return buildPageMetadata({
     locale: "en",
@@ -25,6 +25,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
-  if (!getContent("en").getProject(slug)) notFound();
+  if (!getBuildProject(slug, "en")) notFound();
   return <ProjectDetailView locale="en" slug={slug} />;
 }

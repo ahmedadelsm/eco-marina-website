@@ -7,7 +7,6 @@ import { ButtonArrow } from "@/components/Button";
 import { DetailHero } from "@/components/DetailHero";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageSeo } from "@/components/cms/PageSeo";
-import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 import { articleJsonLd } from "@/lib/structured-data";
 
@@ -16,8 +15,7 @@ export function InsightDetailView({ locale, slug }: { locale: Locale; slug: stri
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? `/nl/insights/${slug}` : `/insights/${slug}`;
 
-  const staticArticle = getContent(locale).getInsight(slug);
-  const article = getInsight(slug) ?? staticArticle;
+  const article = getInsight(slug);
 
   if (ready && !article) notFound();
   if (!article) return null;
