@@ -6,14 +6,12 @@ import { JsonLd } from "@/components/JsonLd";
 import { ButtonArrow } from "@/components/Button";
 import { DetailHero } from "@/components/DetailHero";
 import { useCms } from "@/components/cms/CmsProvider";
-import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 import { articleJsonLd } from "@/lib/structured-data";
 
 export function InsightDetailView({ locale, slug }: { locale: Locale; slug: string }) {
   const { getInsight, ready, pageCopy, company } = useCms();
   const path = (href: string) => localePath(locale, href);
-  const seoPath = locale === "nl" ? `/nl/insights/${slug}` : `/insights/${slug}`;
 
   const article = getInsight(slug);
 
@@ -22,7 +20,6 @@ export function InsightDetailView({ locale, slug }: { locale: Locale; slug: stri
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={article.title} fallbackDescription={article.excerpt} />
       <JsonLd data={articleJsonLd(article, company, path(`/insights/${slug}`))} />
       <DetailHero
         image={article.image}

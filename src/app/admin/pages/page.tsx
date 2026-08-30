@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AdminSaveBar, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
 import type { CmsPages } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -52,14 +52,11 @@ export default function AdminPagesPage() {
             <LocalizedTextarea label="Intro" value={data.projects.intro} onChange={(intro) => setData({ ...data, projects: { ...data.projects, intro } })} />
             <LocalizedInput label="CTA" value={data.projects.cta!} onChange={(cta) => setData({ ...data, projects: { ...data.projects, cta } })} />
             <LocalizedInput label="Image alt" value={data.projects.imageAlt!} onChange={(imageAlt) => setData({ ...data, projects: { ...data.projects, imageAlt } })} />
-            <div>
-              <label className="text-sm font-medium text-ink">Hero image URL</label>
-              <input
-                value={data.projects.image ?? ""}
-                onChange={(e) => setData({ ...data, projects: { ...data.projects, image: e.target.value } })}
-                className="mt-1 w-full border border-line px-3 py-2 text-sm"
-              />
-            </div>
+            <ImageUrlField
+              label="Hero image URL"
+              value={data.projects.image ?? ""}
+              onChange={(image) => setData({ ...data, projects: { ...data.projects, image } })}
+            />
           </PageBlock>
         )}
 

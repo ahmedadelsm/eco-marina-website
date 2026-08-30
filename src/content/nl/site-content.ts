@@ -213,7 +213,7 @@ export const coreServices = [
       "Cursussen voor professionals, overheidsmedewerkers, industrieteams en gemeenschapsorganisaties — over EIA-praktijk, mariene en kustmonitoring, haven- en scheepvaartcompliance, industriële verontreinigingsbeheersing en praktisch milieubewustzijn.",
     href: "/training",
     icon: "training" as const,
-    image: "/images/training/eia-workshop.jpg",
+    image: "/images/services/training.jpg",
     deliverables: [
       "EIA- en milieubeoordelingsworkshops",
       "Training mariene en kustmonitoring",

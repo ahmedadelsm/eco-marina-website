@@ -10,7 +10,7 @@ export const metadata: Metadata = buildPageMetadata({
   title: meta?.title,
   description: meta?.description,
   path: "/projects",
-  image: "/images/projects/shipping-agency.jpg",
+  image: meta?.image ?? "/images/projects/shipping-agency.jpg",
 });
 
 export default function ProjectsPage() {

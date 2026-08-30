@@ -56,6 +56,8 @@ npx wrangler d1 execute eco-marina-admin --remote --file=schema-audit.sql
 
 All public content is managed through 17 CMS collections (`cms.*` keys in D1). Legacy KV content override APIs (`/api/content`) have been removed. Code defaults in `src/content/en/` and `src/content/nl/` are used only when the CMS API is unavailable at build time.
 
+SEO titles and descriptions are applied at **build time** via `buildPageMetadata` — redeploy after editing **Admin → SEO**.
+
 Legacy `/impact` URLs redirect to `/projects` via `public/_redirects`.
 
 ## Build-time CMS sync

@@ -9,6 +9,7 @@ export const metadata: Metadata = buildPageMetadata({
   locale: "en",
   title: seo?.title,
   description: seo?.description,
+  image: seo?.image,
   path: "/contact",
 });
 

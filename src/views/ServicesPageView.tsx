@@ -6,17 +6,14 @@ import { ButtonArrow } from "@/components/Button";
 import { CoreServiceCard } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
 import { useCms } from "@/components/cms/CmsProvider";
-import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ServicesPageView({ locale }: { locale: Locale }) {
   const { coreServices, servicesPage, specialistCategories, legacyServices, pageCopy } = useCms();
   const path = (href: string) => localePath(locale, href);
-  const seoPath = locale === "nl" ? "/nl/services" : "/services";
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={pageCopy.services.heading} fallbackDescription={servicesPage.intro} />
       <PageHero eyebrow={pageCopy.services.eyebrow} title={pageCopy.services.heading} description={servicesPage.intro} />
 
       <section className="py-16 sm:py-24">

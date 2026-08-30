@@ -1,4 +1,5 @@
 import type { LocalizedList, LocalizedText } from "@/lib/cms/types";
+import Link from "next/link";
 
 const inputClass =
   "mt-1 w-full border border-line px-3 py-2 text-sm focus:border-sea focus:outline-none focus:ring-2 focus:ring-sea/20";
@@ -106,6 +107,42 @@ export function LocalizedListField({
           className={inputClass}
         />
       </div>
+    </div>
+  );
+}
+
+export function ImageUrlField({
+  label,
+  value,
+  onChange,
+  hint,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  hint?: string;
+}) {
+  return (
+    <div>
+      <div className="flex items-center justify-between gap-2">
+        <label className="text-sm font-medium text-ink">{label}</label>
+        <Link href="/admin/media" className="text-xs font-medium text-sea hover:text-sea-dark">
+          Media library →
+        </Link>
+      </div>
+      <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className={inputClass}
+        placeholder="/images/... or https://..."
+      />
+      {hint && <p className="mt-1 text-xs text-ink-muted">{hint}</p>}
+      {value && (
+        <div className="relative mt-3 aspect-[16/9] max-w-xs overflow-hidden border border-line bg-paper">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={value} alt="" className="h-full w-full object-cover" />
+        </div>
+      )}
     </div>
   );
 }

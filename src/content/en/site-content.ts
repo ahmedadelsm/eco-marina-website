@@ -213,7 +213,7 @@ export const coreServices = [
       "Courses for professionals, government staff, industry teams, and community groups — covering EIA practice, marine and coastal monitoring, port and shipping compliance, industrial pollution control, and practical environmental awareness.",
     href: "/training",
     icon: "training" as const,
-    image: "/images/training/eia-workshop.jpg",
+    image: "/images/services/training.jpg",
     deliverables: [
       "EIA and environmental assessment workshops",
       "Marine and coastal monitoring training",

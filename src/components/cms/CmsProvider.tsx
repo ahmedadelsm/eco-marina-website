@@ -15,14 +15,12 @@ import {
   defaultCmsPartners,
   defaultCmsProjects,
   defaultCmsResources,
-  defaultCmsSeo,
   defaultCmsServices,
   defaultCmsTraining,
   defaultCmsTrainingPage,
   defaultCmsUi,
 } from "@/lib/cms/defaults";
 import {
-  getSeoForPath,
   mergeCompany,
   mergeCmsObject,
   pickList,
@@ -198,7 +196,6 @@ type CmsContextValue = {
   };
   getProject: (slug: string) => ProjectView | undefined;
   getInsight: (slug: string) => InsightView | undefined;
-  getSeo: (path: string) => { title: string; description: string; image?: string } | null;
 };
 
 const EMPTY: CmsPayload = {
@@ -331,7 +328,6 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     const lookupInsights = payload.insights ?? defaultCmsInsights();
     const servicesData = buildServicesPage(locale, payload);
     const homepageData = buildHomepage(locale, payload);
-    const seoEntries = payload.seo ?? defaultCmsSeo();
     const contact = mergeCmsObject(defaultCmsContact(), payload.contact);
     const resources = mergeCmsObject(defaultCmsResources(), payload.resources);
     const trainingPage = mergeCmsObject(defaultCmsTrainingPage(), payload.trainingPage);
@@ -441,7 +437,6 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
         const item = lookupInsights.find((i) => i.slug === slug && i.published);
         return item ? toInsightView(item, locale) : undefined;
       },
-      getSeo: (path: string) => getSeoForPath(seoEntries, path, locale),
     };
   }, [locale, payload, ready]);
 

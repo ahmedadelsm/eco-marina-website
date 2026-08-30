@@ -9,6 +9,7 @@ export const metadata: Metadata = buildPageMetadata({
   locale: "en",
   title: meta?.title,
   description: meta?.description,
+  image: meta?.image,
   path: "/resources",
 });
 

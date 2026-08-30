@@ -16,7 +16,11 @@ export function buildPageMetadata(options: {
   const locale = options.locale ?? "en";
   const company = getBuildCompany(locale);
   const pageTitle = options.title;
-  const socialTitle = pageTitle ? `${pageTitle} | ${company.name}` : `${company.name} | ${company.tagline}`;
+  const socialTitle = pageTitle
+    ? pageTitle.includes(company.name)
+      ? pageTitle
+      : `${pageTitle} | ${company.name}`
+    : `${company.name} | ${company.tagline}`;
   const description =
     options.description ??
     (locale === "nl"

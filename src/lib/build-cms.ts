@@ -184,10 +184,32 @@ export function getBuildServiceDetailMeta(slug: "impact-assessment" | "monitorin
   };
 }
 
+type PageMeta = {
+  title: string;
+  description: string;
+  image?: string;
+};
+
+export function getBuildHomePageMeta(locale: Locale): PageMeta {
+  const path = locale === "nl" ? "/nl" : "/";
+  const seo = getBuildSeo(path, locale);
+  const company = getBuildCompany(locale);
+
+  return {
+    title: seo?.title ?? `${company.name} — ${company.tagline}`,
+    description:
+      seo?.description ??
+      (locale === "nl"
+        ? "Milieu- en sociale effectbeoordeling, monitoringprogramma's en duurzaamheidstraining. Gevestigd in Utrecht, Nederland."
+        : "Environmental and social impact assessment, monitoring programs, and sustainability training. Based in Utrecht, Netherlands."),
+    image: seo?.image,
+  };
+}
+
 export function getBuildListPageMeta(
   page: "projects" | "insights" | "services" | "resources" | "faq" | "contact" | "about" | "training",
   locale: Locale,
-) {
+): PageMeta | null {
   const seo = getBuildSeo(seoPathFor(page, locale), locale);
   if (seo) return seo;
 

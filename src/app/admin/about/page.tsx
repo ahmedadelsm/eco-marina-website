@@ -1,6 +1,6 @@
 "use client";
 
-import { AdminSaveBar, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
 import type { CmsAbout } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -15,7 +15,7 @@ export default function AdminAboutPage() {
       <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
         <LocalizedInput label="Name" value={data.name} onChange={(name) => setData({ ...data, name })} />
         <LocalizedInput label="Title" value={data.title} onChange={(title) => setData({ ...data, title })} />
-        <input value={data.image} onChange={(e) => setData({ ...data, image: e.target.value })} className="w-full border border-line px-3 py-2 text-sm" placeholder="Photo URL" />
+        <ImageUrlField label="Founder photo" value={data.image} onChange={(image) => setData({ ...data, image })} />
         <LocalizedInput label="Photo alt text" value={data.imageAlt} onChange={(imageAlt) => setData({ ...data, imageAlt })} />
         <LocalizedTextarea label="Short bio" value={data.bioShort} onChange={(bioShort) => setData({ ...data, bioShort })} />
         <LocalizedListField label="Long bio paragraphs" value={data.bioLong} onChange={(bioLong) => setData({ ...data, bioLong })} />

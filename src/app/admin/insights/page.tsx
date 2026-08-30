@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AdminSaveBar, LocalizedInput, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
 import type { CmsInsight } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -40,7 +40,7 @@ export default function AdminInsightsPage() {
                     Published
                   </label>
                   <input value={insight.slug} onChange={(e) => update(index, { ...insight, slug: slugify(e.target.value) })} className="w-full border border-line px-3 py-2 text-sm" placeholder="slug" />
-                  <input value={insight.image} onChange={(e) => update(index, { ...insight, image: e.target.value })} className="w-full border border-line px-3 py-2 text-sm" placeholder="Image URL" />
+                  <ImageUrlField label="Cover image" value={insight.image} onChange={(image) => update(index, { ...insight, image })} />
                   <LocalizedInput label="Title" value={insight.title} onChange={(title) => update(index, { ...insight, title })} />
                   <LocalizedInput label="Excerpt" value={insight.excerpt} onChange={(excerpt) => update(index, { ...insight, excerpt })} />
                   <LocalizedInput label="Category" value={insight.category} onChange={(category) => update(index, { ...insight, category })} />

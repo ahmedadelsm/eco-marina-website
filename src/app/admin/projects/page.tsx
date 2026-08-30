@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   AdminSaveBar,
+  ImageUrlField,
   LocalizedInput,
   LocalizedListField,
   LocalizedTextarea,
@@ -102,14 +103,11 @@ export default function AdminProjectsPage() {
                         className="mt-1 w-full border border-line px-3 py-2 text-sm"
                       />
                     </div>
-                    <div>
-                      <label className="text-sm font-medium text-ink">Image URL</label>
-                      <input
-                        value={project.image}
-                        onChange={(e) => updateProject(index, { ...project, image: e.target.value })}
-                        className="mt-1 w-full border border-line px-3 py-2 text-sm"
-                      />
-                    </div>
+                    <ImageUrlField
+                      label="Hero image"
+                      value={project.image}
+                      onChange={(image) => updateProject(index, { ...project, image })}
+                    />
                   </div>
 
                   <LocalizedInput

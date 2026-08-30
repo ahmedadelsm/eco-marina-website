@@ -8,6 +8,7 @@ export const metadata = buildPageMetadata({
   locale: "nl",
   title: meta?.title,
   description: meta?.description,
+  image: meta?.image,
   path: "/nl/faq",
 });
 

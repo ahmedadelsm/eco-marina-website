@@ -68,7 +68,9 @@ export default function AdminMediaPage() {
   return (
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Media library</h1>
-      <p className="mt-2 text-ink-muted">Upload images for case studies and training. Copy the URL into content editors.</p>
+      <p className="mt-2 text-ink-muted">
+        Upload images for case studies, training, and SEO. Copy the URL into content editors — or use built-in site images below.
+      </p>
 
       {!configured && (
         <p className="mt-4 border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
@@ -127,6 +129,20 @@ export default function AdminMediaPage() {
       {items.length === 0 && configured && (
         <p className="mt-6 text-sm text-ink-muted">No uploads yet. Add your first image above.</p>
       )}
+
+      <div className="mt-12 max-w-3xl border border-line bg-white p-6">
+        <h2 className="font-serif text-lg font-semibold text-ink">Built-in site images</h2>
+        <p className="mt-2 text-sm text-ink-muted">
+          These ship with the site in <code className="text-xs">public/images/</code>. Paste paths directly into CMS fields.
+        </p>
+        <ul className="mt-4 space-y-2 text-sm text-ink-muted">
+          <li><code className="text-xs text-ink">/images/hero-coastal.jpg</code> — homepage hero default</li>
+          <li><code className="text-xs text-ink">/images/services/training.jpg</code> — training service card</li>
+          <li><code className="text-xs text-ink">/images/projects/shipping-agency.jpg</code> — case studies hero</li>
+          <li><code className="text-xs text-ink">/images/training/eia-workshop.jpg</code> — EIA course</li>
+          <li><code className="text-xs text-ink">/images/about/adel-regal.jpg</code> — founder photo</li>
+        </ul>
+      </div>
     </div>
   );
 }

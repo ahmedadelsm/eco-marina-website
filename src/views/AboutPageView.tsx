@@ -5,18 +5,15 @@ import { ButtonArrow } from "@/components/Button";
 import { PartnersSection } from "@/components/PartnersSection";
 import { PageHero } from "@/components/PageHero";
 import { useCms } from "@/components/cms/CmsProvider";
-import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function AboutPageView({ locale }: { locale: Locale }) {
   const { about, company, pageCopy, ui } = useCms();
   const path = (href: string) => localePath(locale, href);
-  const seoPath = locale === "nl" ? "/nl/about" : "/about";
   const copy = pageCopy.about;
 
   return (
     <>
-      <PageSeo path={seoPath} fallbackTitle={about.nameText} fallbackDescription={about.bioShortText} />
       <PageHero
         eyebrow={copy.eyebrow}
         title={about.nameText}

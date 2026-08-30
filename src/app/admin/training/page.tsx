@@ -3,6 +3,7 @@
 import { useState } from "react";
 import {
   AdminSaveBar,
+  ImageUrlField,
   LocalizedInput,
   LocalizedListField,
   LocalizedTextarea,
@@ -88,14 +89,11 @@ export default function AdminTrainingPage() {
                     Published
                   </label>
 
-                  <div>
-                    <label className="text-sm font-medium text-ink">Image URL</label>
-                    <input
-                      value={course.image}
-                      onChange={(e) => updateCourse(index, { ...course, image: e.target.value })}
-                      className="mt-1 w-full border border-line px-3 py-2 text-sm"
-                    />
-                  </div>
+                  <ImageUrlField
+                    label="Course image"
+                    value={course.image}
+                    onChange={(image) => updateCourse(index, { ...course, image })}
+                  />
 
                   <LocalizedInput
                     label="Title"

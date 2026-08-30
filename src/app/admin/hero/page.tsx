@@ -1,6 +1,6 @@
 "use client";
 
-import { AdminSaveBar, LocalizedInput, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
 import type { CmsHero } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -11,19 +11,14 @@ export default function AdminHeroPage() {
   return (
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Homepage hero</h1>
-      <p className="mt-2 text-ink-muted">
-        Hero image, eyebrow, CTAs, and default headline/subheadline. Headline overrides in Content still take precedence until you save here.
-      </p>
+      <p className="mt-2 text-ink-muted">Hero image, eyebrow, CTAs, and homepage headline copy.</p>
       <div className="mt-8 max-w-4xl space-y-6 border border-line bg-white p-6">
         <LocalizedInput label="Eyebrow" value={data.eyebrow} onChange={(eyebrow) => setData({ ...data, eyebrow })} />
         <LocalizedInput label="Headline" value={data.headline} onChange={(headline) => setData({ ...data, headline })} />
         <LocalizedTextarea label="Subheadline" value={data.subheadline} onChange={(subheadline) => setData({ ...data, subheadline })} />
         <LocalizedInput label="Primary CTA" value={data.cta} onChange={(cta) => setData({ ...data, cta })} />
         <LocalizedInput label="Secondary CTA" value={data.ctaSecondary} onChange={(ctaSecondary) => setData({ ...data, ctaSecondary })} />
-        <div>
-          <label className="text-sm font-medium text-ink">Hero image URL</label>
-          <input value={data.image} onChange={(e) => setData({ ...data, image: e.target.value })} className="mt-1 w-full border border-line px-3 py-2 text-sm" />
-        </div>
+        <ImageUrlField label="Hero image URL" value={data.image} onChange={(image) => setData({ ...data, image })} />
         <LocalizedInput label="Image alt text" value={data.imageAlt} onChange={(imageAlt) => setData({ ...data, imageAlt })} />
       </div>
       <AdminSaveBar saving={saving} message={message} error={error} onSave={save} onRevert={revert} />

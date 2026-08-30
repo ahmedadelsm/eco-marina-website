@@ -5,23 +5,16 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { CoreServiceCard, InsightCard, ProjectCard } from "@/components/CoreServiceCard";
 import { useCms } from "@/components/cms/CmsProvider";
-import { PageSeo } from "@/components/cms/PageSeo";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps, company } = useCms();
+  const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps } = useCms();
   const path = (href: string) => localePath(locale, href);
-  const seoPath = locale === "nl" ? "/nl" : "/";
 
   return (
     <>
-      <PageSeo
-        path={seoPath}
-        fallbackTitle={`${company.name} — ${company.tagline}`}
-        fallbackDescription={homepage.servicesDescription}
-      />
       <HomeHero />
 
       <section className="py-16 sm:py-24">
