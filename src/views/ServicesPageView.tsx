@@ -1,26 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ButtonArrow } from "@/components/Button";
 import { CoreServiceCard } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
+import { useCms } from "@/components/cms/CmsProvider";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ServicesPageView({ locale }: { locale: Locale }) {
-  const { coreServices, legacyServices, serviceCategories, pages } = getContent(locale);
+  const { legacyServices, serviceCategories, pages } = getContent(locale);
+  const { coreServices, servicesPage } = useCms();
   const path = (href: string) => localePath(locale, href);
+  const seoPath = locale === "nl" ? "/nl/services" : "/services";
 
   return (
     <>
-      <PageHero
-        eyebrow={pages.services.eyebrow}
-        title={pages.services.heading}
-        description={pages.services.intro}
-      />
+      <PageSeo path={seoPath} fallbackTitle={pages.services.title} fallbackDescription={pages.services.description} />
+      <PageHero eyebrow={pages.services.eyebrow} title={pages.services.heading} description={servicesPage.intro} />
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">{pages.services.coreTitle}</h2>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{servicesPage.coreTitle}</h2>
           <div className="mt-8 grid gap-6 lg:grid-cols-3">
             {coreServices.map((s) => (
               <CoreServiceCard key={s.slug} service={s} />
@@ -31,8 +34,8 @@ export function ServicesPageView({ locale }: { locale: Locale }) {
 
       <section className="border-t border-line bg-paper py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">{pages.services.specialistTitle}</h2>
-          <p className="mt-2 max-w-2xl text-ink-muted">{pages.services.specialistIntro}</p>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{servicesPage.specialistTitle}</h2>
+          <p className="mt-2 max-w-2xl text-ink-muted">{servicesPage.specialistIntro}</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {serviceCategories.map((cat) => (
               <div key={cat.title} className="border border-line bg-white">
@@ -60,8 +63,8 @@ export function ServicesPageView({ locale }: { locale: Locale }) {
 
       <section className="border-t border-line py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">{pages.services.legacyTitle}</h2>
-          <p className="mt-2 max-w-2xl text-ink-muted">{pages.services.legacyIntro}</p>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{servicesPage.legacyTitle}</h2>
+          <p className="mt-2 max-w-2xl text-ink-muted">{servicesPage.legacyIntro}</p>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {legacyServices.map((service) => (
               <Link key={service.slug} href={path(service.href)} className="group flex gap-5 border border-line bg-white p-4">
@@ -79,7 +82,7 @@ export function ServicesPageView({ locale }: { locale: Locale }) {
       </section>
 
       <section className="py-16 text-center">
-        <ButtonArrow href={path("/contact")}>{pages.services.cta}</ButtonArrow>
+        <ButtonArrow href={path("/contact")}>{servicesPage.cta}</ButtonArrow>
       </section>
     </>
   );

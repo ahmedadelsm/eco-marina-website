@@ -86,3 +86,13 @@ export function defaultCmsCompany(): CmsCompany {
     statsCountries: enSite.stats.countries,
   };
 }
+
+export {
+  defaultCmsAbout,
+  defaultCmsHomepage,
+  defaultCmsInsights,
+  defaultCmsSeo,
+  defaultCmsServices,
+  pairList,
+  pairText,
+} from "./defaults-extra";

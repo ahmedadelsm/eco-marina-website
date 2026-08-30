@@ -5,27 +5,33 @@ import Link from "next/link";
 import { Button } from "@/components/Button";
 import { CoreServiceCard, InsightCard, ProjectCard } from "@/components/CoreServiceCard";
 import { useCms } from "@/components/cms/CmsProvider";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { HomeCta, HomeHero } from "@/components/HomeHero";
 import { SectionHeading } from "@/components/SectionHeading";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { homePage, coreServices, mission, site, whyUs, adelRegal, insights, legacyServices, processSteps } =
-    getContent(locale);
-  const { projects } = useCms();
+  const { homePage, site, whyUs, legacyServices, processSteps } = getContent(locale);
+  const { projects, homepage, coreServices, insights, about } = useCms();
   const path = (href: string) => localePath(locale, href);
+  const seoPath = locale === "nl" ? "/nl" : "/";
 
   return (
     <>
+      <PageSeo
+        path={seoPath}
+        fallbackTitle={`${site.name} — ${site.tagline}`}
+        fallbackDescription={homePage.services.description}
+      />
       <HomeHero />
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <SectionHeading
-            eyebrow={homePage.services.eyebrow}
-            title={homePage.services.title}
-            description={homePage.services.description}
+            eyebrow={homepage.servicesEyebrow}
+            title={homepage.servicesTitle}
+            description={homepage.servicesDescription}
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
             {coreServices.map((service) => (
@@ -40,15 +46,15 @@ export function HomePageView({ locale }: { locale: Locale }) {
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
               <div className="brand-accent-heading">
-                <SectionHeading eyebrow={homePage.mission.eyebrow} title={homePage.mission.title} />
+                <SectionHeading eyebrow={homepage.missionEyebrow} title={homepage.missionTitle} />
               </div>
-              <p className="mt-6 leading-relaxed text-ink-muted">{mission.mission}</p>
-              <p className="mt-4 leading-relaxed text-ink-muted">{mission.approach}</p>
+              <p className="mt-6 leading-relaxed text-ink-muted">{homepage.missionText}</p>
+              <p className="mt-4 leading-relaxed text-ink-muted">{homepage.missionApproach}</p>
             </div>
             <div>
-              <h3 className="font-serif text-xl font-semibold text-ink">{homePage.mission.valuesTitle}</h3>
+              <h3 className="font-serif text-xl font-semibold text-ink">{homepage.missionValuesTitle}</h3>
               <ul className="mt-6 space-y-3">
-                {site.values.map((value) => (
+                {about.valuesText.map((value) => (
                   <li key={value} className="flex items-start gap-3 border-l-2 border-brand-green pl-4 text-ink-muted">
                     {value}
                   </li>
@@ -61,7 +67,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <SectionHeading eyebrow={homePage.whyUs.eyebrow} title={homePage.whyUs.title} />
+          <SectionHeading eyebrow={homepage.whyUsEyebrow} title={homepage.whyUsTitle} />
           <div className="mt-12 grid gap-8 sm:grid-cols-2">
             {whyUs.map((item) => (
               <div key={item.title} className="border-l-2 border-brand-blue pl-6">
@@ -77,9 +83,9 @@ export function HomePageView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <SectionHeading
-              eyebrow={homePage.cases.eyebrow}
-              title={homePage.cases.title}
-              description={homePage.cases.description}
+              eyebrow={homepage.casesEyebrow}
+              title={homepage.casesTitle}
+              description={homepage.casesDescription}
             />
             <Link href={path("/projects")} className="text-sm font-medium text-sea hover:underline">
               {homePage.cases.viewAll}
@@ -99,8 +105,8 @@ export function HomePageView({ locale }: { locale: Locale }) {
             <div className="mx-auto w-full max-w-[240px] shrink-0 lg:mx-0">
               <div className="relative aspect-[3/4] overflow-hidden border border-white/15">
                 <Image
-                  src={adelRegal.image}
-                  alt={adelRegal.imageAlt}
+                  src={about.image}
+                  alt={about.imageAltText}
                   fill
                   className="object-cover object-top"
                   sizes="240px"
@@ -108,12 +114,12 @@ export function HomePageView({ locale }: { locale: Locale }) {
               </div>
             </div>
             <div>
-              <SectionHeading eyebrow={homePage.founder.eyebrow} title={adelRegal.name} light />
-              <p className="mt-2 text-sm text-sea-light">{adelRegal.title}</p>
-              <p className="mt-6 text-lg text-white/85">{adelRegal.bioShort}</p>
-              <p className="mt-4 text-sm leading-relaxed text-white/65">{adelRegal.bioLong[0]}</p>
+              <SectionHeading eyebrow={homePage.founder.eyebrow} title={about.nameText} light />
+              <p className="mt-2 text-sm text-sea-light">{about.titleText}</p>
+              <p className="mt-6 text-lg text-white/85">{about.bioShortText}</p>
+              <p className="mt-4 text-sm leading-relaxed text-white/65">{about.bioLongText[0]}</p>
               <blockquote className="mt-6 border-l-2 border-sea-light pl-4">
-                <p className="font-serif italic text-white/80">&ldquo;{adelRegal.quote}&rdquo;</p>
+                <p className="font-serif italic text-white/80">&ldquo;{about.quoteText}&rdquo;</p>
               </blockquote>
               <Button href={path("/about")} variant="outline-light" size="sm" className="mt-8">
                 {homePage.founder.biography}
@@ -123,10 +129,10 @@ export function HomePageView({ locale }: { locale: Locale }) {
           <div className="mt-12 border border-white/10 bg-white/5 p-8 lg:ml-[calc(240px+3rem)]">
             <h3 className="font-serif text-lg font-semibold">{homePage.founder.experienceTitle}</h3>
             <p className="mt-4 text-sm text-white/70">
-              {homePage.founder.experienceIntro} {adelRegal.countries.join(", ")}.
+              {homePage.founder.experienceIntro} {about.countriesText.join(", ")}.
             </p>
             <ul className="mt-6 space-y-2">
-              {adelRegal.focus.map((item) => (
+              {about.focusText.map((item) => (
                 <li key={item} className="flex items-start gap-2 text-sm text-white/75">
                   <span className="text-sea-light">—</span> {item}
                 </li>

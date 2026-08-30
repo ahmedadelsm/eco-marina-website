@@ -115,11 +115,15 @@ export function AdminSaveBar({
   message,
   error,
   onSave,
+  onRevert,
+  revertLabel = "Revert to defaults",
 }: {
   saving: boolean;
   message: string;
   error: string;
   onSave: () => void;
+  onRevert?: () => void;
+  revertLabel?: string;
 }) {
   return (
     <div className="sticky bottom-0 z-10 -mx-4 mt-8 border-t border-line bg-paper/95 px-4 py-4 backdrop-blur sm:-mx-8 sm:px-8">
@@ -132,6 +136,16 @@ export function AdminSaveBar({
         >
           {saving ? "Saving…" : "Save changes"}
         </button>
+        {onRevert && (
+          <button
+            type="button"
+            onClick={onRevert}
+            disabled={saving}
+            className="border border-line bg-white px-5 py-2.5 text-sm font-semibold text-ink hover:bg-paper disabled:opacity-60"
+          >
+            {revertLabel}
+          </button>
+        )}
         {message && <span className="text-sm text-brand-green">{message}</span>}
         {error && <span className="text-sm text-red-600">{error}</span>}
       </div>

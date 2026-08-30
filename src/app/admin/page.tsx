@@ -9,6 +9,7 @@ type Stats = {
   unreadMessages: number;
   totalMessages: number;
   contentOverrides: number;
+  cmsCollections: number;
   maintenanceEnabled: boolean;
 };
 
@@ -30,6 +31,7 @@ export default function AdminDashboardPage() {
     { label: "Unread messages", value: stats.unreadMessages, href: "/admin/messages" },
     { label: "Total messages", value: stats.totalMessages, href: "/admin/messages" },
     { label: "Content overrides", value: stats.contentOverrides, href: "/admin/content" },
+    { label: "CMS collections", value: stats.cmsCollections, href: "/admin/homepage" },
     {
       label: "Maintenance mode",
       value: stats.maintenanceEnabled ? "ON" : "OFF",
@@ -38,6 +40,11 @@ export default function AdminDashboardPage() {
   ];
 
   const quickLinks = [
+    { label: "Homepage sections", href: "/admin/homepage" },
+    { label: "Services", href: "/admin/services" },
+    { label: "Insights", href: "/admin/insights" },
+    { label: "About page", href: "/admin/about" },
+    { label: "SEO", href: "/admin/seo" },
     { label: "Company info", href: "/admin/company" },
     { label: "Case studies", href: "/admin/projects" },
     { label: "Training", href: "/admin/training" },
@@ -50,7 +57,7 @@ export default function AdminDashboardPage() {
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Dashboard</h1>
       <p className="mt-2 text-ink-muted">Overview of your Eco Marina website.</p>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
         {cards.map((card) => (
           <Link
             key={card.label}

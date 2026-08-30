@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from "react";
 import type { CmsCollection } from "@/lib/cms/types";
+import { getCmsDefault } from "@/lib/cms/registry";
 import { API, apiGet, apiPut } from "@/lib/api";
 
-export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
-  const [data, setData] = useState<T>(() => getDefault());
+export function useAdminCms<T>(collection: CmsCollection) {
+  const [data, setData] = useState<T>(() => getCmsDefault<T>(collection));
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
@@ -15,12 +16,12 @@ export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
     let cancelled = false;
     apiGet<{ data: T | null }>(API.admin.cms(collection))
       .then((res) => {
-        if (!cancelled) setData(res.data ?? getDefault());
+        if (!cancelled) setData(res.data ?? getCmsDefault<T>(collection));
       })
       .catch(() => {
         if (!cancelled) {
           setError("Could not load content.");
-          setData(getDefault());
+          setData(getCmsDefault<T>(collection));
         }
       })
       .finally(() => {
@@ -29,7 +30,7 @@ export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
     return () => {
       cancelled = true;
     };
-  }, [collection, getDefault]);
+  }, [collection]);
 
   async function save() {
     setSaving(true);
@@ -45,19 +46,12 @@ export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
     }
   }
 
-  async function reload() {
-    setLoading(true);
+  function revert() {
+    if (!confirm("Revert all fields to the original defaults? Unsaved edits will be lost.")) return;
+    setData(getCmsDefault<T>(collection));
+    setMessage("Reverted to defaults. Click Save to apply on the live site.");
     setError("");
-    try {
-      const res = await apiGet<{ data: T | null }>(API.admin.cms(collection));
-      setData(res.data ?? getDefault());
-    } catch {
-      setError("Could not load content.");
-      setData(getDefault());
-    } finally {
-      setLoading(false);
-    }
   }
 
-  return { data, setData, loading, saving, save, message, error, reload };
+  return { data, setData, loading, saving, save, revert, message, error };
 }

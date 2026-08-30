@@ -43,7 +43,15 @@ export default function AdminMessagesPage() {
   return (
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Messages</h1>
-      <p className="mt-2 text-ink-muted">Contact form submissions from eco-marina.com</p>
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-ink-muted">Contact form submissions from eco-marina.com</p>
+        <a
+          href={`${API.admin.messages}?export=csv`}
+          className="border border-line bg-white px-4 py-2 text-sm font-medium text-ink hover:border-sea hover:text-sea"
+        >
+          Export CSV
+        </a>
+      </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-5">
         <div className="lg:col-span-2 space-y-2">

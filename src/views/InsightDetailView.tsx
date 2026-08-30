@@ -1,20 +1,31 @@
+"use client";
+
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { ButtonArrow } from "@/components/Button";
 import { DetailHero } from "@/components/DetailHero";
+import { useCms } from "@/components/cms/CmsProvider";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 import { articleJsonLd } from "@/lib/structured-data";
 
 export function InsightDetailView({ locale, slug }: { locale: Locale; slug: string }) {
   const { pages } = getContent(locale);
-  const article = getContent(locale).getInsight(slug);
+  const { getInsight, ready } = useCms();
   const path = (href: string) => localePath(locale, href);
+  const seoPath = locale === "nl" ? `/nl/insights/${slug}` : `/insights/${slug}`;
 
+  const staticArticle = getContent(locale).getInsight(slug);
+  const article = getInsight(slug) ?? staticArticle;
+
+  if (ready && !article) notFound();
   if (!article) return null;
 
   return (
     <>
+      <PageSeo path={seoPath} fallbackTitle={article.title} fallbackDescription={article.excerpt} />
       <JsonLd data={articleJsonLd(article)} />
       <DetailHero
         image={article.image}

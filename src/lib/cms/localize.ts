@@ -1,15 +1,26 @@
 import type { Locale } from "@/lib/i18n";
 import type {
   CmsCompany,
+  CmsCoreService,
   CmsFaqSection,
+  CmsInsight,
   CmsProject,
+  CmsSeoEntry,
   CmsTrainingCourse,
+  CoreServiceView,
   FaqSectionView,
+  InsightView,
   LocalizedList,
   LocalizedText,
   ProjectView,
   TrainingCourseView,
 } from "./types";
+
+const SERVICE_ICONS: Record<string, CoreServiceView["icon"]> = {
+  "impact-assessment": "assessment",
+  monitoring: "monitoring",
+  training: "training",
+};
 
 export function pickText(value: LocalizedText, locale: Locale): string {
   return value[locale]?.trim() || value.en;
@@ -78,5 +89,51 @@ export function mergeCompany(defaults: CmsCompany, override: CmsCompany | null):
     since: override.since ?? defaults.since,
     statsProjects: override.statsProjects ?? defaults.statsProjects,
     statsCountries: override.statsCountries ?? defaults.statsCountries,
+  };
+}
+
+export function toInsightView(insight: CmsInsight, locale: Locale): InsightView {
+  return {
+    slug: insight.slug,
+    title: pickText(insight.title, locale),
+    excerpt: pickText(insight.excerpt, locale),
+    category: pickText(insight.category, locale),
+    readTime: pickText(insight.readTime, locale),
+    date: pickText(insight.date, locale),
+    datePublished: insight.datePublished,
+    image: insight.image,
+    sections: insight.sections.map((section) => ({
+      heading: pickText(section.heading, locale),
+      body: pickText(section.body, locale),
+    })),
+  };
+}
+
+export function toCoreServiceView(service: CmsCoreService, locale: Locale): CoreServiceView {
+  return {
+    slug: service.slug,
+    title: pickText(service.title, locale),
+    shortTitle: pickText(service.shortTitle, locale),
+    tagline: pickText(service.tagline, locale),
+    description: pickText(service.description, locale),
+    href: service.href,
+    icon: SERVICE_ICONS[service.slug] ?? "assessment",
+    image: service.image,
+    deliverables: pickList(service.deliverables, locale),
+    sectors: pickList(service.sectors, locale),
+  };
+}
+
+export function mergeRecord<T>(defaults: T, override: T | null): T {
+  return override ?? defaults;
+}
+
+export function getSeoForPath(entries: CmsSeoEntry[], path: string, locale: Locale) {
+  const entry = entries.find((item) => item.path === path);
+  if (!entry) return null;
+  return {
+    title: pickText(entry.title, locale),
+    description: pickText(entry.description, locale),
+    image: entry.image,
   };
 }

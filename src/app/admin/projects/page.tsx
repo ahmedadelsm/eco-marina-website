@@ -1,13 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   AdminSaveBar,
   LocalizedInput,
   LocalizedListField,
   LocalizedTextarea,
 } from "@/components/admin/cms/CmsFormFields";
-import { defaultCmsProjects } from "@/lib/cms/defaults";
 import type { CmsProject } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -20,8 +19,7 @@ function slugify(value: string): string {
 }
 
 export default function AdminProjectsPage() {
-  const getDefault = useCallback(() => defaultCmsProjects(), []);
-  const { data, setData, loading, saving, save, message, error } = useAdminCms<CmsProject[]>("projects", getDefault);
+  const { data, setData, loading, saving, save, revert, message, error } = useAdminCms<CmsProject[]>("projects");
   const [openId, setOpenId] = useState<string | null>(null);
 
   if (loading) return <p className="text-ink-muted">Loading case studies…</p>;
@@ -58,8 +56,7 @@ export default function AdminProjectsPage() {
         Edit project pages in English and Dutch. Upload images in Media, then paste the URL below.
       </p>
       <p className="mt-2 text-sm text-amber-800">
-        New case studies appear on the projects list immediately. Detail page URLs for brand-new slugs may need a site
-        redeploy.
+        New case studies work immediately — including their detail pages — after you deploy the latest site update.
       </p>
 
       <div className="mt-8 space-y-4">
@@ -186,7 +183,7 @@ export default function AdminProjectsPage() {
         + Add case study
       </button>
 
-      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} />
+      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} onRevert={revert} />
     </div>
   );
 }

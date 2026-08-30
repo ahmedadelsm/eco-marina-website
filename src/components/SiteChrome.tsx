@@ -2,6 +2,7 @@
 
 import { AdminPreviewBar } from "@/components/admin/AdminPreviewBar";
 import { CmsProvider } from "@/components/cms/CmsProvider";
+import { StructuredDataFromCms } from "@/components/cms/StructuredDataFromCms";
 import { ContentOverridesProvider } from "@/components/ContentOverridesProvider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -26,6 +27,7 @@ export function SiteChrome({
       {locale === "nl" ? <SetHtmlLang locale="nl" /> : null}
       <ContentOverridesProvider>
         <CmsProvider>
+        <StructuredDataFromCms />
         <JsonLd data={[organizationJsonLd(), websiteJsonLd(), professionalServiceJsonLd()]} />
         <a
           href="#main-content"

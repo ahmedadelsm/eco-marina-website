@@ -1,22 +1,17 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   AdminSaveBar,
   LocalizedInput,
   LocalizedListField,
   LocalizedTextarea,
 } from "@/components/admin/cms/CmsFormFields";
-import { defaultCmsTraining } from "@/lib/cms/defaults";
 import type { CmsTrainingCourse } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
 export default function AdminTrainingPage() {
-  const getDefault = useCallback(() => defaultCmsTraining(), []);
-  const { data, setData, loading, saving, save, message, error } = useAdminCms<CmsTrainingCourse[]>(
-    "training",
-    getDefault
-  );
+  const { data, setData, loading, saving, save, revert, message, error } = useAdminCms<CmsTrainingCourse[]>("training");
   const [openId, setOpenId] = useState<string | null>(null);
 
   if (loading) return <p className="text-ink-muted">Loading training courses…</p>;
@@ -164,7 +159,7 @@ export default function AdminTrainingPage() {
         + Add course
       </button>
 
-      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} />
+      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} onRevert={revert} />
     </div>
   );
 }

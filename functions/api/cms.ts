@@ -1,26 +1,43 @@
 import { getCmsCollection } from "../lib/cms/storage";
-import type { CmsCompany, CmsFaqSection, CmsProject, CmsTrainingCourse } from "../lib/cms/types";
+import type {
+  CmsAbout,
+  CmsCompany,
+  CmsFaqSection,
+  CmsHomepage,
+  CmsInsight,
+  CmsProject,
+  CmsSeoEntry,
+  CmsServices,
+  CmsTrainingCourse,
+} from "../lib/cms/types";
 import { corsHeaders, json, type Env } from "../lib/utils";
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { env, request } = context;
   try {
-    const [projects, training, faq, company] = await Promise.all([
+    const [projects, training, faq, company, insights, about, homepage, seo, services] = await Promise.all([
       getCmsCollection<CmsProject[]>(env, "projects"),
       getCmsCollection<CmsTrainingCourse[]>(env, "training"),
       getCmsCollection<CmsFaqSection[]>(env, "faq"),
       getCmsCollection<CmsCompany>(env, "company"),
+      getCmsCollection<CmsInsight[]>(env, "insights"),
+      getCmsCollection<CmsAbout>(env, "about"),
+      getCmsCollection<CmsHomepage>(env, "homepage"),
+      getCmsCollection<CmsSeoEntry[]>(env, "seo"),
+      getCmsCollection<CmsServices>(env, "services"),
     ]);
-
-    const publicProjects = projects?.filter((p) => p.published) ?? null;
-    const publicTraining = training?.filter((c) => c.published) ?? null;
 
     return json(
       {
-        projects: publicProjects,
-        training: publicTraining,
+        projects: projects?.filter((p) => p.published) ?? null,
+        training: training?.filter((c) => c.published) ?? null,
         faq,
         company,
+        insights: insights?.filter((i) => i.published) ?? null,
+        about,
+        homepage,
+        seo,
+        services,
       },
       200,
       {
@@ -29,7 +46,21 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       }
     );
   } catch {
-    return json({ projects: null, training: null, faq: null, company: null }, 200, corsHeaders(request));
+    return json(
+      {
+        projects: null,
+        training: null,
+        faq: null,
+        company: null,
+        insights: null,
+        about: null,
+        homepage: null,
+        seo: null,
+        services: null,
+      },
+      200,
+      corsHeaders(request)
+    );
   }
 };
 

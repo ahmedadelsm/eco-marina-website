@@ -23,16 +23,38 @@ Multiple admins are supported — each person can have their own email and passw
 
 ## Features
 
-- **Dashboard** — overview
-- **Messages** — contact form submissions
+- **Dashboard** — overview with CMS collection count
+- **Messages** — contact form submissions (export CSV)
 - **Content** — edit homepage hero and contact details
+- **Homepage** — section headings and mission text
+- **Services** — core service cards and page copy
+- **Insights** — articles with EN + NL content
+- **About** — founder biography, timeline, values
+- **SEO** — per-page title and description overrides
 - **Company** — tagline, motto, stats, LinkedIn
 - **Case studies** — add/edit project pages (EN + NL)
 - **Training** — manage courses, pricing, and schedules
 - **FAQ** — categories, questions, and answers
 - **Media** — upload images (R2) and copy URLs into content
 - **Admins** — add/remove admin users
+- **Audit log** — admin action history (D1)
 - **Settings** — maintenance mode, contact form email (Zoho), and partner visibility
+
+## Audit log (D1)
+
+Run once after deploying:
+
+```bash
+npx wrangler d1 execute eco-marina-admin --remote --file=schema-audit.sql
+```
+
+## Dynamic sitemap
+
+`/sitemap.xml` is generated at request time from CMS project and insight slugs. No static sitemap is written at build time.
+
+## Messages export
+
+In **Admin → Messages**, click **Export CSV** to download up to 200 recent submissions.
 
 ## Contact form email (Zoho)
 
@@ -85,5 +107,6 @@ rm seed.sql
 |---------|------|------|
 | `DB` | D1 | `eco-marina-admin` |
 | `SETTINGS` | KV | `ECO_MARINA_SETTINGS` |
+| `MEDIA` | R2 | `eco-marina-media` |
 
 Auth uses the `admins` table in D1 with PBKDF2 password hashes.

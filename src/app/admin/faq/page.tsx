@@ -1,14 +1,12 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { AdminSaveBar, LocalizedInput, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
-import { defaultCmsFaq } from "@/lib/cms/defaults";
 import type { CmsFaqSection } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
 export default function AdminFaqPage() {
-  const getDefault = useCallback(() => defaultCmsFaq(), []);
-  const { data, setData, loading, saving, save, message, error } = useAdminCms<CmsFaqSection[]>("faq", getDefault);
+  const { data, setData, loading, saving, save, revert, message, error } = useAdminCms<CmsFaqSection[]>("faq");
   const [openId, setOpenId] = useState<string | null>(null);
 
   if (loading) return <p className="text-ink-muted">Loading FAQ…</p>;
@@ -91,6 +89,13 @@ export default function AdminFaqPage() {
                   >
                     + Add question
                   </button>
+                  <button
+                    type="button"
+                    onClick={() => setData(data.filter((_, i) => i !== sectionIndex))}
+                    className="block text-sm text-red-600 hover:underline"
+                  >
+                    Delete category
+                  </button>
                 </div>
               )}
             </div>
@@ -106,7 +111,7 @@ export default function AdminFaqPage() {
         + Add category
       </button>
 
-      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} />
+      <AdminSaveBar saving={saving} message={message} error={error} onSave={save} onRevert={revert} />
     </div>
   );
 }
