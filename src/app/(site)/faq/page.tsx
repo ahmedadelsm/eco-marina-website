@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
-import { FAQContent } from "./FAQContent";
+import { getContent } from "@/content";
 import { buildPageMetadata } from "@/lib/seo";
+import { FAQContent } from "./FAQContent";
+
+const { pages } = getContent("en");
 
 export const metadata: Metadata = buildPageMetadata({
-  title: "FAQ",
-  description: "Frequently asked questions about Eco Marina consulting services, process, and environmental compliance.",
+  locale: "en",
+  title: pages.faq.title,
+  description: pages.faq.description,
   path: "/faq",
 });
 

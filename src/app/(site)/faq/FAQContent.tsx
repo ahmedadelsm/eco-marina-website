@@ -2,14 +2,15 @@
 
 import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
-import { faq } from "@/content/site-content";
+import { useSiteContent } from "@/components/locale/LocaleProvider";
 
 export function FAQContent() {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
+  const { faq, pages } = useSiteContent();
 
   return (
     <>
-      <PageHero eyebrow="FAQ" title="Frequently asked questions" />
+      <PageHero eyebrow={pages.faq.eyebrow} title={pages.faq.heading} />
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">

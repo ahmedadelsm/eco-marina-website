@@ -3,10 +3,12 @@
 import Image from "next/image";
 import { Button, ButtonArrow } from "@/components/Button";
 import { useContentOverride } from "@/components/ContentOverridesProvider";
+import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { CMS_KEYS } from "@/lib/content-keys";
-import { hero, site } from "@/content/site-content";
 
 export function HomeHero() {
+  const { path } = useLocale();
+  const { hero, site, ui } = useSiteContent();
   const headline = useContentOverride(CMS_KEYS.heroHeadline, hero.headline);
   const subheadline = useContentOverride(CMS_KEYS.heroSubheadline, hero.subheadline);
 
@@ -36,10 +38,10 @@ export function HomeHero() {
             {subheadline}
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <ButtonArrow href="/contact" size="lg" className="w-full sm:w-auto">
+            <ButtonArrow href={path("/contact")} size="lg" className="w-full sm:w-auto">
               {hero.cta}
             </ButtonArrow>
-            <Button href="/projects" variant="outline-light" size="lg" className="w-full sm:w-auto">
+            <Button href={path("/projects")} variant="outline-light" size="lg" className="w-full sm:w-auto">
               {hero.ctaSecondary}
             </Button>
           </div>
@@ -48,15 +50,15 @@ export function HomeHero() {
         <dl className="mt-12 grid grid-cols-3 gap-3 border-t border-white/20 pt-8 sm:mt-14 sm:max-w-md sm:gap-6">
           <div>
             <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.stats.projects}+</dt>
-            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">Projects</dd>
+            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.projects}</dd>
           </div>
           <div>
             <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.stats.countries}</dt>
-            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">Countries</dd>
+            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.countries}</dd>
           </div>
           <div>
             <dt className="font-serif text-xl font-semibold text-white sm:text-2xl">{site.since}</dt>
-            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">Since</dd>
+            <dd className="mt-1 text-[10px] uppercase tracking-wider text-white/70 sm:text-[11px]">{ui.since}</dd>
           </div>
         </dl>
       </div>
@@ -65,6 +67,8 @@ export function HomeHero() {
 }
 
 export function HomeCta() {
+  const { path } = useLocale();
+  const { site, ui } = useSiteContent();
   const email = useContentOverride(CMS_KEYS.siteEmail, site.email);
   const phone = useContentOverride(CMS_KEYS.sitePhone, site.phone);
   const office = useContentOverride(CMS_KEYS.siteOffice, site.office);
@@ -72,9 +76,7 @@ export function HomeCta() {
   return (
     <section className="border-t border-line py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-        <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">
-          Book your consultation appointment
-        </h2>
+        <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">{ui.bookConsultation}</h2>
         <div className="mx-auto mt-4 flex max-w-lg flex-col gap-1 text-sm text-ink-muted sm:text-base">
           <a href={`mailto:${email}`} className="hover:text-sea">
             {email}
@@ -84,8 +86,8 @@ export function HomeCta() {
           </a>
           <span>{office}</span>
         </div>
-        <ButtonArrow href="/contact" className="mt-8 w-full sm:w-auto">
-          Contact us
+        <ButtonArrow href={path("/contact")} className="mt-8 w-full sm:w-auto">
+          {ui.contactUs}
         </ButtonArrow>
       </div>
     </section>

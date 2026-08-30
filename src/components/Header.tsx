@@ -4,13 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
+import { LanguageSwitcher } from "@/components/locale/LanguageSwitcher";
+import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
-import { nav, site } from "@/content/site-content";
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const { phone, phoneHref } = useSiteContact();
+  const { path } = useLocale();
+  const { site, nav, ui } = useSiteContent();
 
   useEffect(() => {
     if (!open) return;
@@ -25,7 +28,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-line bg-white">
       <div className="site-brand-bar" aria-hidden />
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
-        <Link href="/" className="shrink-0" onClick={() => setOpen(false)}>
+        <Link href={path("/")} className="shrink-0" onClick={() => setOpen(false)}>
           <Image
             src="/images/logo.png"
             alt={site.name}
@@ -45,7 +48,7 @@ export function Header() {
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
               >
-                <Link href={item.href} className="font-medium text-ink-muted hover:text-brand-blue">
+                <Link href={path(item.href)} className="font-medium text-ink-muted hover:text-brand-blue">
                   {item.label}
                 </Link>
                 {servicesOpen && (
@@ -54,7 +57,7 @@ export function Header() {
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
-                          href={child.href}
+                          href={path(child.href)}
                           className="block px-4 py-2.5 text-ink-muted hover:bg-paper hover:text-ink"
                         >
                           {child.label}
@@ -65,25 +68,26 @@ export function Header() {
                 )}
               </div>
             ) : (
-              <Link key={item.href} href={item.href} className="font-medium text-ink-muted hover:text-brand-blue">
+              <Link key={item.href} href={path(item.href)} className="font-medium text-ink-muted hover:text-brand-blue">
                 {item.label}
               </Link>
             ),
           )}
+          <LanguageSwitcher />
           <div className="ml-2 border-l border-line pl-6">
             <a href={phoneHref} className="whitespace-nowrap text-ink-muted hover:text-brand-blue">
               {phone}
             </a>
           </div>
-          <Button href="/contact" size="sm">
-            Contact
+          <Button href={path("/contact")} size="sm">
+            {ui.contact}
           </Button>
         </div>
 
         <button
           type="button"
           className="-mr-1 min-h-11 min-w-11 p-2 lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? ui.closeMenu : ui.openMenu}
           aria-expanded={open}
           aria-controls="mobile-nav"
           onClick={() => setOpen(!open)}
@@ -106,7 +110,7 @@ export function Header() {
           {nav.map((item) => (
             <div key={item.href}>
               <Link
-                href={item.href}
+                href={path(item.href)}
                 className="block min-h-11 py-2.5 font-medium leading-6"
                 onClick={() => setOpen(false)}
               >
@@ -116,7 +120,7 @@ export function Header() {
                 item.children?.map((child) => (
                   <Link
                     key={child.href}
-                    href={child.href}
+                    href={path(child.href)}
                     className="block min-h-10 py-2 pl-4 text-sm text-ink-muted"
                     onClick={() => setOpen(false)}
                   >
@@ -125,8 +129,11 @@ export function Header() {
                 ))}
             </div>
           ))}
-          <Button href="/contact" className="mt-4 w-full" onClick={() => setOpen(false)}>
-            Contact
+          <div className="mt-4 border-t border-line pt-4">
+            <LanguageSwitcher />
+          </div>
+          <Button href={path("/contact")} className="mt-4 w-full" onClick={() => setOpen(false)}>
+            {ui.contact}
           </Button>
         </nav>
       )}

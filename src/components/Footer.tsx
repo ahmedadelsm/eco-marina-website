@@ -3,11 +3,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useSiteContact } from "@/components/SiteContactInfo";
+import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { Icons } from "./Icons";
-import { footerNav, site } from "@/content/site-content";
 
 export function Footer() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
+  const { path } = useLocale();
+  const { site, footerNav, ui } = useSiteContent();
+
   return (
     <footer className="border-t border-line bg-ink text-white">
       <div className="site-brand-bar" aria-hidden />
@@ -36,11 +39,11 @@ export function Footer() {
             </div>
           </div>
           <div className="md:col-span-3">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">Pages</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">{ui.pages}</p>
             <ul className="mt-4 space-y-2">
               {footerNav.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="text-sm text-white/70 hover:text-white">
+                  <Link href={path(item.href)} className="text-sm text-white/70 hover:text-white">
                     {item.label}
                   </Link>
                 </li>
@@ -48,10 +51,10 @@ export function Footer() {
             </ul>
           </div>
           <div className="md:col-span-4">
-            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">Connect</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-white/60">{ui.connect}</p>
             <p className="mt-4 text-sm leading-relaxed text-white/70">
-              Environmental consultancy since {site.since}. Impact assessment, monitoring, and training across{" "}
-              {site.operatingRegions.slice(0, 3).join(", ")}, and beyond.
+              {ui.footerSince} {site.since}. {site.tagline} — {ui.footerServices}{" "}
+              {site.operatingRegions.slice(0, 3).join(", ")}, {ui.footerRegions}
             </p>
             <a
               href={site.linkedIn}

@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "@/components/locale/LocaleProvider";
 import { ArrowRightIcon, CheckIcon } from "./Icon";
 
 type CoreService = {
@@ -16,8 +19,9 @@ type CoreService = {
 };
 
 export function CoreServiceCard({ service }: { service: CoreService }) {
+  const { path } = useLocale();
   return (
-    <Link href={service.href} className="group block border border-line bg-white transition-shadow hover:shadow-md">
+    <Link href={path(service.href)} className="group block border border-line bg-white transition-shadow hover:shadow-md">
       <div className="relative aspect-[16/10] overflow-hidden bg-paper">
         <Image
           src={service.image}
@@ -42,6 +46,7 @@ export function CoreServiceCard({ service }: { service: CoreService }) {
 
 export function ProjectCard({
   project,
+  viewLabel = "View case study →",
 }: {
   project: {
     slug: string;
@@ -50,9 +55,11 @@ export function ProjectCard({
     summary: string;
     image: string;
   };
+  viewLabel?: string;
 }) {
+  const { path } = useLocale();
   return (
-    <Link href={`/projects/${project.slug}`} className="group block border border-line bg-white">
+    <Link href={path(`/projects/${project.slug}`)} className="group block border border-line bg-white">
       <div className="relative aspect-[4/3] overflow-hidden bg-paper">
         <Image
           src={project.image}
@@ -67,7 +74,7 @@ export function ProjectCard({
         <p className="text-xs font-semibold uppercase tracking-wider text-brand-blue">{project.category}</p>
         <h3 className="mt-2 font-serif text-lg font-semibold leading-snug text-ink group-hover:text-brand-blue">{project.title}</h3>
         <p className="mt-2 text-sm text-ink-muted">{project.summary}</p>
-        <span className="mt-4 inline-block text-sm font-medium text-brand-blue">View case study →</span>
+        <span className="mt-4 inline-block text-sm font-medium text-brand-blue">{viewLabel}</span>
       </div>
     </Link>
   );
@@ -75,6 +82,7 @@ export function ProjectCard({
 
 export function InsightCard({
   article,
+  readLabel = "Read article →",
 }: {
   article: {
     slug: string;
@@ -84,9 +92,11 @@ export function InsightCard({
     readTime: string;
     image: string;
   };
+  readLabel?: string;
 }) {
+  const { path } = useLocale();
   return (
-    <Link href={`/insights/${article.slug}`} className="group flex flex-col border border-line bg-white">
+    <Link href={path(`/insights/${article.slug}`)} className="group flex flex-col border border-line bg-white">
       <div className="relative aspect-[16/9] overflow-hidden bg-paper">
         <Image
           src={article.image}
@@ -105,7 +115,7 @@ export function InsightCard({
         </div>
         <h3 className="mt-3 font-serif text-xl font-semibold text-ink group-hover:text-brand-blue">{article.title}</h3>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-ink-muted">{article.excerpt}</p>
-        <span className="mt-4 text-sm font-medium text-brand-blue">Read article →</span>
+        <span className="mt-4 text-sm font-medium text-brand-blue">{readLabel}</span>
       </div>
     </Link>
   );

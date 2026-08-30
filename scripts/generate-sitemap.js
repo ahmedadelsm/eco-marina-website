@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 /**
- * Regenerates public/sitemap.xml from site-content.ts so new projects and insights
- * are included automatically at build time.
+ * Regenerates public/sitemap.xml from site-content with English and Dutch URLs.
  */
 const fs = require("fs");
 const path = require("path");
 
 const ROOT = path.join(__dirname, "..");
-const contentPath = path.join(ROOT, "src/content/site-content.ts");
+const contentPath = path.join(ROOT, "src/content/en/site-content.ts");
 const outPath = path.join(ROOT, "public/sitemap.xml");
 const SITE = "https://eco-marina.com";
 
@@ -39,10 +38,16 @@ const projectSlugs = extractSlugs("projects");
 const insightSlugs = extractSlugs("insights");
 const lastmod = new Date().toISOString().slice(0, 10);
 
+function withLocales(route) {
+  const en = route === "/" ? "" : route;
+  const nl = route === "/" ? "/nl" : `/nl${route}`;
+  return [`${SITE}${en}`, `${SITE}${nl}`];
+}
+
 const urls = [
-  ...STATIC_ROUTES.map((route) => `${SITE}${route === "/" ? "" : route}`),
-  ...projectSlugs.map((slug) => `${SITE}/projects/${slug}`),
-  ...insightSlugs.map((slug) => `${SITE}/insights/${slug}`),
+  ...STATIC_ROUTES.flatMap(withLocales),
+  ...projectSlugs.flatMap((slug) => withLocales(`/projects/${slug}`)),
+  ...insightSlugs.flatMap((slug) => withLocales(`/insights/${slug}`)),
 ];
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>

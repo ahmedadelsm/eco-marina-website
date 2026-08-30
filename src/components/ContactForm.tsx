@@ -2,6 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { useSiteContact } from "@/components/SiteContactInfo";
+import { useSiteContent } from "@/components/locale/LocaleProvider";
 import { isTurnstileConfigured, TurnstileWidget } from "@/components/TurnstileWidget";
 import { API, apiPost } from "@/lib/api";
 
@@ -12,6 +13,8 @@ export function ContactForm() {
   const [turnstileToken, setTurnstileToken] = useState("");
   const [turnstileReset, setTurnstileReset] = useState(0);
   const { email: contactEmail } = useSiteContact();
+  const { ui } = useSiteContent();
+  const form = ui.form;
 
   const handleTurnstileToken = useCallback((token: string) => {
     setTurnstileToken(token);
@@ -24,14 +27,14 @@ export function ContactForm() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (isTurnstileConfigured() && !turnstileToken) {
-      setError("Please complete the captcha.");
+      setError(form.captcha);
       return;
     }
 
     setLoading(true);
     setError("");
-    const form = e.currentTarget;
-    const data = new FormData(form);
+    const formEl = e.currentTarget;
+    const data = new FormData(formEl);
 
     try {
       await apiPost(API.contact, {
@@ -45,10 +48,10 @@ export function ContactForm() {
         ...(turnstileToken ? { turnstileToken } : {}),
       });
       setSubmitted(true);
-      form.reset();
+      formEl.reset();
       setTurnstileToken("");
     } catch {
-      setError(`Could not send your message. Please email ${contactEmail} directly.`);
+      setError(form.error.replace("{email}", contactEmail));
       setTurnstileToken("");
       setTurnstileReset((n) => n + 1);
     } finally {
@@ -64,8 +67,8 @@ export function ContactForm() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.5 12.75l6 6 9-13.5" />
           </svg>
         </div>
-        <h3 className="mt-5 font-serif text-xl font-semibold text-ink">Thank you</h3>
-        <p className="mt-2 text-ink-muted">Your message has been received. We&apos;ll respond within 1–2 business days.</p>
+        <h3 className="mt-5 font-serif text-xl font-semibold text-ink">{form.thankYou}</h3>
+        <p className="mt-2 text-ink-muted">{form.received}</p>
       </div>
     );
   }
@@ -75,44 +78,49 @@ export function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <input
-        type="text"
-        name="website"
-        tabIndex={-1}
-        autoComplete="off"
-        className="hidden"
-        aria-hidden
-      />
+      <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
-          <label htmlFor="firstName" className="text-sm font-medium text-ink">First name *</label>
+          <label htmlFor="firstName" className="text-sm font-medium text-ink">
+            {form.firstName} *
+          </label>
           <input id="firstName" name="firstName" required maxLength={100} className={inputClass} />
         </div>
         <div>
-          <label htmlFor="lastName" className="text-sm font-medium text-ink">Last name *</label>
+          <label htmlFor="lastName" className="text-sm font-medium text-ink">
+            {form.lastName} *
+          </label>
           <input id="lastName" name="lastName" required maxLength={100} className={inputClass} />
         </div>
       </div>
       <div>
-        <label htmlFor="email" className="text-sm font-medium text-ink">Email *</label>
+        <label htmlFor="email" className="text-sm font-medium text-ink">
+          {form.email} *
+        </label>
         <input id="email" name="email" type="email" required maxLength={254} className={inputClass} />
       </div>
       <div>
-        <label htmlFor="organization" className="text-sm font-medium text-ink">Organization</label>
+        <label htmlFor="organization" className="text-sm font-medium text-ink">
+          {form.organization}
+        </label>
         <input id="organization" name="organization" maxLength={200} className={inputClass} />
       </div>
       <div>
-        <label htmlFor="serviceType" className="text-sm font-medium text-ink">Service interest</label>
+        <label htmlFor="serviceType" className="text-sm font-medium text-ink">
+          {form.serviceInterest}
+        </label>
         <select id="serviceType" name="serviceType" className={inputClass}>
-          <option value="">Select a service</option>
-          <option value="impact-assessment">Environmental & Social Impact Assessment</option>
-          <option value="monitoring">Environmental Monitoring Program</option>
-          <option value="training">Training & Workshops</option>
-          <option value="other">Other / General Inquiry</option>
+          <option value="">{form.selectService}</option>
+          <option value="impact-assessment">{form.services.impact}</option>
+          <option value="monitoring">{form.services.monitoring}</option>
+          <option value="training">{form.services.training}</option>
+          <option value="other">{form.services.other}</option>
         </select>
       </div>
       <div>
-        <label htmlFor="message" className="text-sm font-medium text-ink">Message *</label>
+        <label htmlFor="message" className="text-sm font-medium text-ink">
+          {form.message} *
+        </label>
         <textarea
           id="message"
           name="message"
@@ -120,21 +128,17 @@ export function ContactForm() {
           required
           maxLength={5000}
           className={inputClass}
-          placeholder="Tell us about your project, timeline, and location…"
+          placeholder={form.messagePlaceholder}
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <TurnstileWidget
-        onToken={handleTurnstileToken}
-        onExpire={handleTurnstileExpire}
-        resetKey={turnstileReset}
-      />
+      <TurnstileWidget onToken={handleTurnstileToken} onExpire={handleTurnstileExpire} resetKey={turnstileReset} />
       <button
         type="submit"
         disabled={loading}
         className="w-full bg-sea py-3.5 text-sm font-semibold text-white transition-colors hover:bg-sea-dark disabled:opacity-60 sm:w-auto sm:px-10"
       >
-        {loading ? "Sending…" : "Send message"}
+        {loading ? form.sending : form.send}
       </button>
     </form>
   );
@@ -142,16 +146,16 @@ export function ContactForm() {
 
 export function ContactPageContent() {
   const { email, phone, office, phoneHref, mailto } = useSiteContact();
+  const { ui } = useSiteContent();
+  const page = ui.contactPage;
 
   return (
     <>
       <section className="border-b border-line bg-ink py-16 text-white sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sea-light">Contact</p>
-          <h1 className="mt-3 max-w-2xl font-serif text-4xl font-semibold">Let&apos;s work together</h1>
-          <p className="mt-4 max-w-xl text-white/75">
-            Initial consultations are free. Tell us about your assessment, monitoring, or training needs.
-          </p>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sea-light">{page.eyebrow}</p>
+          <h1 className="mt-3 max-w-2xl font-serif text-4xl font-semibold">{page.title}</h1>
+          <p className="mt-4 max-w-xl text-white/75">{page.intro}</p>
         </div>
       </section>
 
@@ -159,18 +163,20 @@ export function ContactPageContent() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-5">
             <div className="lg:col-span-2">
-              <h2 className="font-serif text-2xl font-semibold text-ink">Get in touch</h2>
-              <p className="mt-3 text-ink-muted">We typically respond within 1–2 business days.</p>
+              <h2 className="font-serif text-2xl font-semibold text-ink">{page.getInTouch}</h2>
+              <p className="mt-3 text-ink-muted">{page.responseTime}</p>
               <div className="mt-10 space-y-6">
                 {[
-                  { label: "Email", value: email, href: mailto },
-                  { label: "Phone", value: phone, href: phoneHref },
-                  { label: "Office", value: office },
+                  { label: page.email, value: email, href: mailto },
+                  { label: page.phone, value: phone, href: phoneHref },
+                  { label: page.office, value: office },
                 ].map((item) => (
                   <div key={item.label}>
                     <p className="text-xs font-semibold uppercase tracking-wider text-ink-light">{item.label}</p>
                     {item.href ? (
-                      <a href={item.href} className="mt-1 block text-ink hover:text-sea">{item.value}</a>
+                      <a href={item.href} className="mt-1 block text-ink hover:text-sea">
+                        {item.value}
+                      </a>
                     ) : (
                       <p className="mt-1 text-ink">{item.value}</p>
                     )}
