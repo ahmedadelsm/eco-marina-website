@@ -157,7 +157,7 @@ export function ContactPageContent() {
 
   return (
     <>
-      <section className="border-b border-line bg-ink py-16 text-white sm:py-20">
+      <section className="border-b border-line bg-ink py-12 text-white sm:py-16">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-sea-light">{page.eyebrow}</p>
           <h1 className="mt-3 max-w-2xl font-serif text-4xl font-semibold">{page.title}</h1>
