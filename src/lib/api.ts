@@ -7,6 +7,7 @@ export const API = {
     messages: "/api/admin/messages",
     content: "/api/admin/content",
     maintenance: "/api/admin/maintenance",
+    emailSettings: "/api/admin/email-settings",
     admins: "/api/admin/admins",
     me: "/api/admin/me",
     logout: "/api/admin/logout",

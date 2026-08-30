@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { API, apiGet, apiPut } from "@/lib/api";
 import { AdminPartnerToggles } from "@/components/admin/AdminPartnerToggles";
+import { AdminEmailSettings } from "@/components/admin/AdminEmailSettings";
 
 export default function AdminSettingsPage() {
   const router = useRouter();
@@ -115,6 +116,8 @@ export default function AdminSettingsPage() {
         {maintenanceError && <p className="mt-3 text-sm text-red-600">{maintenanceError}</p>}
       </div>
       )}
+
+      {role === "super_admin" && <AdminEmailSettings />}
 
       {role === "super_admin" && <AdminPartnerToggles />}
 

@@ -7,6 +7,11 @@ export interface Env {
   RESEND_API_KEY?: string;
   CONTACT_NOTIFY_EMAIL?: string;
   CONTACT_FROM_EMAIL?: string;
+  ZOHO_CLIENT_ID?: string;
+  ZOHO_CLIENT_SECRET?: string;
+  ZOHO_REFRESH_TOKEN?: string;
+  ZOHO_DC?: string;
+  ZOHO_ACCOUNT_ID?: string;
 }
 
 export type AdminRole = "super_admin" | "editor";

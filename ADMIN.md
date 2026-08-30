@@ -27,7 +27,34 @@ Multiple admins are supported — each person can have their own email and passw
 - **Messages** — contact form submissions
 - **Content** — edit homepage copy and contact details
 - **Admins** — add/remove admin users
-- **Settings** — maintenance mode and partner visibility
+- **Settings** — maintenance mode, contact form email (Zoho), and partner visibility
+
+## Contact form email (Zoho)
+
+Submissions are always saved under **Messages**. Email alerts use your **Zoho Mail** account.
+
+### From the admin panel (any time)
+
+1. **Admin → Settings → Contact form email**
+2. Set **Send notifications to** (your Zoho inbox, e.g. `info@eco-marina.com`)
+3. Set **From email** (must be a mailbox on the same Zoho account)
+4. Turn notifications on/off with the toggle
+5. Click **Send test email** after setup
+
+### One-time Zoho API setup (Cloudflare)
+
+OAuth credentials are stored as Cloudflare secrets (not in the admin panel):
+
+| Variable | Description |
+|----------|-------------|
+| `ZOHO_CLIENT_ID` | From [Zoho API Console](https://api-console.zoho.eu/) |
+| `ZOHO_CLIENT_SECRET` | Same app |
+| `ZOHO_REFRESH_TOKEN` | Generated with `access_type=offline` |
+| `ZOHO_DC` | `eu` for European Zoho accounts |
+
+Required OAuth scope: `ZohoMail.messages.CREATE`
+
+After adding variables, redeploy the site, then run **Send test email** in Settings.
 
 ## Database setup (local only)
 

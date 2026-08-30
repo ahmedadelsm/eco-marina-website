@@ -15,25 +15,30 @@ export function LanguageSwitcher() {
   const enHref = locale === "en" ? pathname : alternatePath(basePath);
   const nlHref = locale === "nl" ? pathname : alternatePath(basePath);
 
+  const linkClass = (active: boolean) =>
+    [
+      "inline-flex min-h-9 min-w-9 items-center justify-center rounded px-2 text-sm font-semibold tracking-wide transition-colors",
+      active ? "bg-paper text-ink" : "text-ink-muted hover:bg-paper hover:text-ink",
+    ].join(" ");
+
   return (
-    <div className="flex items-center gap-1 text-xs font-medium">
-      <span className="sr-only">{ui.language}</span>
+    <div className="flex items-center gap-0.5" role="group" aria-label={ui.language}>
       <Link
         href={enHref}
         onClick={() => setLocaleCookie("en")}
-        className={locale === "en" ? "text-ink" : "text-ink-light hover:text-ink"}
+        className={linkClass(locale === "en")}
         aria-current={locale === "en" ? "true" : undefined}
         hrefLang="en"
       >
         EN
       </Link>
-      <span className="text-ink-light" aria-hidden>
-        |
+      <span className="px-0.5 text-sm text-ink-light" aria-hidden>
+        /
       </span>
       <Link
         href={nlHref}
         onClick={() => setLocaleCookie("nl")}
-        className={locale === "nl" ? "text-ink" : "text-ink-light hover:text-ink"}
+        className={linkClass(locale === "nl")}
         aria-current={locale === "nl" ? "true" : undefined}
         hrefLang="nl"
         title={localeLabels[otherLocale]}
