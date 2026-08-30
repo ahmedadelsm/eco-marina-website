@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import type { CmsCollection } from "@/lib/cms/types";
 import { API, apiGet, apiPut } from "@/lib/api";
 
@@ -11,23 +11,25 @@ export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const load = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const res = await apiGet<{ data: T | null }>(API.admin.cms(collection));
-      setData(res.data ?? getDefault());
-    } catch {
-      setError("Could not load content.");
-      setData(getDefault());
-    } finally {
-      setLoading(false);
-    }
-  }, [collection, getDefault]);
-
   useEffect(() => {
-    void load();
-  }, [load]);
+    let cancelled = false;
+    apiGet<{ data: T | null }>(API.admin.cms(collection))
+      .then((res) => {
+        if (!cancelled) setData(res.data ?? getDefault());
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setError("Could not load content.");
+          setData(getDefault());
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [collection, getDefault]);
 
   async function save() {
     setSaving(true);
@@ -43,5 +45,19 @@ export function useAdminCms<T>(collection: CmsCollection, getDefault: () => T) {
     }
   }
 
-  return { data, setData, loading, saving, save, message, error, reload: load };
+  async function reload() {
+    setLoading(true);
+    setError("");
+    try {
+      const res = await apiGet<{ data: T | null }>(API.admin.cms(collection));
+      setData(res.data ?? getDefault());
+    } catch {
+      setError("Could not load content.");
+      setData(getDefault());
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return { data, setData, loading, saving, save, message, error, reload };
 }

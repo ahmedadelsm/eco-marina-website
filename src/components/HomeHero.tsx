@@ -9,7 +9,7 @@ import { CMS_KEYS } from "@/lib/content-keys";
 
 export function HomeHero() {
   const { path, locale } = useLocale();
-  const { hero, site, ui } = useSiteContent();
+  const { hero, ui } = useSiteContent();
   const { company } = useCms();
   const headlineKey = locale === "nl" ? CMS_KEYS.heroHeadlineNl : CMS_KEYS.heroHeadline;
   const subheadlineKey = locale === "nl" ? CMS_KEYS.heroSubheadlineNl : CMS_KEYS.heroSubheadline;

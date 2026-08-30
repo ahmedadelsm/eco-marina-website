@@ -66,11 +66,17 @@ export function toFaqView(sections: CmsFaqSection[], locale: Locale): FaqSection
 export function mergeCompany(defaults: CmsCompany, override: CmsCompany | null): CmsCompany {
   if (!override) return defaults;
   return {
-    tagline: override.tagline?.en || override.tagline?.nl ? override.tagline : defaults.tagline,
-    motto: override.motto?.en || override.motto?.nl ? override.motto : defaults.motto,
+    tagline: {
+      en: override.tagline?.en?.trim() || defaults.tagline.en,
+      nl: override.tagline?.nl?.trim() || defaults.tagline.nl,
+    },
+    motto: {
+      en: override.motto?.en?.trim() || defaults.motto.en,
+      nl: override.motto?.nl?.trim() || defaults.motto.nl,
+    },
     linkedIn: override.linkedIn?.trim() || defaults.linkedIn,
-    since: override.since || defaults.since,
-    statsProjects: override.statsProjects || defaults.statsProjects,
-    statsCountries: override.statsCountries || defaults.statsCountries,
+    since: override.since ?? defaults.since,
+    statsProjects: override.statsProjects ?? defaults.statsProjects,
+    statsCountries: override.statsCountries ?? defaults.statsCountries,
   };
 }

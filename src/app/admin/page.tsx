@@ -37,6 +37,15 @@ export default function AdminDashboardPage() {
     },
   ];
 
+  const quickLinks = [
+    { label: "Company info", href: "/admin/company" },
+    { label: "Case studies", href: "/admin/projects" },
+    { label: "Training", href: "/admin/training" },
+    { label: "FAQ", href: "/admin/faq" },
+    { label: "Media library", href: "/admin/media" },
+    { label: "Hero & contact", href: "/admin/content" },
+  ];
+
   return (
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Dashboard</h1>
@@ -52,6 +61,20 @@ export default function AdminDashboardPage() {
             <p className="mt-3 font-serif text-3xl font-semibold text-ink">{card.value}</p>
           </Link>
         ))}
+      </div>
+      <div className="mt-8">
+        <h2 className="font-serif text-xl font-semibold text-ink">Manage content</h2>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {quickLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="border border-line bg-white px-4 py-3 text-sm font-medium text-ink-muted transition-colors hover:border-sea hover:text-sea"
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
       </div>
       {stats.maintenanceEnabled && (
         <div className="mt-8 border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900">

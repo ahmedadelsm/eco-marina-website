@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
 import { buildPageMetadata } from "@/lib/seo";
 import { HomePageView } from "@/views/HomePageView";
 

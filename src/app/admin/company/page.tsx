@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
-import { AdminSaveBar, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, LocalizedInput } from "@/components/admin/cms/CmsFormFields";
 import { defaultCmsCompany } from "@/lib/cms/defaults";
 import type { CmsCompany } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";

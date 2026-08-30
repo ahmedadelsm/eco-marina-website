@@ -14,20 +14,24 @@ export default function AdminMediaPage() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
 
-  async function load() {
-    try {
-      const res = await apiGet<{ items: CmsMediaItem[]; configured: boolean }>(API.admin.media);
-      setItems(res.items);
-      setConfigured(res.configured);
-    } catch {
-      router.replace("/admin/login");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   useEffect(() => {
-    void load();
+    let cancelled = false;
+    apiGet<{ items: CmsMediaItem[]; configured: boolean }>(API.admin.media)
+      .then((res) => {
+        if (!cancelled) {
+          setItems(res.items);
+          setConfigured(res.configured);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) router.replace("/admin/login");
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   async function upload(file: File) {
