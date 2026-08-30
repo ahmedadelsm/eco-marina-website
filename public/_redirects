@@ -1,6 +1,2 @@
 /impact /projects 301
 /nl/impact /nl/projects 301
-/projects/* /projects/detail.html 200
-/nl/projects/* /nl/projects/detail.html 200
-/insights/* /insights/detail.html 200
-/nl/insights/* /nl/insights/detail.html 200

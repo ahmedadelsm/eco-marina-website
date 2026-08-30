@@ -14,6 +14,21 @@ const STATIC_ROUTES = [
   "/contact",
 ];
 
+// These are published in the static build even before the editor has saved a
+// CMS collection. Keep them in the sitemap so a fresh installation exposes
+// the same public detail pages to crawlers as it does to visitors.
+const DEFAULT_PROJECT_SLUGS = [
+  "shipping-agency-regulations",
+  "cement-factory-approval",
+  "seaweed-wastewater-treatment",
+  "oil-berth-construction",
+];
+
+const DEFAULT_INSIGHT_SLUGS = [
+  "sustainable-tourism-new-standard",
+  "environmental-compliance-accessible",
+];
+
 async function getSlugs(env: Env, key: string): Promise<string[]> {
   const row = await env.DB.prepare("SELECT value FROM content WHERE key = ?")
     .bind(key)
@@ -29,8 +44,8 @@ async function getSlugs(env: Env, key: string): Promise<string[]> {
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {
   const { env } = context;
-  const projectSlugs = await getSlugs(env, "cms.projects");
-  const insightSlugs = await getSlugs(env, "cms.insights");
+  const projectSlugs = Array.from(new Set([...DEFAULT_PROJECT_SLUGS, ...(await getSlugs(env, "cms.projects"))]));
+  const insightSlugs = Array.from(new Set([...DEFAULT_INSIGHT_SLUGS, ...(await getSlugs(env, "cms.insights"))]));
   const lastmod = new Date().toISOString().slice(0, 10);
   const site = "https://eco-marina.com";
 
