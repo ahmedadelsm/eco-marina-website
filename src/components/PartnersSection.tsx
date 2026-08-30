@@ -2,10 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { useSiteContent } from "@/components/locale/LocaleProvider";
 import { API, apiGet } from "@/lib/api";
 import { getVisiblePartners, type Partner } from "@/content/site-content";
 
 export function PartnersSection() {
+  const { ui } = useSiteContent();
   const [partners, setPartners] = useState<Partner[]>(getVisiblePartners());
   const [loaded, setLoaded] = useState(false);
 
@@ -24,8 +26,8 @@ export function PartnersSection() {
     return (
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Partners</h2>
-          <p className="mt-4 text-sm text-ink-muted">Loading…</p>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{ui.partners}</h2>
+          <p className="mt-4 text-sm text-ink-muted">{ui.loading}</p>
         </div>
       </section>
     );
@@ -37,7 +39,7 @@ export function PartnersSection() {
     <section className="py-16 sm:py-24">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="brand-accent-heading">
-          <h2 className="font-serif text-2xl font-semibold text-ink">Partners</h2>
+          <h2 className="font-serif text-2xl font-semibold text-ink">{ui.partners}</h2>
         </div>
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
           {partners.map((p) => (

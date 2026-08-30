@@ -64,9 +64,13 @@ export const ui = {
   trainingCta:
     "Wilt u een maatwerk in-company programma of een offerte voor uw team? Vertel ons uw sector, groepsgrootte en locatie — wij stellen het juiste format voor.",
   requestTraining: "Trainingsinformatie aanvragen",
-  deliverables: "Deliverables",
+  deliverables: "Opleveringen",
   sectors: "Sectoren",
   details: "Details",
+  detailsLink: "Meer info",
+  loading: "Laden…",
+  partners: "Partners",
+  language: "Taal",
   contactPage: {
     eyebrow: "Contact",
     title: "Laten we samenwerken",
@@ -209,7 +213,7 @@ export const coreServices = [
       "Cursussen voor professionals, overheidsmedewerkers, industrieteams en gemeenschapsorganisaties — over EIA-praktijk, mariene en kustmonitoring, haven- en scheepvaartcompliance, industriële verontreinigingsbeheersing en praktisch milieubewustzijn.",
     href: "/training",
     icon: "training" as const,
-    image: "/images/services/training.jpg",
+    image: "/images/training/eia-workshop.jpg",
     deliverables: [
       "EIA- en milieubeoordelingsworkshops",
       "Training mariene en kustmonitoring",
@@ -941,6 +945,13 @@ export const pages = {
     description: "Ontwerp van monitoringprogramma's en compliancerapportage voor industriële en kustlocaties.",
     serviceEyebrow: "Dienst",
     cta: "Ontwerp een monitoringprogramma",
+  },
+  impact: {
+    title: "Casestudies",
+    description: "Casestudies van Eco Marina.",
+    heading: "Casestudies",
+    body: "Deze pagina is verplaatst. Onze projectimpact wordt gepresenteerd via gedetailleerde casestudies.",
+    cta: "Alle casestudies bekijken →",
   },
 } as const;
 

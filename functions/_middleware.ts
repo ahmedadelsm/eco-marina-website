@@ -50,7 +50,11 @@ export const onRequest: PagesFunction<Env> = async (context) => {
   }
 
   const country = request.cf?.country;
-  const preferDutch = localeCookie === "nl" || (!localeCookie && country === "NL");
+  const acceptLang = request.headers.get("Accept-Language")?.toLowerCase() ?? "";
+  const dutchRegion = country === "NL" || country === "BE";
+  const prefersDutchBrowser = acceptLang.startsWith("nl");
+  const preferDutch =
+    localeCookie === "nl" || (!localeCookie && (dutchRegion || prefersDutchBrowser));
 
   if (preferDutch && shouldGeoLocalize(url.pathname)) {
     const target = new URL(toDutchPath(url.pathname), request.url);

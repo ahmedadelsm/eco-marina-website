@@ -67,6 +67,10 @@ export const ui = {
   deliverables: "Deliverables",
   sectors: "Sectors",
   details: "Details",
+  detailsLink: "Details",
+  loading: "Loading…",
+  partners: "Partners",
+  language: "Language",
   contactPage: {
     eyebrow: "Contact",
     title: "Let's work together",
@@ -209,7 +213,7 @@ export const coreServices = [
       "Courses for professionals, government staff, industry teams, and community groups — covering EIA practice, marine and coastal monitoring, port and shipping compliance, industrial pollution control, and practical environmental awareness.",
     href: "/training",
     icon: "training" as const,
-    image: "/images/services/training.jpg",
+    image: "/images/training/eia-workshop.jpg",
     deliverables: [
       "EIA and environmental assessment workshops",
       "Marine and coastal monitoring training",
@@ -940,6 +944,13 @@ export const pages = {
     description: "Monitoring program design and compliance reporting for industrial and coastal sites.",
     serviceEyebrow: "Service",
     cta: "Design a monitoring program",
+  },
+  impact: {
+    title: "Case Studies",
+    description: "Environmental consulting case studies from Eco Marina.",
+    heading: "Case studies",
+    body: "This page has moved. Our project impact is presented through detailed case studies.",
+    cta: "View case studies →",
   },
 } as const;
 

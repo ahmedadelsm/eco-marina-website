@@ -2,13 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useLocale } from "./LocaleProvider";
+import { useLocale, useSiteContent } from "./LocaleProvider";
 import { localeLabels, parseLocalePath } from "@/lib/i18n";
 import { setLocaleCookie } from "@/lib/locale-cookie";
 
 export function LanguageSwitcher() {
   const pathname = usePathname() ?? "/";
   const { locale, alternatePath } = useLocale();
+  const { ui } = useSiteContent();
   const { path: basePath } = parseLocalePath(pathname);
   const otherLocale = locale === "en" ? "nl" : "en";
   const enHref = locale === "en" ? pathname : alternatePath(basePath);
@@ -16,7 +17,7 @@ export function LanguageSwitcher() {
 
   return (
     <div className="flex items-center gap-1 text-xs font-medium">
-      <span className="sr-only">Language</span>
+      <span className="sr-only">{ui.language}</span>
       <Link
         href={enHref}
         onClick={() => setLocaleCookie("en")}
