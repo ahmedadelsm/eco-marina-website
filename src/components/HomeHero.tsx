@@ -7,10 +7,12 @@ import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { CMS_KEYS } from "@/lib/content-keys";
 
 export function HomeHero() {
-  const { path } = useLocale();
+  const { path, locale } = useLocale();
   const { hero, site, ui } = useSiteContent();
-  const headline = useContentOverride(CMS_KEYS.heroHeadline, hero.headline);
-  const subheadline = useContentOverride(CMS_KEYS.heroSubheadline, hero.subheadline);
+  const headlineKey = locale === "nl" ? CMS_KEYS.heroHeadlineNl : CMS_KEYS.heroHeadline;
+  const subheadlineKey = locale === "nl" ? CMS_KEYS.heroSubheadlineNl : CMS_KEYS.heroSubheadline;
+  const headline = useContentOverride(headlineKey, hero.headline);
+  const subheadline = useContentOverride(subheadlineKey, hero.subheadline);
 
   return (
     <section className="relative min-h-[min(100svh,880px)] overflow-hidden bg-ink text-white">

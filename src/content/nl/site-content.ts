@@ -462,7 +462,7 @@ export const trainingCourses = [
       "Gebaseerd op EIA-werk voor cementfabrieken, olielaagsteigerinfrastructuur, kustontwikkelingen en industriële installaties in Egypte en Europa.",
     pricing: "Op aanvraag — offerte op basis van groepsgrootte en vorm",
     schedule: "In overleg gepland; op locatie of online",
-    image: "/images/services/consultancy.jpg",
+    image: "/images/training/eia-workshop.jpg",
     imageAlt: "Workshop milieu-effectbeoordeling",
   },
   {
@@ -485,7 +485,7 @@ export const trainingCourses = [
       "Gebaseerd op mariene chemiepraktijk en langdurige monitoring langs kustlocaties in de Middellandse Zee en de Rode Zee.",
     pricing: "Op aanvraag — inclusief velddemonstratie waar van toepassing",
     schedule: "Doorgaans 3 opeenvolgende dagen; data in overleg",
-    image: "/images/services/monitoring.jpg",
+    image: "/images/training/marine-monitoring.jpg",
     imageAlt: "Mariene milieumonitoring in het veld",
   },
   {
@@ -507,7 +507,7 @@ export const trainingCourses = [
       "Ontwikkeld uit implementatie van milieuregelgeving binnen een scheepvaartagent in de Middellandse Zee.",
     pricing: "Op aanvraag — eendaags of gecombineerd met monitoringtraining",
     schedule: "Sessies van 1 dag; op locatie bij havenfaciliteiten mogelijk",
-    image: "/images/projects/shipping-agency.jpg",
+    image: "/images/training/port-shipping.jpg",
     imageAlt: "Milieuregelgeving voor haven en scheepvaart",
   },
   {
@@ -529,7 +529,7 @@ export const trainingCourses = [
       "Inclusief lessen uit zeewier-gebaseerde afwaterzuiveringspiloten en grootschalige milieuvergunningen voor fabrieken.",
     pricing: "Op aanvraag — afgestemd op installatietype en teamgrootte",
     schedule: "Format van 2 dagen; hybride opties beschikbaar",
-    image: "/images/services/industry.jpg",
+    image: "/images/training/industrial-pollution.jpg",
     imageAlt: "Industriële verontreinigingsbeheersing en afwaterbeheer",
   },
   {
@@ -550,7 +550,7 @@ export const trainingCourses = [
       "Uitgevoerd als toegankelijke voorlichting in lijn met Eco Marina's gemeenschapseducatie in Utrecht en Nederland.",
     pricing: "Op aanvraag — vaak gefinancierd via gemeentelijke of NGO-programma's",
     schedule: "Sessies van halve dag; ochtend- of middagblokken",
-    image: "/images/services/training.jpg",
+    image: "/images/training/community-awareness.jpg",
     imageAlt: "Milieubewustzijnssessie voor gemeenschappen in Nederland",
     summaryNl:
       "Begrijpelijke sessies voor bewoners en gemeenschapsorganisaties — over Nederlands afval scheiden, water- en energieverbruik, verontreinigingspreventie en lokale milieucontacten.",

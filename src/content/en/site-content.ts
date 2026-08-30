@@ -462,7 +462,7 @@ export const trainingCourses = [
       "Draws on EIA work for cement plants, oil berth infrastructure, coastal developments, and industrial facilities across Egypt and Europe.",
     pricing: "On request — quote based on group size and format",
     schedule: "Scheduled by arrangement; in-person or online",
-    image: "/images/services/consultancy.jpg",
+    image: "/images/training/eia-workshop.jpg",
     imageAlt: "Environmental impact assessment workshop",
   },
   {
@@ -485,7 +485,7 @@ export const trainingCourses = [
       "Grounded in marine chemistry practice and long-term monitoring across Mediterranean and Red Sea coastal sites.",
     pricing: "On request — includes field demonstration where applicable",
     schedule: "Typically 3 consecutive days; dates by arrangement",
-    image: "/images/services/monitoring.jpg",
+    image: "/images/training/marine-monitoring.jpg",
     imageAlt: "Marine environmental monitoring in the field",
   },
   {
@@ -507,7 +507,7 @@ export const trainingCourses = [
       "Developed from implementing environmental regulations within a shipping agency operation in the Mediterranean.",
     pricing: "On request — single-day or combined with monitoring training",
     schedule: "1-day sessions; can be delivered on-site at port facilities",
-    image: "/images/projects/shipping-agency.jpg",
+    image: "/images/training/port-shipping.jpg",
     imageAlt: "Port and shipping environmental compliance",
   },
   {
@@ -529,7 +529,7 @@ export const trainingCourses = [
       "Includes lessons from seaweed-based wastewater treatment pilots and large-scale factory environmental approvals.",
     pricing: "On request — tailored to facility type and team size",
     schedule: "2-day format; hybrid options available",
-    image: "/images/services/industry.jpg",
+    image: "/images/training/industrial-pollution.jpg",
     imageAlt: "Industrial pollution control and wastewater management",
   },
   {
@@ -550,7 +550,7 @@ export const trainingCourses = [
       "Delivered as accessible outreach aligned with Eco Marina's community education work in Utrecht and the Netherlands.",
     pricing: "On request — often funded through municipal or NGO programmes",
     schedule: "Half-day sessions; morning or afternoon slots",
-    image: "/images/services/training.jpg",
+    image: "/images/training/community-awareness.jpg",
     imageAlt: "Community environmental awareness session in the Netherlands",
     summaryNl:
       "Praktische sessies over afval scheiden, water- en energieverbruik, en milieubewustzijn — speciaal voor nieuwkomers en gemeenschapsorganisaties in Nederland.",

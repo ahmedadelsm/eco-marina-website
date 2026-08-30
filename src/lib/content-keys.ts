@@ -2,6 +2,8 @@
 export const CMS_KEYS = {
   heroHeadline: "hero.headline",
   heroSubheadline: "hero.subheadline",
+  heroHeadlineNl: "hero.headline.nl",
+  heroSubheadlineNl: "hero.subheadline.nl",
   siteEmail: "site.email",
   sitePhone: "site.phone",
   siteOffice: "site.office",

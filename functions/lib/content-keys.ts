@@ -2,6 +2,8 @@
 export const EDITABLE_CONTENT_KEYS = new Set([
   "hero.headline",
   "hero.subheadline",
+  "hero.headline.nl",
+  "hero.subheadline.nl",
   "site.email",
   "site.phone",
   "site.office",
@@ -12,6 +14,8 @@ export const EDITABLE_CONTENT_KEYS = new Set([
 export const PUBLIC_CONTENT_KEYS = new Set([
   "hero.headline",
   "hero.subheadline",
+  "hero.headline.nl",
+  "hero.subheadline.nl",
   "site.email",
   "site.phone",
   "site.office",
