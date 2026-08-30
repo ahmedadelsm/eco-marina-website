@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildServiceDetailMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { MonitoringPageView } from "@/views/MonitoringPageView";
 
-const { pages, coreServices } = getContent("en");
+const meta = getBuildServiceDetailMeta("monitoring", "en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: pages.monitoring.title,
-  description: pages.monitoring.description,
+  title: meta?.title,
+  description: meta?.description,
   path: "/services/monitoring",
-  image: coreServices[1].image,
+  image: meta?.image,
 });
 
 export default function MonitoringPage() {

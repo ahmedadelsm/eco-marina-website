@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildTrainingPageMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { TrainingPageView } from "@/views/TrainingPageView";
 
-const { coreServices } = getContent("en");
-const service = coreServices[2];
+const meta = getBuildTrainingPageMeta("en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: "Training & Workshops",
-  description: service.description,
+  title: meta?.title,
+  description: meta?.description,
   path: "/training",
-  image: service.image,
+  image: meta?.image,
 });
 
 export default function TrainingPage() {

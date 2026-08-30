@@ -4,6 +4,7 @@ import { ButtonArrow } from "@/components/Button";
 import { ServiceDetailLayout } from "@/components/CoreServiceCard";
 import { PageHero } from "@/components/PageHero";
 import { useCms } from "@/components/cms/CmsProvider";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ImpactAssessmentPageView({ locale }: { locale: Locale }) {
@@ -11,9 +12,11 @@ export function ImpactAssessmentPageView({ locale }: { locale: Locale }) {
   const service = coreServices[0];
   const path = (href: string) => localePath(locale, href);
   const detail = pageCopy.impactAssessment;
+  const seoPath = locale === "nl" ? "/nl/services/impact-assessment" : "/services/impact-assessment";
 
   return (
     <>
+      <PageSeo path={seoPath} fallbackTitle={service.title} fallbackDescription={service.description} />
       <PageHero eyebrow={detail.serviceEyebrow} title={service.title} description={service.tagline} />
       <ServiceDetailLayout service={service} showTitle={false}>
         <p className="mt-6 text-sm text-ink-muted">{detail.overview}</p>

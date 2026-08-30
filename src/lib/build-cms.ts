@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { getSeoForPath, pickList, pickText } from "@/lib/cms/localize";
 import { mergeCmsWithDefaults } from "@/lib/cms/registry";
 import type {
   CmsCompany,
@@ -8,6 +9,8 @@ import type {
   CmsProject,
   CmsResources,
   CmsSeoEntry,
+  CmsServices,
+  CmsTrainingPage,
 } from "@/lib/cms/types";
 import type { Locale } from "@/lib/i18n";
 
@@ -20,6 +23,8 @@ type StoredBuildCms = {
   seo?: CmsSeoEntry[] | null;
   pages?: CmsPages | null;
   resources?: CmsResources | null;
+  services?: CmsServices | null;
+  trainingPage?: CmsTrainingPage | null;
 };
 
 type ResolvedBuildCms = {
@@ -29,6 +34,8 @@ type ResolvedBuildCms = {
   seo: CmsSeoEntry[];
   pages: CmsPages;
   resources: CmsResources;
+  services: CmsServices;
+  trainingPage: CmsTrainingPage;
 };
 
 let cached: ResolvedBuildCms | null = null;
@@ -53,9 +60,40 @@ function resolveBuildCms(): ResolvedBuildCms {
     seo: mergeCmsWithDefaults("seo", stored?.seo ?? null),
     pages: mergeCmsWithDefaults("pages", stored?.pages ?? null),
     resources: mergeCmsWithDefaults("resources", stored?.resources ?? null),
+    services: mergeCmsWithDefaults("services", stored?.services ?? null),
+    trainingPage: mergeCmsWithDefaults("training-page", stored?.trainingPage ?? null),
   };
 
   return cached;
+}
+
+function seoPathFor(page: string, locale: Locale): string {
+  const base =
+    page === "projects"
+      ? "/projects"
+      : page === "insights"
+        ? "/insights"
+        : page === "services"
+          ? "/services"
+          : page === "resources"
+            ? "/resources"
+            : page === "faq"
+              ? "/faq"
+              : page === "contact"
+                ? "/contact"
+                : page === "about"
+                  ? "/about"
+                  : page === "training"
+                    ? "/training"
+                    : page === "impact"
+                      ? "/impact"
+                      : page === "impact-assessment"
+                        ? "/services/impact-assessment"
+                        : page === "monitoring"
+                          ? "/services/monitoring"
+                          : "/";
+
+  return locale === "nl" && base !== "/" ? `/nl${base}` : base;
 }
 
 export function getBuildProjectSlugs(): { slug: string }[] {
@@ -110,47 +148,63 @@ export function getBuildSeo(path: string, locale: Locale) {
   return getSeoForPath(resolveBuildCms().seo, path, locale);
 }
 
+export function getBuildCoreService(slug: string, locale: Locale) {
+  const service = resolveBuildCms().services.coreServices.find((item) => item.slug === slug);
+  if (!service) return undefined;
+  return {
+    slug: service.slug,
+    title: pickText(service.title, locale),
+    description: pickText(service.description, locale),
+    tagline: pickText(service.tagline, locale),
+    image: service.image,
+  };
+}
+
+export function getBuildTrainingPageMeta(locale: Locale) {
+  const seo = getBuildSeo(seoPathFor("training", locale), locale);
+  if (seo) return { ...seo, image: getBuildCoreService("training", locale)?.image };
+
+  const { trainingPage } = resolveBuildCms();
+  const service = getBuildCoreService("training", locale);
+  return {
+    title: pickText(trainingPage.title, locale),
+    description: pickText(trainingPage.description, locale),
+    image: service?.image,
+  };
+}
+
+export function getBuildImpactPageMeta(locale: Locale) {
+  const seo = getBuildSeo(seoPathFor("impact", locale), locale);
+  if (seo) return seo;
+
+  const { pages } = resolveBuildCms();
+  return {
+    title: pickText(pages.impact.heading, locale),
+    description: pickText(pages.impact.body, locale),
+  };
+}
+
+export function getBuildServiceDetailMeta(slug: "impact-assessment" | "monitoring", locale: Locale) {
+  const pageKey = slug === "impact-assessment" ? "impact-assessment" : "monitoring";
+  const seo = getBuildSeo(seoPathFor(pageKey, locale), locale);
+  const service = getBuildCoreService(slug, locale);
+  if (seo) return { ...seo, image: service?.image };
+  if (!service) return null;
+  return {
+    title: service.title,
+    description: service.description,
+    image: service.image,
+  };
+}
+
 export function getBuildListPageMeta(
   page: "projects" | "insights" | "services" | "resources" | "faq" | "contact" | "about" | "training",
   locale: Locale,
 ) {
-  const seoPath =
-    page === "projects"
-      ? locale === "nl"
-        ? "/nl/projects"
-        : "/projects"
-      : page === "insights"
-        ? locale === "nl"
-          ? "/nl/insights"
-          : "/insights"
-        : page === "services"
-          ? locale === "nl"
-            ? "/nl/services"
-            : "/services"
-          : page === "resources"
-            ? locale === "nl"
-              ? "/nl/resources"
-              : "/resources"
-              : page === "faq"
-                ? locale === "nl"
-                  ? "/nl/faq"
-                  : "/faq"
-                : page === "contact"
-                  ? locale === "nl"
-                    ? "/nl/contact"
-                    : "/contact"
-                  : page === "about"
-                    ? locale === "nl"
-                      ? "/nl/about"
-                      : "/about"
-                    : locale === "nl"
-                      ? "/nl/training"
-                      : "/training";
-
-  const seo = getBuildSeo(seoPath, locale);
+  const seo = getBuildSeo(seoPathFor(page, locale), locale);
   if (seo) return seo;
 
-  const { pages, resources } = resolveBuildCms();
+  const { pages, resources, trainingPage } = resolveBuildCms();
   if (page === "resources") {
     return {
       title: pickText(resources.heading, locale),
@@ -179,6 +233,12 @@ export function getBuildListPageMeta(
     return {
       title: pickText(pages.faq.heading, locale),
       description: pickText(pages.faq.heading, locale),
+    };
+  }
+  if (page === "training") {
+    return {
+      title: pickText(trainingPage.title, locale),
+      description: pickText(trainingPage.description, locale),
     };
   }
 

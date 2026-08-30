@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildImpactPageMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { ImpactPageView } from "@/views/ImpactPageView";
 
-const { pages } = getContent("en");
+const meta = getBuildImpactPageMeta("en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: pages.impact.title,
-  description: pages.impact.description,
+  title: meta?.title,
+  description: meta?.description,
   path: "/impact",
 });
 

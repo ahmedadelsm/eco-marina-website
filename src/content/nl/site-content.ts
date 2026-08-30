@@ -837,24 +837,6 @@ export const partners: readonly Partner[] = [
   },
 ];
 
-const PARTNERS_CONTENT_KEY = "partners.enabled";
-
-/** Resolve which partners are visible, optionally applying admin overrides from /api/content */
-export function getVisiblePartners(content?: Record<string, unknown>): Partner[] {
-  const override = content?.[PARTNERS_CONTENT_KEY];
-  if (Array.isArray(override)) {
-    const enabledIds = new Set(override.filter((id): id is string => typeof id === "string"));
-    return partners.filter((p) => enabledIds.has(p.id));
-  }
-  return partners.filter((p) => p.enabledByDefault);
-}
-
-export function getDefaultEnabledPartnerIds(): string[] {
-  return partners.filter((p) => p.enabledByDefault).map((p) => p.id);
-}
-
-export { PARTNERS_CONTENT_KEY };
-
 export const pages = {
   about: {
     title: "Over Adel Regal",

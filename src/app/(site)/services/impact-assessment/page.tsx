@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import { getContent } from "@/content";
+import { getBuildServiceDetailMeta } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { ImpactAssessmentPageView } from "@/views/ImpactAssessmentPageView";
 
-const { pages, coreServices } = getContent("en");
+const meta = getBuildServiceDetailMeta("impact-assessment", "en");
 
 export const metadata: Metadata = buildPageMetadata({
   locale: "en",
-  title: pages.impactAssessment.title,
-  description: pages.impactAssessment.description,
+  title: meta?.title,
+  description: meta?.description,
   path: "/services/impact-assessment",
-  image: coreServices[0].image,
+  image: meta?.image,
 });
 
 export default function ImpactAssessmentPage() {

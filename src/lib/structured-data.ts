@@ -28,13 +28,16 @@ export function websiteJsonLd() {
   };
 }
 
-export function articleJsonLd(article: {
-  title: string;
-  excerpt: string;
-  datePublished: string;
-  slug: string;
-  image: string;
-}) {
+export function articleJsonLd(
+  article: {
+    title: string;
+    excerpt: string;
+    datePublished: string;
+    slug: string;
+    image: string;
+  },
+  publisherName: string,
+) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -47,7 +50,7 @@ export function articleJsonLd(article: {
     },
     publisher: {
       "@type": "Organization",
-      name: site.name,
+      name: publisherName,
       logo: {
         "@type": "ImageObject",
         url: "https://eco-marina.com/images/logo.png",

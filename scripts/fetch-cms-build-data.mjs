@@ -29,6 +29,8 @@ async function main() {
     seo: payload?.seo ?? null,
     pages: payload?.pages ?? null,
     resources: payload?.resources ?? null,
+    services: payload?.services ?? null,
+    trainingPage: payload?.trainingPage ?? null,
   };
 
   fs.mkdirSync(path.dirname(OUT), { recursive: true });

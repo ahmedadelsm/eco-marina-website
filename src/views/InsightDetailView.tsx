@@ -11,7 +11,7 @@ import { localePath, type Locale } from "@/lib/i18n";
 import { articleJsonLd } from "@/lib/structured-data";
 
 export function InsightDetailView({ locale, slug }: { locale: Locale; slug: string }) {
-  const { getInsight, ready, pageCopy } = useCms();
+  const { getInsight, ready, pageCopy, company } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? `/nl/insights/${slug}` : `/insights/${slug}`;
 
@@ -23,7 +23,7 @@ export function InsightDetailView({ locale, slug }: { locale: Locale; slug: stri
   return (
     <>
       <PageSeo path={seoPath} fallbackTitle={article.title} fallbackDescription={article.excerpt} />
-      <JsonLd data={articleJsonLd(article)} />
+      <JsonLd data={articleJsonLd(article, company.name)} />
       <DetailHero
         image={article.image}
         imageAlt={article.title}

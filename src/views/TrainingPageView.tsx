@@ -4,15 +4,18 @@ import Image from "next/image";
 import { ButtonArrow } from "@/components/Button";
 import { useCms } from "@/components/cms/CmsProvider";
 import { PageHero } from "@/components/PageHero";
+import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function TrainingPageView({ locale }: { locale: Locale }) {
   const { coreServices, training: trainingCourses, trainingPage, ui } = useCms();
   const service = coreServices[2];
   const path = (href: string) => localePath(locale, href);
+  const seoPath = locale === "nl" ? "/nl/training" : "/training";
 
   return (
     <>
+      <PageSeo path={seoPath} fallbackTitle={trainingPage.title} fallbackDescription={trainingPage.description} />
       <PageHero
         eyebrow={trainingPage.eyebrow}
         title={trainingPage.title}
