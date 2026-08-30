@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import type { Locale } from "@/lib/i18n";
 
 export function SetHtmlLang({ locale }: { locale: Locale }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
   return null;

@@ -298,8 +298,14 @@ export function toFooterNav(items: CmsNavigation["footer"], locale: Locale): Foo
   }));
 }
 
+export function normalizeSeoPath(path: string): string {
+  if (path === "/nl") return "/";
+  if (path.startsWith("/nl/")) return path.slice(3);
+  return path;
+}
+
 export function getSeoForPath(entries: CmsSeoEntry[], path: string, locale: Locale) {
-  const entry = entries.find((item) => item.path === path);
+  const entry = entries.find((item) => item.path === normalizeSeoPath(path));
   if (!entry) return null;
   return {
     title: pickText(entry.title, locale),

@@ -211,15 +211,31 @@ export function getBuildListPageMeta(
     };
   }
   if (page === "services") {
+    const { services } = resolveBuildCms();
     return {
       title: pickText(pages.services.heading, locale),
-      description: pickText(pages.services.heading, locale),
+      description: pickText(services.intro, locale),
     };
   }
   if (page === "faq") {
+    const seoEntry = resolveBuildCms().seo.find((item) => item.path === "/faq");
     return {
       title: pickText(pages.faq.heading, locale),
-      description: pickText(pages.faq.heading, locale),
+      description: seoEntry ? pickText(seoEntry.description, locale) : pickText(pages.faq.heading, locale),
+    };
+  }
+  if (page === "about") {
+    const seoEntry = resolveBuildCms().seo.find((item) => item.path === "/about");
+    return {
+      title: seoEntry ? pickText(seoEntry.title, locale) : pickText(pages.about.eyebrow, locale),
+      description: seoEntry ? pickText(seoEntry.description, locale) : "",
+    };
+  }
+  if (page === "contact") {
+    const seoEntry = resolveBuildCms().seo.find((item) => item.path === "/contact");
+    return {
+      title: seoEntry ? pickText(seoEntry.title, locale) : (locale === "nl" ? "Contact" : "Contact"),
+      description: seoEntry ? pickText(seoEntry.description, locale) : "",
     };
   }
   if (page === "training") {

@@ -22,22 +22,25 @@ export function FAQContent() {
                   const key = `${section.category}-${item.q}`;
                   const isOpen = openIndex === key;
                   const panelId = `faq-panel-${section.category.replace(/\s+/g, "-").toLowerCase()}-${index}`;
+                  const questionId = `faq-question-${section.category.replace(/\s+/g, "-").toLowerCase()}-${index}`;
                   return (
                     <div key={key}>
                       <button
                         type="button"
-                        className="flex w-full items-center justify-between px-5 py-4 text-left hover:bg-paper"
+                        className="flex w-full items-center justify-between px-5 py-4 text-left hover:bg-paper focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-sea"
                         onClick={() => setOpenIndex(isOpen ? null : key)}
                         aria-expanded={isOpen}
                         aria-controls={panelId}
                       >
-                        <span className="pr-4 text-sm font-medium text-ink">{item.q}</span>
+                        <span id={questionId} className="pr-4 text-sm font-medium text-ink">
+                          {item.q}
+                        </span>
                         <span className="shrink-0 text-sea" aria-hidden>
                           {isOpen ? "−" : "+"}
                         </span>
                       </button>
                       {isOpen && (
-                        <div id={panelId} className="border-t border-line bg-paper px-5 py-4">
+                        <div id={panelId} role="region" aria-labelledby={questionId} className="border-t border-line bg-paper px-5 py-4">
                           <p className="text-sm text-ink-muted">{item.a}</p>
                         </div>
                       )}

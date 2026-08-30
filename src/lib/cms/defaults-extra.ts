@@ -232,7 +232,7 @@ export function defaultCmsResources(): CmsResources {
 
 export function defaultCmsTrainingPage(): CmsTrainingPage {
   return {
-    eyebrow: pairText("Training", "Training"),
+    eyebrow: pairText("Training", "Trainingen"),
     title: pairText(en.trainingIntro.title, nl.trainingIntro.title),
     description: pairText(en.trainingIntro.description, nl.trainingIntro.description),
   };
@@ -338,6 +338,8 @@ const SEO_ROUTES = [
   { path: "/", titleKey: "home" as const },
   { path: "/about", page: "about" as const },
   { path: "/services", page: "services" as const },
+  { path: "/services/impact-assessment", page: "impactAssessment" as const },
+  { path: "/services/monitoring", page: "monitoring" as const },
   { path: "/training", page: "training" as const },
   { path: "/projects", page: "projects" as const },
   { path: "/insights", page: "insights" as const },

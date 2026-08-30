@@ -54,9 +54,10 @@ interface TurnstileWidgetProps {
   onToken: (token: string) => void;
   onExpire?: () => void;
   resetKey?: number;
+  ariaLabel?: string;
 }
 
-export function TurnstileWidget({ onToken, onExpire, resetKey = 0 }: TurnstileWidgetProps) {
+export function TurnstileWidget({ onToken, onExpire, resetKey = 0, ariaLabel = "Security verification" }: TurnstileWidgetProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const widgetIdRef = useRef<string | null>(null);
   const [error, setError] = useState("");
@@ -95,7 +96,7 @@ export function TurnstileWidget({ onToken, onExpire, resetKey = 0 }: TurnstileWi
   if (!isTurnstileConfigured()) return null;
 
   return (
-    <div className="mt-4">
+    <div className="mt-4" role="group" aria-label={ariaLabel}>
       <div ref={containerRef} />
       {error && <p className="mt-2 text-sm text-red-600">{error}</p>}
     </div>

@@ -99,7 +99,7 @@ export const ui = {
     services: {
       impact: "Milieu- en sociale effectbeoordeling",
       monitoring: "Milieumonitoringsprogramma",
-      training: "Training & workshops",
+      training: "Trainingen & workshops",
       other: "Overig / algemene vraag",
     },
   },
@@ -440,7 +440,7 @@ export const mission = {
 };
 
 export const trainingIntro = {
-  title: "Training & workshops",
+  title: "Trainingen & workshops",
   description:
     "Praktische cursussen onder leiding van Adel Regal, opgebouwd uit decennia EIA-uitvoering, mariene monitoring, industriële compliance en gemeenschapseducatie in Nederland en internationaal.",
 } as const;
@@ -613,7 +613,7 @@ export const faq = [
     ],
   },
   {
-    category: "Training",
+    category: "Trainingen",
     questions: [
       {
         q: "Voor wie zijn uw trainingen bedoeld?",
@@ -855,7 +855,7 @@ export const pages = {
     title: "Veelgestelde vragen",
     description:
       "Veelgestelde vragen over de diensten, werkwijze en milieucompliance van Eco Marina.",
-    eyebrow: "FAQ",
+    eyebrow: "Veelgestelde vragen",
     heading: "Veelgestelde vragen",
   },
   services: {
@@ -914,7 +914,7 @@ export const pages = {
       "Neem contact op met Eco Marina voor effectbeoordeling, monitoring of training. Eerste adviesgesprek gratis.",
   },
   training: {
-    title: "Training & workshops",
+    title: "Trainingen & workshops",
   },
   impactAssessment: {
     title: "Milieu-effectbeoordeling (MER)",
@@ -946,7 +946,7 @@ export const nav = [
   { label: "Inzichten", href: "/insights" },
   { label: "Materialen", href: "/resources" },
   { label: "Over Adel", href: "/about" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Veelgestelde vragen", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
@@ -958,7 +958,7 @@ export const footerNav = [
   { label: "Inzichten", href: "/insights" },
   { label: "Materialen", href: "/resources" },
   { label: "Over Adel Regal", href: "/about" },
-  { label: "FAQ", href: "/faq" },
+  { label: "Veelgestelde vragen", href: "/faq" },
   { label: "Contact", href: "/contact" },
 ] as const;
 

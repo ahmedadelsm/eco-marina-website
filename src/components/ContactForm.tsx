@@ -133,7 +133,12 @@ export function ContactForm() {
         />
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <TurnstileWidget onToken={handleTurnstileToken} onExpire={handleTurnstileExpire} resetKey={turnstileReset} />
+      <TurnstileWidget
+        onToken={handleTurnstileToken}
+        onExpire={handleTurnstileExpire}
+        resetKey={turnstileReset}
+        ariaLabel={form.captcha}
+      />
       <button
         type="submit"
         disabled={loading}

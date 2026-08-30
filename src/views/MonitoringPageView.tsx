@@ -20,10 +20,13 @@ export function MonitoringPageView({ locale }: { locale: Locale }) {
       <PageHero eyebrow={detail.serviceEyebrow} title={service.title} description={service.tagline} />
       <ServiceDetailLayout service={service} showTitle={false}>
         <p className="mt-6 text-sm text-ink-muted">{detail.overview}</p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <h2 className="mt-8 font-serif text-lg font-semibold text-ink">
+          {locale === "nl" ? "Monitoringgebieden" : "Monitoring areas"}
+        </h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
           {detail.areas.map((area) => (
             <div key={area.name} className="border border-line bg-paper p-4">
-              <h4 className="text-sm font-semibold text-ink">{area.name}</h4>
+              <h3 className="text-sm font-semibold text-ink">{area.name}</h3>
               <ul className="mt-2 space-y-1">
                 {area.items.map((item) => (
                   <li key={item} className="text-xs text-ink-muted">

@@ -8,7 +8,7 @@ import { PageSeo } from "@/components/cms/PageSeo";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function ImpactAssessmentPageView({ locale }: { locale: Locale }) {
-  const { coreServices, pageCopy } = useCms();
+  const { coreServices, pageCopy, ui } = useCms();
   const service = coreServices[0];
   const path = (href: string) => localePath(locale, href);
   const detail = pageCopy.impactAssessment;
@@ -20,7 +20,8 @@ export function ImpactAssessmentPageView({ locale }: { locale: Locale }) {
       <PageHero eyebrow={detail.serviceEyebrow} title={service.title} description={service.tagline} />
       <ServiceDetailLayout service={service} showTitle={false}>
         <p className="mt-6 text-sm text-ink-muted">{detail.overview}</p>
-        <ol className="mt-8 space-y-4">
+        <h2 className="mt-8 font-serif text-lg font-semibold text-ink">{ui.approach}</h2>
+        <ol className="mt-4 space-y-4">
           {detail.steps.map((step, i) => (
             <li key={step} className="flex gap-3 text-sm text-ink-muted">
               <span className="font-semibold text-sea">{i + 1}.</span>
