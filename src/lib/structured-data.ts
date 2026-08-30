@@ -1,33 +1,3 @@
-import { site } from "@/content/site-content";
-
-export function organizationJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: site.name,
-    url: "https://eco-marina.com",
-    logo: "https://eco-marina.com/images/logo.png",
-    email: site.email,
-    telephone: site.phone,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "Utrecht",
-      addressCountry: "NL",
-    },
-    sameAs: [site.linkedIn],
-  };
-}
-
-export function websiteJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: site.name,
-    url: "https://eco-marina.com",
-    description: site.tagline,
-  };
-}
-
 export function articleJsonLd(
   article: {
     title: string;
@@ -36,8 +6,11 @@ export function articleJsonLd(
     slug: string;
     image: string;
   },
-  publisherName: string,
+  publisher: { name: string; domain: string },
+  insightPath: string,
 ) {
+  const siteUrl = `https://${publisher.domain}`;
+
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -50,28 +23,13 @@ export function articleJsonLd(
     },
     publisher: {
       "@type": "Organization",
-      name: publisherName,
+      name: publisher.name,
       logo: {
         "@type": "ImageObject",
-        url: "https://eco-marina.com/images/logo.png",
+        url: `${siteUrl}/images/logo.png`,
       },
     },
-    mainEntityOfPage: `https://eco-marina.com/insights/${article.slug}`,
-    image: article.image.startsWith("http")
-      ? article.image
-      : `https://eco-marina.com${article.image}`,
-  };
-}
-
-export function professionalServiceJsonLd() {
-  return {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    name: site.name,
-    url: "https://eco-marina.com",
-    description: site.tagline,
-    areaServed: site.operatingRegions,
-    email: site.email,
-    telephone: site.phone,
+    mainEntityOfPage: `${siteUrl}${insightPath}`,
+    image: article.image.startsWith("http") ? article.image : `${siteUrl}${article.image}`,
   };
 }

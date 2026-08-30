@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
  * Scaffolds Dutch (/nl) page wrappers that mirror English routes.
+ * Uses build-cms helpers for metadata (same patterns as src/app/nl/*).
  */
 const fs = require("fs");
 const path = require("path");
@@ -12,9 +13,9 @@ const routes = [
   {
     dir: "",
     view: "HomePageView",
-    importPath: "@/views/HomePageView",
-    meta: `const { site } = getContent("nl");
-export const metadata = buildPageMetadata({
+    imports: `import { buildPageMetadata } from "@/lib/seo";
+import { HomePageView } from "@/views/HomePageView";`,
+    meta: `export const metadata = buildPageMetadata({
   locale: "nl",
   description: "Milieu- en sociale effectbeoordeling, monitoringprogramma's en duurzaamheidstraining. Gevestigd in Utrecht, Nederland.",
   path: "/nl",
@@ -24,73 +25,165 @@ export const metadata = buildPageMetadata({
   {
     dir: "about",
     view: "AboutPageView",
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.about.title, description: pages.about.description, path: "/nl/about" });`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { AboutPageView } from "@/views/AboutPageView";`,
+    meta: `const meta = getBuildListPageMeta("about", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/about",
+});`,
     body: `export default function Page() { return <AboutPageView locale="nl" />; }`,
   },
   {
     dir: "contact",
     view: null,
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.contact.title, description: pages.contact.description, path: "/nl/contact" });`,
-    body: `import { ContactPageContent } from "@/components/ContactForm";
-export default function Page() { return <ContactPageContent />; }`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { ContactPageContent } from "@/components/ContactForm";`,
+    meta: `const meta = getBuildListPageMeta("contact", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/contact",
+});`,
+    body: `export default function Page() { return <ContactPageContent />; }`,
   },
   {
     dir: "faq",
     view: null,
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.faq.title, description: pages.faq.description, path: "/nl/faq" });`,
-    body: `import { FAQContent } from "@/app/(site)/faq/FAQContent";
-export default function Page() { return <FAQContent />; }`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { FAQContent } from "@/app/(site)/faq/FAQContent";`,
+    meta: `const meta = getBuildListPageMeta("faq", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/faq",
+});`,
+    body: `export default function Page() { return <FAQContent />; }`,
   },
   {
     dir: "training",
     view: "TrainingPageView",
-    meta: `const { pages, coreServices } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.training.title, description: coreServices[2].description, path: "/nl/training", image: coreServices[2].image });`,
+    imports: `import { getBuildTrainingPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { TrainingPageView } from "@/views/TrainingPageView";`,
+    meta: `const meta = getBuildTrainingPageMeta("nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/training",
+  image: meta?.image,
+});`,
     body: `export default function Page() { return <TrainingPageView locale="nl" />; }`,
   },
   {
     dir: "services",
     view: "ServicesPageView",
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.services.title, description: pages.services.description, path: "/nl/services" });`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { ServicesPageView } from "@/views/ServicesPageView";`,
+    meta: `const meta = getBuildListPageMeta("services", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/services",
+});`,
     body: `export default function Page() { return <ServicesPageView locale="nl" />; }`,
   },
   {
     dir: "services/impact-assessment",
     view: "ImpactAssessmentPageView",
-    meta: `const { pages, coreServices } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.impactAssessment.title, description: pages.impactAssessment.description, path: "/nl/services/impact-assessment", image: coreServices[0].image });`,
+    imports: `import { getBuildServiceDetailMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { ImpactAssessmentPageView } from "@/views/ImpactAssessmentPageView";`,
+    meta: `const meta = getBuildServiceDetailMeta("impact-assessment", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/services/impact-assessment",
+  image: meta?.image,
+});`,
     body: `export default function Page() { return <ImpactAssessmentPageView locale="nl" />; }`,
   },
   {
     dir: "services/monitoring",
     view: "MonitoringPageView",
-    meta: `const { pages, coreServices } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.monitoring.title, description: pages.monitoring.description, path: "/nl/services/monitoring", image: coreServices[1].image });`,
+    imports: `import { getBuildServiceDetailMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { MonitoringPageView } from "@/views/MonitoringPageView";`,
+    meta: `const meta = getBuildServiceDetailMeta("monitoring", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/services/monitoring",
+  image: meta?.image,
+});`,
     body: `export default function Page() { return <MonitoringPageView locale="nl" />; }`,
   },
   {
     dir: "projects",
     view: "ProjectsPageView",
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.projects.title, description: pages.projects.description, path: "/nl/projects", image: "/images/projects/shipping-agency.jpg" });`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { ProjectsPageView } from "@/views/ProjectsPageView";`,
+    meta: `const meta = getBuildListPageMeta("projects", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/projects",
+  image: "/images/projects/shipping-agency.jpg",
+});`,
     body: `export default function Page() { return <ProjectsPageView locale="nl" />; }`,
   },
   {
     dir: "insights",
     view: "InsightsPageView",
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.insights.title, description: pages.insights.description, path: "/nl/insights" });`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { InsightsPageView } from "@/views/InsightsPageView";`,
+    meta: `const meta = getBuildListPageMeta("insights", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/insights",
+});`,
     body: `export default function Page() { return <InsightsPageView locale="nl" />; }`,
   },
   {
     dir: "resources",
     view: "ResourcesPageView",
-    meta: `const { pages } = getContent("nl");
-export const metadata = buildPageMetadata({ locale: "nl", title: pages.resources.title, description: pages.resources.description, path: "/nl/resources" });`,
+    imports: `import { getBuildListPageMeta } from "@/lib/build-cms";
+import { buildPageMetadata } from "@/lib/seo";
+import { ResourcesPageView } from "@/views/ResourcesPageView";`,
+    meta: `const meta = getBuildListPageMeta("resources", "nl");
+
+export const metadata = buildPageMetadata({
+  locale: "nl",
+  title: meta?.title,
+  description: meta?.description,
+  path: "/nl/resources",
+});`,
     body: `export default function Page() { return <ResourcesPageView locale="nl" />; }`,
   },
 ];
@@ -98,10 +191,8 @@ export const metadata = buildPageMetadata({ locale: "nl", title: pages.resources
 for (const route of routes) {
   const dir = path.join(NL_APP, route.dir);
   fs.mkdirSync(dir, { recursive: true });
-  const viewImport = route.view ? `import { ${route.view} } from "@/views/${route.view}";\n` : "";
-  const content = `import { getContent } from "@/content";
-import { buildPageMetadata } from "@/lib/seo";
-${viewImport}
+  const content = `${route.imports}
+
 ${route.meta}
 
 ${route.body}
@@ -109,26 +200,25 @@ ${route.body}
   fs.writeFileSync(path.join(dir, "page.tsx"), content);
 }
 
-// Dynamic project slug page
 const projectSlugDir = path.join(NL_APP, "projects/[slug]");
 fs.mkdirSync(projectSlugDir, { recursive: true });
 fs.writeFileSync(
   path.join(projectSlugDir, "page.tsx"),
   `import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getContent } from "@/content";
+import { getBuildProject, getBuildProjectSlugs } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { ProjectDetailView } from "@/views/ProjectDetailView";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getContent("nl").projects.map((p) => ({ slug: p.slug }));
+  return getBuildProjectSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const project = getContent("nl").getProject(slug);
+  const project = getBuildProject(slug, "nl");
   if (!project) return { title: "Casestudy" };
   return buildPageMetadata({
     locale: "nl",
@@ -141,7 +231,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  if (!getContent("nl").getProject(slug)) notFound();
+  if (!getBuildProject(slug, "nl")) notFound();
   return <ProjectDetailView locale="nl" slug={slug} />;
 }
 `,
@@ -153,19 +243,19 @@ fs.writeFileSync(
   path.join(insightSlugDir, "page.tsx"),
   `import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getContent } from "@/content";
+import { getBuildInsight, getBuildInsightSlugs } from "@/lib/build-cms";
 import { buildPageMetadata } from "@/lib/seo";
 import { InsightDetailView } from "@/views/InsightDetailView";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return getContent("nl").insights.map((i) => ({ slug: i.slug }));
+  return getBuildInsightSlugs();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const article = getContent("nl").getInsight(slug);
+  const article = getBuildInsight(slug, "nl");
   if (!article) return { title: "Inzicht" };
   return buildPageMetadata({
     locale: "nl",
@@ -179,7 +269,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  if (!getContent("nl").getInsight(slug)) notFound();
+  if (!getBuildInsight(slug, "nl")) notFound();
   return <InsightDetailView locale="nl" slug={slug} />;
 }
 `,

@@ -23,7 +23,7 @@ export function InsightDetailView({ locale, slug }: { locale: Locale; slug: stri
   return (
     <>
       <PageSeo path={seoPath} fallbackTitle={article.title} fallbackDescription={article.excerpt} />
-      <JsonLd data={articleJsonLd(article, company.name)} />
+      <JsonLd data={articleJsonLd(article, company, path(`/insights/${slug}`))} />
       <DetailHero
         image={article.image}
         imageAlt={article.title}

@@ -1,12 +1,10 @@
 export const API = {
   contact: "/api/contact",
-  content: "/api/content",
   cms: "/api/cms",
   admin: {
     login: "/api/admin/login",
     stats: "/api/admin/stats",
     messages: "/api/admin/messages",
-    content: "/api/admin/content",
     maintenance: "/api/admin/maintenance",
     emailSettings: "/api/admin/email-settings",
     cms: (collection: string) => `/api/admin/cms/${collection}`,

@@ -28,7 +28,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
   const unread = await env.DB.prepare("SELECT COUNT(*) as count FROM messages WHERE read = 0").first<{ count: number }>();
   const total = await env.DB.prepare("SELECT COUNT(*) as count FROM messages").first<{ count: number }>();
   const maintenance = await env.SETTINGS.get("maintenance_mode");
-  const contentCount = await env.DB.prepare("SELECT COUNT(*) as count FROM content").first<{ count: number }>();
 
   let cmsCollections = 0;
   for (const key of CMS_KEYS) {
@@ -40,7 +39,6 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     {
       unreadMessages: unread?.count ?? 0,
       totalMessages: total?.count ?? 0,
-      contentOverrides: contentCount?.count ?? 0,
       cmsCollections,
       maintenanceEnabled: maintenance !== "false",
     },

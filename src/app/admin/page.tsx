@@ -8,7 +8,6 @@ import { API, apiGet } from "@/lib/api";
 type Stats = {
   unreadMessages: number;
   totalMessages: number;
-  contentOverrides: number;
   cmsCollections: number;
   maintenanceEnabled: boolean;
 };
@@ -30,8 +29,7 @@ export default function AdminDashboardPage() {
   const cards = [
     { label: "Unread messages", value: stats.unreadMessages, href: "/admin/messages" },
     { label: "Total messages", value: stats.totalMessages, href: "/admin/messages" },
-    { label: "Content overrides", value: stats.contentOverrides, href: "/admin/content" },
-    { label: "CMS collections", value: stats.cmsCollections, href: "/admin/homepage" },
+    { label: "CMS collections saved", value: stats.cmsCollections, href: "/admin/homepage" },
     {
       label: "Maintenance mode",
       value: stats.maintenanceEnabled ? "ON" : "OFF",
@@ -63,7 +61,7 @@ export default function AdminDashboardPage() {
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Dashboard</h1>
       <p className="mt-2 text-ink-muted">Overview of your Eco Marina website.</p>
-      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((card) => (
           <Link
             key={card.label}
