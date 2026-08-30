@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AdminSaveBar, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput, LocalizedListField, LocalizedTextarea } from "@/components/admin/cms/CmsFormFields";
 import type { CmsLegacyService, CmsServiceCategory, CmsServices } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -58,6 +58,14 @@ export default function AdminServicesPage() {
                     const coreServices = data.coreServices.map((s, i) => (i === index ? { ...s, description } : s));
                     setData({ ...data, coreServices });
                   }} />
+                  <ImageUrlField
+                    label="Card image"
+                    value={service.image}
+                    onChange={(image) => {
+                      const coreServices = data.coreServices.map((s, i) => (i === index ? { ...s, image } : s));
+                      setData({ ...data, coreServices });
+                    }}
+                  />
                   <LocalizedListField label="Deliverables" value={service.deliverables} onChange={(deliverables) => {
                     const coreServices = data.coreServices.map((s, i) => (i === index ? { ...s, deliverables } : s));
                     setData({ ...data, coreServices });
@@ -84,10 +92,7 @@ export default function AdminServicesPage() {
                   <LocalizedInput label="Title" value={cat.title} onChange={(title) => updateCategory(index, { title })} />
                   <LocalizedTextarea label="Description" value={cat.description} onChange={(description) => updateCategory(index, { description })} />
                   <LocalizedListField label="Items" value={cat.items} onChange={(items) => updateCategory(index, { items })} />
-                  <div>
-                    <label className="text-sm font-medium text-ink">Image URL</label>
-                    <input value={cat.image} onChange={(e) => updateCategory(index, { image: e.target.value })} className="mt-1 w-full border border-line px-3 py-2 text-sm" />
-                  </div>
+                  <ImageUrlField label="Category image" value={cat.image} onChange={(image) => updateCategory(index, { image })} />
                 </div>
               )}
             </div>
@@ -109,10 +114,7 @@ export default function AdminServicesPage() {
                 <div className="space-y-4 border-t border-line px-5 py-5">
                   <LocalizedInput label="Title" value={service.title} onChange={(title) => updateLegacy(index, { title })} />
                   <LocalizedTextarea label="Description" value={service.description} onChange={(description) => updateLegacy(index, { description })} />
-                  <div>
-                    <label className="text-sm font-medium text-ink">Image URL</label>
-                    <input value={service.image} onChange={(e) => updateLegacy(index, { image: e.target.value })} className="mt-1 w-full border border-line px-3 py-2 text-sm" />
-                  </div>
+                  <ImageUrlField label="Card image" value={service.image} onChange={(image) => updateLegacy(index, { image })} />
                   <div>
                     <label className="text-sm font-medium text-ink">Link (href)</label>
                     <input value={service.href} onChange={(e) => updateLegacy(index, { href: e.target.value })} className="mt-1 w-full border border-line px-3 py-2 text-sm" />

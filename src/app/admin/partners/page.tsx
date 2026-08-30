@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AdminSaveBar, LocalizedInput } from "@/components/admin/cms/CmsFormFields";
+import { AdminSaveBar, ImageUrlField, LocalizedInput } from "@/components/admin/cms/CmsFormFields";
 import type { CmsPartner } from "@/lib/cms/types";
 import { useAdminCms } from "@/hooks/useAdminCms";
 
@@ -63,15 +63,12 @@ export default function AdminPartnersPage() {
                   <LocalizedInput label="Location" value={partner.location} onChange={(location) => {
                     setData(data.map((p, i) => (i === index ? { ...p, location } : p)));
                   }} />
-                  <div>
-                    <label className="text-sm font-medium text-ink">Logo URL (optional)</label>
-                    <input
-                      value={partner.logo ?? ""}
-                      onChange={(e) => setData(data.map((p, i) => (i === index ? { ...p, logo: e.target.value || undefined } : p)))}
-                      className="mt-1 w-full border border-line px-3 py-2 text-sm"
-                      placeholder="/images/partners/example.png"
-                    />
-                  </div>
+                  <ImageUrlField
+                    label="Logo (optional)"
+                    value={partner.logo ?? ""}
+                    onChange={(logo) => setData(data.map((p, i) => (i === index ? { ...p, logo: logo || undefined } : p)))}
+                    hint="Square PNG or SVG works best. Leave empty to show the partner name as text."
+                  />
                   <button
                     type="button"
                     onClick={() => setData(data.filter((_, i) => i !== index))}

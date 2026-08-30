@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/fetch-cms-build-data.mjs && next build --webpack",
+    "build": "node scripts/fetch-cms-build-data.mjs && next build --webpack && node scripts/patch-nl-html-lang.mjs",
     "build:cloudflare": "npm run build",
     "build:production": "npm run build",
     "start": "next start",
