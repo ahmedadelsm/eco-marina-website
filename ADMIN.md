@@ -50,7 +50,11 @@ npx wrangler d1 execute eco-marina-admin --remote --file=schema-audit.sql
 
 ## Dynamic sitemap
 
-`/sitemap.xml` is generated at request time from CMS project and insight slugs. No static sitemap is written at build time.
+`/sitemap.xml` is generated at request time from CMS project and insight slugs in D1. There is no static `public/sitemap.xml` — the Cloudflare function is the single source of truth.
+
+## CMS architecture
+
+All public content is managed through 17 CMS collections (`cms.*` keys in D1). Legacy KV content override APIs (`/api/content`) have been removed. Code defaults in `src/content/en/` and `src/content/nl/` are used only when the CMS API is unavailable at build time.
 
 ## Build-time CMS sync
 
