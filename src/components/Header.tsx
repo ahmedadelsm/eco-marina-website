@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button } from "./Button";
 import { LanguageSwitcher } from "@/components/locale/LanguageSwitcher";
+import { useCms } from "@/components/cms/CmsProvider";
 import { useLocale, useSiteContent } from "@/components/locale/LocaleProvider";
 import { useSiteContact } from "@/components/SiteContactInfo";
 
@@ -13,7 +14,8 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const { phone, phoneHref } = useSiteContact();
   const { path } = useLocale();
-  const { site, nav, ui } = useSiteContent();
+  const { site, ui } = useSiteContent();
+  const { headerNav } = useCms();
 
   useEffect(() => {
     if (!open) return;
@@ -40,7 +42,7 @@ export function Header() {
         </Link>
 
         <div className="hidden items-center gap-6 text-sm lg:flex">
-          {nav.map((item) =>
+          {headerNav.map((item) =>
             "children" in item && item.children ? (
               <div
                 key={item.href}
@@ -107,7 +109,7 @@ export function Header() {
           <a href={phoneHref} className="mb-4 block text-sm font-medium text-brand-blue">
             {phone}
           </a>
-          {nav.map((item) => (
+          {headerNav.map((item) => (
             <div key={item.href}>
               <Link
                 href={path(item.href)}

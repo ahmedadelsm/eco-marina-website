@@ -12,7 +12,7 @@ import { getContent } from "@/content";
 import { localePath, type Locale } from "@/lib/i18n";
 
 export function HomePageView({ locale }: { locale: Locale }) {
-  const { homePage, site } = getContent(locale);
+  const { site } = getContent(locale);
   const { projects, homepage, coreServices, insights, about, whyUsCards, legacyServices, processSteps } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl" : "/";
@@ -22,7 +22,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
       <PageSeo
         path={seoPath}
         fallbackTitle={`${site.name} — ${site.tagline}`}
-        fallbackDescription={homePage.services.description}
+        fallbackDescription={homepage.servicesDescription}
       />
       <HomeHero />
 
@@ -88,12 +88,12 @@ export function HomePageView({ locale }: { locale: Locale }) {
               description={homepage.casesDescription}
             />
             <Link href={path("/projects")} className="text-sm font-medium text-sea hover:underline">
-              {homePage.cases.viewAll}
+              {homepage.casesViewAll}
             </Link>
           </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
             {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} viewLabel={homePage.cases.viewCase} />
+              <ProjectCard key={project.slug} project={project} viewLabel={homepage.casesViewCase} />
             ))}
           </div>
         </div>
@@ -114,7 +114,7 @@ export function HomePageView({ locale }: { locale: Locale }) {
               </div>
             </div>
             <div>
-              <SectionHeading eyebrow={homePage.founder.eyebrow} title={about.nameText} light />
+              <SectionHeading eyebrow={homepage.founderEyebrow} title={about.nameText} light />
               <p className="mt-2 text-sm text-sea-light">{about.titleText}</p>
               <p className="mt-6 text-lg text-white/85">{about.bioShortText}</p>
               <p className="mt-4 text-sm leading-relaxed text-white/65">{about.bioLongText[0]}</p>
@@ -122,14 +122,14 @@ export function HomePageView({ locale }: { locale: Locale }) {
                 <p className="font-serif italic text-white/80">&ldquo;{about.quoteText}&rdquo;</p>
               </blockquote>
               <Button href={path("/about")} variant="outline-light" size="sm" className="mt-8">
-                {homePage.founder.biography}
+                {homepage.founderBiography}
               </Button>
             </div>
           </div>
           <div className="mt-12 border border-white/10 bg-white/5 p-8 lg:ml-[calc(240px+3rem)]">
-            <h3 className="font-serif text-lg font-semibold">{homePage.founder.experienceTitle}</h3>
+            <h3 className="font-serif text-lg font-semibold">{homepage.founderExperienceTitle}</h3>
             <p className="mt-4 text-sm text-white/70">
-              {homePage.founder.experienceIntro} {about.countriesText.join(", ")}.
+              {homepage.founderExperienceIntro} {about.countriesText.join(", ")}.
             </p>
             <ul className="mt-6 space-y-2">
               {about.focusText.map((item) => (
@@ -146,17 +146,17 @@ export function HomePageView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <SectionHeading
-              eyebrow={homePage.insights.eyebrow}
-              title={homePage.insights.title}
-              description={homePage.insights.description}
+              eyebrow={homepage.insightsEyebrow}
+              title={homepage.insightsTitle}
+              description={homepage.insightsDescription}
             />
             <Link href={path("/insights")} className="text-sm font-medium text-sea hover:underline">
-              {homePage.insights.viewAll}
+              {homepage.insightsViewAll}
             </Link>
           </div>
           <div className="mt-10 grid gap-8 md:grid-cols-2">
             {insights.map((article) => (
-              <InsightCard key={article.slug} article={article} readLabel={homePage.insights.readArticle} />
+              <InsightCard key={article.slug} article={article} readLabel={homepage.insightsReadArticle} />
             ))}
           </div>
         </div>

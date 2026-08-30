@@ -11,7 +11,10 @@ export type CmsCollection =
   | "partners"
   | "contact"
   | "resources"
-  | "training-page";
+  | "training-page"
+  | "hero"
+  | "pages"
+  | "navigation";
 
 export type LocalizedText = { en: string; nl: string };
 export type LocalizedList = { en: string[]; nl: string[] };
@@ -147,6 +150,102 @@ export interface CmsHomepage {
   processEyebrow: LocalizedText;
   processTitle: LocalizedText;
   processSteps: CmsProcessStep[];
+  casesViewAll: LocalizedText;
+  casesViewCase: LocalizedText;
+  founderEyebrow: LocalizedText;
+  founderBiography: LocalizedText;
+  founderExperienceTitle: LocalizedText;
+  founderExperienceIntro: LocalizedText;
+  insightsEyebrow: LocalizedText;
+  insightsTitle: LocalizedText;
+  insightsDescription: LocalizedText;
+  insightsViewAll: LocalizedText;
+  insightsReadArticle: LocalizedText;
+  homeCtaTitle: LocalizedText;
+  homeCtaButton: LocalizedText;
+}
+
+export interface CmsHero {
+  eyebrow: LocalizedText;
+  headline: LocalizedText;
+  subheadline: LocalizedText;
+  cta: LocalizedText;
+  ctaSecondary: LocalizedText;
+  image: string;
+  imageAlt: LocalizedText;
+}
+
+export interface CmsPageHero {
+  eyebrow: LocalizedText;
+  heading: LocalizedText;
+  intro: LocalizedText;
+  cta?: LocalizedText;
+  imageAlt?: LocalizedText;
+}
+
+export interface CmsAboutPageCopy {
+  eyebrow: LocalizedText;
+  founderOf: LocalizedText;
+  credentials: LocalizedText;
+  careerTimeline: LocalizedText;
+  areasOfWork: LocalizedText;
+  countries: LocalizedText;
+  ourValues: LocalizedText;
+  linkedIn: LocalizedText;
+}
+
+export interface CmsMonitoringArea {
+  id: string;
+  name: LocalizedText;
+  items: LocalizedList;
+}
+
+export interface CmsImpactAssessmentPage {
+  serviceEyebrow: LocalizedText;
+  cta: LocalizedText;
+  overview: LocalizedText;
+  steps: LocalizedList;
+}
+
+export interface CmsMonitoringPage {
+  serviceEyebrow: LocalizedText;
+  cta: LocalizedText;
+  overview: LocalizedText;
+  areas: CmsMonitoringArea[];
+}
+
+export interface CmsPages {
+  projects: CmsPageHero;
+  insights: CmsPageHero;
+  faq: { eyebrow: LocalizedText; heading: LocalizedText };
+  about: CmsAboutPageCopy;
+  impact: { heading: LocalizedText; body: LocalizedText; cta: LocalizedText };
+  impactAssessment: CmsImpactAssessmentPage;
+  monitoring: CmsMonitoringPage;
+}
+
+export interface CmsNavChild {
+  id: string;
+  label: LocalizedText;
+  href: string;
+}
+
+export interface CmsNavItem {
+  id: string;
+  label: LocalizedText;
+  href: string;
+  children?: CmsNavChild[];
+}
+
+export interface CmsFooterItem {
+  id: string;
+  label: LocalizedText;
+  href: string;
+}
+
+export interface CmsNavigation {
+  header: CmsNavItem[];
+  footer: CmsFooterItem[];
 }
 
 export interface CmsSeoEntry {
@@ -266,6 +365,9 @@ export interface CmsPayload {
   contact: CmsContact | null;
   resources: CmsResources | null;
   trainingPage: CmsTrainingPage | null;
+  hero: CmsHero | null;
+  pages: CmsPages | null;
+  navigation: CmsNavigation | null;
 }
 
 export interface ProjectView {
@@ -375,6 +477,51 @@ export interface ResourceGroupView {
   items: ResourceItemView[];
 }
 
+export interface NavItemView {
+  label: string;
+  href: string;
+  children?: { label: string; href: string }[];
+}
+
+export interface FooterNavItemView {
+  label: string;
+  href: string;
+}
+
+export interface HeroView {
+  eyebrow: string;
+  headline: string;
+  subheadline: string;
+  cta: string;
+  ctaSecondary: string;
+  image: string;
+  imageAlt: string;
+}
+
+export interface PageHeroView {
+  eyebrow: string;
+  heading: string;
+  intro: string;
+  cta?: string;
+  imageAlt?: string;
+}
+
+export interface AboutPageCopyView {
+  eyebrow: string;
+  founderOf: string;
+  credentials: string;
+  careerTimeline: string;
+  areasOfWork: string;
+  countries: string;
+  ourValues: string;
+  linkedIn: string;
+}
+
+export interface MonitoringAreaView {
+  name: string;
+  items: string[];
+}
+
 export const CMS_COLLECTION_NAMES: CmsCollection[] = [
   "projects",
   "training",
@@ -389,4 +536,7 @@ export const CMS_COLLECTION_NAMES: CmsCollection[] = [
   "contact",
   "resources",
   "training-page",
+  "hero",
+  "pages",
+  "navigation",
 ];

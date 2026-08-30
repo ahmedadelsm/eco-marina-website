@@ -26,7 +26,9 @@ Multiple admins are supported — each person can have their own email and passw
 - **Dashboard** — overview with CMS collection count
 - **Messages** — contact form submissions (export CSV)
 - **Content** — edit homepage hero and contact details
-- **Homepage** — section headings, why-us cards, process steps
+- **Hero** — homepage hero image, eyebrow, CTAs, headline defaults
+- **Page copy** — inner page heroes, about labels, service detail content
+- **Navigation** — header and footer menu labels
 - **Services** — core services, specialist categories, legacy services
 - **Training** — page hero, courses, pricing, and schedules
 - **FAQ** — categories, questions, and answers

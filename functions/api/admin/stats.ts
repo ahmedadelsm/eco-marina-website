@@ -14,6 +14,9 @@ const CMS_KEYS = [
   "cms.contact",
   "cms.resources",
   "cms.training-page",
+  "cms.hero",
+  "cms.pages",
+  "cms.navigation",
 ];
 
 export const onRequestGet: PagesFunction<Env> = async (context) => {

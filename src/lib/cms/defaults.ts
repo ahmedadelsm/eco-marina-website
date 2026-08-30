@@ -90,8 +90,11 @@ export function defaultCmsCompany(): CmsCompany {
 export {
   defaultCmsAbout,
   defaultCmsContact,
+  defaultCmsHero,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsNavigation,
+  defaultCmsPages,
   defaultCmsPartners,
   defaultCmsResources,
   defaultCmsSeo,

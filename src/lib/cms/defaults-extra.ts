@@ -3,8 +3,11 @@ import * as nl from "@/content/nl/site-content";
 import type {
   CmsAbout,
   CmsContact,
+  CmsHero,
   CmsHomepage,
   CmsInsight,
+  CmsNavigation,
+  CmsPages,
   CmsPartner,
   CmsResources,
   CmsSeoEntry,
@@ -104,6 +107,19 @@ export function defaultCmsHomepage(): CmsHomepage {
       title: pairText(step.title, nl.processSteps[index].title),
       description: pairText(step.description, nl.processSteps[index].description),
     })),
+    casesViewAll: pairText(en.homePage.cases.viewAll, nl.homePage.cases.viewAll),
+    casesViewCase: pairText(en.homePage.cases.viewCase, nl.homePage.cases.viewCase),
+    founderEyebrow: pairText(en.homePage.founder.eyebrow, nl.homePage.founder.eyebrow),
+    founderBiography: pairText(en.homePage.founder.biography, nl.homePage.founder.biography),
+    founderExperienceTitle: pairText(en.homePage.founder.experienceTitle, nl.homePage.founder.experienceTitle),
+    founderExperienceIntro: pairText(en.homePage.founder.experienceIntro, nl.homePage.founder.experienceIntro),
+    insightsEyebrow: pairText(en.homePage.insights.eyebrow, nl.homePage.insights.eyebrow),
+    insightsTitle: pairText(en.homePage.insights.title, nl.homePage.insights.title),
+    insightsDescription: pairText(en.homePage.insights.description, nl.homePage.insights.description),
+    insightsViewAll: pairText(en.homePage.insights.viewAll, nl.homePage.insights.viewAll),
+    insightsReadArticle: pairText(en.homePage.insights.readArticle, nl.homePage.insights.readArticle),
+    homeCtaTitle: pairText(en.ui.bookConsultation, nl.ui.bookConsultation),
+    homeCtaButton: pairText(en.ui.contactUs, nl.ui.contactUs),
   };
 }
 
@@ -209,6 +225,99 @@ export function defaultCmsTrainingPage(): CmsTrainingPage {
   return {
     title: pairText(en.trainingIntro.title, nl.trainingIntro.title),
     description: pairText(en.trainingIntro.description, nl.trainingIntro.description),
+  };
+}
+
+export function defaultCmsHero(): CmsHero {
+  return {
+    eyebrow: pairText(en.hero.eyebrow, nl.hero.eyebrow),
+    headline: pairText(en.hero.headline, nl.hero.headline),
+    subheadline: pairText(en.hero.subheadline, nl.hero.subheadline),
+    cta: pairText(en.hero.cta, nl.hero.cta),
+    ctaSecondary: pairText(en.hero.ctaSecondary, nl.hero.ctaSecondary),
+    image: en.hero.image,
+    imageAlt: pairText(en.hero.imageAlt, nl.hero.imageAlt),
+  };
+}
+
+export function defaultCmsPages(): CmsPages {
+  return {
+    projects: {
+      eyebrow: pairText(en.pages.projects.eyebrow, nl.pages.projects.eyebrow),
+      heading: pairText(en.pages.projects.heading, nl.pages.projects.heading),
+      intro: pairText(en.pages.projects.intro, nl.pages.projects.intro),
+      cta: pairText(en.pages.projects.cta, nl.pages.projects.cta),
+      imageAlt: pairText(en.pages.projects.imageAlt, nl.pages.projects.imageAlt),
+    },
+    insights: {
+      eyebrow: pairText(en.pages.insights.eyebrow, nl.pages.insights.eyebrow),
+      heading: pairText(en.pages.insights.heading, nl.pages.insights.heading),
+      intro: pairText(en.pages.insights.intro, nl.pages.insights.intro),
+    },
+    faq: {
+      eyebrow: pairText(en.pages.faq.eyebrow, nl.pages.faq.eyebrow),
+      heading: pairText(en.pages.faq.heading, nl.pages.faq.heading),
+    },
+    about: {
+      eyebrow: pairText(en.pages.about.eyebrow, nl.pages.about.eyebrow),
+      founderOf: pairText(en.pages.about.founderOf, nl.pages.about.founderOf),
+      credentials: pairText(en.pages.about.credentials, nl.pages.about.credentials),
+      careerTimeline: pairText(en.pages.about.careerTimeline, nl.pages.about.careerTimeline),
+      areasOfWork: pairText(en.pages.about.areasOfWork, nl.pages.about.areasOfWork),
+      countries: pairText(en.pages.about.countries, nl.pages.about.countries),
+      ourValues: pairText(en.pages.about.ourValues, nl.pages.about.ourValues),
+      linkedIn: pairText(en.pages.about.linkedIn, nl.pages.about.linkedIn),
+    },
+    impact: {
+      heading: pairText(en.pages.impact.heading, nl.pages.impact.heading),
+      body: pairText(en.pages.impact.body, nl.pages.impact.body),
+      cta: pairText(en.pages.impact.cta, nl.pages.impact.cta),
+    },
+    impactAssessment: {
+      serviceEyebrow: pairText(en.pages.impactAssessment.serviceEyebrow, nl.pages.impactAssessment.serviceEyebrow),
+      cta: pairText(en.pages.impactAssessment.cta, nl.pages.impactAssessment.cta),
+      overview: pairText(en.impactAssessmentDetail.overview, nl.impactAssessmentDetail.overview),
+      steps: pairList([...en.impactAssessmentDetail.steps], [...nl.impactAssessmentDetail.steps]),
+    },
+    monitoring: {
+      serviceEyebrow: pairText(en.pages.monitoring.serviceEyebrow, nl.pages.monitoring.serviceEyebrow),
+      cta: pairText(en.pages.monitoring.cta, nl.pages.monitoring.cta),
+      overview: pairText(en.monitoringDetail.overview, nl.monitoringDetail.overview),
+      areas: en.monitoringDetail.areas.map((area, index) => ({
+        id: `area-${index}`,
+        name: pairText(area.name, nl.monitoringDetail.areas[index].name),
+        items: pairList([...area.items], [...nl.monitoringDetail.areas[index].items]),
+      })),
+    },
+  };
+}
+
+export function defaultCmsNavigation(): CmsNavigation {
+  return {
+    header: en.nav.map((item, index) => {
+      const nlItem = nl.nav[index];
+      return {
+        id: `nav-${index}`,
+        label: pairText(item.label, nlItem.label),
+        href: item.href,
+        children:
+          "children" in item && item.children
+            ? item.children.map((child, childIndex) => {
+                const nlChildren = "children" in nlItem ? nlItem.children : undefined;
+                return {
+                  id: `nav-${index}-${childIndex}`,
+                  label: pairText(child.label, nlChildren?.[childIndex]?.label ?? child.label),
+                  href: child.href,
+                };
+              })
+            : undefined,
+      };
+    }),
+    footer: en.footerNav.map((item, index) => ({
+      id: `footer-${index}`,
+      label: pairText(item.label, nl.footerNav[index].label),
+      href: item.href,
+    })),
   };
 }
 

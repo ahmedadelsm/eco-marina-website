@@ -11,17 +11,18 @@ import { localePath, type Locale } from "@/lib/i18n";
 
 export function AboutPageView({ locale }: { locale: Locale }) {
   const { site, pages, ui } = getContent(locale);
-  const { about, company } = useCms();
+  const { about, company, pageCopy } = useCms();
   const path = (href: string) => localePath(locale, href);
   const seoPath = locale === "nl" ? "/nl/about" : "/about";
+  const copy = pageCopy.about;
 
   return (
     <>
       <PageSeo path={seoPath} fallbackTitle={pages.about.title} fallbackDescription={pages.about.description} />
       <PageHero
-        eyebrow={pages.about.eyebrow}
+        eyebrow={copy.eyebrow}
         title={about.nameText}
-        description={`${about.titleText} · ${pages.about.founderOf} ${site.name}`}
+        description={`${about.titleText} · ${copy.founderOf} ${site.name}`}
       />
 
       <section className="py-16 sm:py-24">
@@ -61,7 +62,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">{pages.about.credentials}</h2>
+              <h2 className="font-serif text-2xl font-semibold text-ink">{copy.credentials}</h2>
               <ul className="mt-6 grid gap-3">
                 {about.credentialsText.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-ink-muted">
@@ -72,7 +73,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
               </ul>
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">{pages.about.careerTimeline}</h2>
+              <h2 className="font-serif text-2xl font-semibold text-ink">{copy.careerTimeline}</h2>
               <ol className="relative mt-10 border-l border-line pl-8">
                 {about.timelineView.map((item) => (
                   <li key={item.label} className="relative pb-8 last:pb-0">
@@ -91,7 +92,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="grid gap-12 lg:grid-cols-2">
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">{pages.about.areasOfWork}</h2>
+              <h2 className="font-serif text-2xl font-semibold text-ink">{copy.areasOfWork}</h2>
               <ul className="mt-6 space-y-3">
                 {about.focusText.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-ink-muted">
@@ -102,7 +103,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
               </ul>
             </div>
             <div>
-              <h2 className="font-serif text-2xl font-semibold text-ink">{pages.about.countries}</h2>
+              <h2 className="font-serif text-2xl font-semibold text-ink">{copy.countries}</h2>
               <p className="mt-4 text-ink-muted">{about.countriesText.join(" · ")}</p>
             </div>
           </div>
@@ -115,7 +116,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
           <p className="mt-2 text-sm font-medium uppercase tracking-wider text-sea">{company.motto}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{about.missionText}</p>
           <p className="mt-4 max-w-2xl text-ink-muted">{about.approachText}</p>
-          <h3 className="mt-8 font-serif text-lg font-semibold text-ink">{pages.about.ourValues}</h3>
+          <h3 className="mt-8 font-serif text-lg font-semibold text-ink">{copy.ourValues}</h3>
           <ul className="mt-4 grid gap-2 sm:grid-cols-2">
             {about.valuesText.map((value) => (
               <li key={value} className="flex items-start gap-2 text-sm text-ink-muted">
@@ -131,7 +132,7 @@ export function AboutPageView({ locale }: { locale: Locale }) {
               rel="noopener noreferrer"
               className="inline-flex items-center text-sm font-medium text-sea hover:underline"
             >
-              {pages.about.linkedIn}
+              {copy.linkedIn}
             </a>
           </div>
         </div>

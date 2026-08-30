@@ -63,8 +63,7 @@ export default function AdminContentPage() {
     <div>
       <h1 className="font-serif text-3xl font-semibold text-ink">Content</h1>
       <p className="mt-2 text-ink-muted">
-        Edit key website copy. Hero fields are language-specific; contact details apply to both English and Dutch
-        pages.
+        Edit contact email, phone, and office. For hero headline/subheadline, use Hero (or save here — Content overrides take precedence until migrated).
       </p>
 
       <div className="mt-8 space-y-10">

@@ -11,7 +11,10 @@ export type CmsCollection =
   | "partners"
   | "contact"
   | "resources"
-  | "training-page";
+  | "training-page"
+  | "hero"
+  | "pages"
+  | "navigation";
 
 export type LocalizedText = { en: string; nl: string };
 export type LocalizedList = { en: string[]; nl: string[] };
@@ -147,6 +150,102 @@ export interface CmsHomepage {
   processEyebrow: LocalizedText;
   processTitle: LocalizedText;
   processSteps: CmsProcessStep[];
+  casesViewAll: LocalizedText;
+  casesViewCase: LocalizedText;
+  founderEyebrow: LocalizedText;
+  founderBiography: LocalizedText;
+  founderExperienceTitle: LocalizedText;
+  founderExperienceIntro: LocalizedText;
+  insightsEyebrow: LocalizedText;
+  insightsTitle: LocalizedText;
+  insightsDescription: LocalizedText;
+  insightsViewAll: LocalizedText;
+  insightsReadArticle: LocalizedText;
+  homeCtaTitle: LocalizedText;
+  homeCtaButton: LocalizedText;
+}
+
+export interface CmsHero {
+  eyebrow: LocalizedText;
+  headline: LocalizedText;
+  subheadline: LocalizedText;
+  cta: LocalizedText;
+  ctaSecondary: LocalizedText;
+  image: string;
+  imageAlt: LocalizedText;
+}
+
+export interface CmsPageHero {
+  eyebrow: LocalizedText;
+  heading: LocalizedText;
+  intro: LocalizedText;
+  cta?: LocalizedText;
+  imageAlt?: LocalizedText;
+}
+
+export interface CmsAboutPageCopy {
+  eyebrow: LocalizedText;
+  founderOf: LocalizedText;
+  credentials: LocalizedText;
+  careerTimeline: LocalizedText;
+  areasOfWork: LocalizedText;
+  countries: LocalizedText;
+  ourValues: LocalizedText;
+  linkedIn: LocalizedText;
+}
+
+export interface CmsMonitoringArea {
+  id: string;
+  name: LocalizedText;
+  items: LocalizedList;
+}
+
+export interface CmsImpactAssessmentPage {
+  serviceEyebrow: LocalizedText;
+  cta: LocalizedText;
+  overview: LocalizedText;
+  steps: LocalizedList;
+}
+
+export interface CmsMonitoringPage {
+  serviceEyebrow: LocalizedText;
+  cta: LocalizedText;
+  overview: LocalizedText;
+  areas: CmsMonitoringArea[];
+}
+
+export interface CmsPages {
+  projects: CmsPageHero;
+  insights: CmsPageHero;
+  faq: { eyebrow: LocalizedText; heading: LocalizedText };
+  about: CmsAboutPageCopy;
+  impact: { heading: LocalizedText; body: LocalizedText; cta: LocalizedText };
+  impactAssessment: CmsImpactAssessmentPage;
+  monitoring: CmsMonitoringPage;
+}
+
+export interface CmsNavChild {
+  id: string;
+  label: LocalizedText;
+  href: string;
+}
+
+export interface CmsNavItem {
+  id: string;
+  label: LocalizedText;
+  href: string;
+  children?: CmsNavChild[];
+}
+
+export interface CmsFooterItem {
+  id: string;
+  label: LocalizedText;
+  href: string;
+}
+
+export interface CmsNavigation {
+  header: CmsNavItem[];
+  footer: CmsFooterItem[];
 }
 
 export interface CmsSeoEntry {
@@ -266,6 +365,9 @@ export const CMS_COLLECTIONS = new Set<CmsCollection>([
   "contact",
   "resources",
   "training-page",
+  "hero",
+  "pages",
+  "navigation",
 ]);
 
 export function cmsStorageKey(collection: CmsCollection): string {

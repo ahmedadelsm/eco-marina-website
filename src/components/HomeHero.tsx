@@ -9,8 +9,8 @@ import { CMS_KEYS } from "@/lib/content-keys";
 
 export function HomeHero() {
   const { path, locale } = useLocale();
-  const { hero, ui } = useSiteContent();
-  const { company } = useCms();
+  const { ui } = useSiteContent();
+  const { company, hero } = useCms();
   const headlineKey = locale === "nl" ? CMS_KEYS.heroHeadlineNl : CMS_KEYS.heroHeadline;
   const subheadlineKey = locale === "nl" ? CMS_KEYS.heroSubheadlineNl : CMS_KEYS.heroSubheadline;
   const headline = useContentOverride(headlineKey, hero.headline);
@@ -72,7 +72,8 @@ export function HomeHero() {
 
 export function HomeCta() {
   const { path } = useLocale();
-  const { site, ui } = useSiteContent();
+  const { site } = useSiteContent();
+  const { homepage } = useCms();
   const email = useContentOverride(CMS_KEYS.siteEmail, site.email);
   const phone = useContentOverride(CMS_KEYS.sitePhone, site.phone);
   const office = useContentOverride(CMS_KEYS.siteOffice, site.office);
@@ -80,7 +81,7 @@ export function HomeCta() {
   return (
     <section className="border-t border-line py-16 sm:py-20">
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
-        <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">{ui.bookConsultation}</h2>
+        <h2 className="font-serif text-2xl font-semibold text-ink sm:text-3xl">{homepage.homeCtaTitle}</h2>
         <div className="mx-auto mt-4 flex max-w-lg flex-col gap-1 text-sm text-ink-muted sm:text-base">
           <a href={`mailto:${email}`} className="hover:text-sea">
             {email}
@@ -91,7 +92,7 @@ export function HomeCta() {
           <span>{office}</span>
         </div>
         <ButtonArrow href={path("/contact")} className="mt-8 w-full sm:w-auto">
-          {ui.contactUs}
+          {homepage.homeCtaButton}
         </ButtonArrow>
       </div>
     </section>

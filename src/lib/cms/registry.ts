@@ -1,8 +1,11 @@
 import {
   defaultCmsAbout,
   defaultCmsContact,
+  defaultCmsHero,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsNavigation,
+  defaultCmsPages,
   defaultCmsPartners,
   defaultCmsResources,
   defaultCmsSeo,
@@ -31,6 +34,9 @@ const DEFAULTS: Record<CmsCollection, () => unknown> = {
   contact: defaultCmsContact,
   resources: defaultCmsResources,
   "training-page": defaultCmsTrainingPage,
+  hero: defaultCmsHero,
+  pages: defaultCmsPages,
+  navigation: defaultCmsNavigation,
 };
 
 const OBJECT_COLLECTIONS = new Set<CmsCollection>([
@@ -41,6 +47,9 @@ const OBJECT_COLLECTIONS = new Set<CmsCollection>([
   "contact",
   "resources",
   "training-page",
+  "hero",
+  "pages",
+  "navigation",
 ]);
 
 export function getCmsDefault<T>(collection: CmsCollection): T {

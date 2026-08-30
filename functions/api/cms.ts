@@ -4,8 +4,11 @@ import type {
   CmsCompany,
   CmsContact,
   CmsFaqSection,
+  CmsHero,
   CmsHomepage,
   CmsInsight,
+  CmsNavigation,
+  CmsPages,
   CmsPartner,
   CmsProject,
   CmsResources,
@@ -33,6 +36,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       contact,
       resources,
       trainingPage,
+      hero,
+      pages,
+      navigation,
     ] = await Promise.all([
       getCmsCollection<CmsProject[]>(env, "projects"),
       getCmsCollection<CmsTrainingCourse[]>(env, "training"),
@@ -47,6 +53,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
       getCmsCollection<CmsContact>(env, "contact"),
       getCmsCollection<CmsResources>(env, "resources"),
       getCmsCollection<CmsTrainingPage>(env, "training-page"),
+      getCmsCollection<CmsHero>(env, "hero"),
+      getCmsCollection<CmsPages>(env, "pages"),
+      getCmsCollection<CmsNavigation>(env, "navigation"),
     ]);
 
     return json(
@@ -64,6 +73,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         contact,
         resources,
         trainingPage,
+        hero,
+        pages,
+        navigation,
       },
       200,
       {
@@ -87,6 +99,9 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         contact: null,
         resources: null,
         trainingPage: null,
+        hero: null,
+        pages: null,
+        navigation: null,
       },
       200,
       corsHeaders(request)

@@ -7,8 +7,11 @@ import {
   defaultCmsCompany,
   defaultCmsContact,
   defaultCmsFaq,
+  defaultCmsHero,
   defaultCmsHomepage,
   defaultCmsInsights,
+  defaultCmsNavigation,
+  defaultCmsPages,
   defaultCmsPartners,
   defaultCmsProjects,
   defaultCmsResources,
@@ -23,11 +26,17 @@ import {
   mergeCmsObject,
   pickList,
   pickText,
+  toAboutPageCopy,
   toContactServiceOptions,
   toCoreServiceView,
   toFaqView,
+  toFooterNav,
+  toHeroView,
   toInsightView,
   toLegacyServiceView,
+  toMonitoringAreas,
+  toNavItems,
+  toPageHeroView,
   toPartnerView,
   toProcessStepView,
   toProjectView,
@@ -41,11 +50,17 @@ import type {
   CmsInsight,
   CmsPayload,
   CmsProject,
+  AboutPageCopyView,
   ContactServiceOptionView,
   CoreServiceView,
   FaqSectionView,
+  FooterNavItemView,
+  HeroView,
   InsightView,
   LegacyServiceView,
+  MonitoringAreaView,
+  NavItemView,
+  PageHeroView,
   PartnerView,
   ProcessStepView,
   ProjectView,
@@ -71,6 +86,18 @@ type CmsContextValue = {
   partners: PartnerView[];
   contactServiceOptions: ContactServiceOptionView[];
   resourceGroups: ResourceGroupView[];
+  hero: HeroView;
+  headerNav: NavItemView[];
+  footerNav: FooterNavItemView[];
+  pageCopy: {
+    projects: PageHeroView;
+    insights: PageHeroView;
+    faq: { eyebrow: string; heading: string };
+    about: AboutPageCopyView;
+    impact: { heading: string; body: string; cta: string };
+    impactAssessment: { serviceEyebrow: string; cta: string; overview: string; steps: string[] };
+    monitoring: { serviceEyebrow: string; cta: string; overview: string; areas: MonitoringAreaView[] };
+  };
   servicesPage: {
     intro: string;
     coreTitle: string;
@@ -99,6 +126,19 @@ type CmsContextValue = {
     legacyDescription: string;
     processEyebrow: string;
     processTitle: string;
+    casesViewAll: string;
+    casesViewCase: string;
+    founderEyebrow: string;
+    founderBiography: string;
+    founderExperienceTitle: string;
+    founderExperienceIntro: string;
+    insightsEyebrow: string;
+    insightsTitle: string;
+    insightsDescription: string;
+    insightsViewAll: string;
+    insightsReadArticle: string;
+    homeCtaTitle: string;
+    homeCtaButton: string;
   };
   contactPage: {
     intro: string;
@@ -156,6 +196,9 @@ const EMPTY: CmsPayload = {
   contact: null,
   resources: null,
   trainingPage: null,
+  hero: null,
+  pages: null,
+  navigation: null,
 };
 
 function publishedProjects(payload: CmsPayload): CmsProject[] {
@@ -215,6 +258,19 @@ function buildHomepage(locale: Locale, payload: CmsPayload) {
     processTitle: pickText(home.processTitle, locale),
     whyUsCards: toWhyUsView(home.whyUsCards, locale),
     processSteps: toProcessStepView(home.processSteps, locale),
+    casesViewAll: pickText(home.casesViewAll, locale),
+    casesViewCase: pickText(home.casesViewCase, locale),
+    founderEyebrow: pickText(home.founderEyebrow, locale),
+    founderBiography: pickText(home.founderBiography, locale),
+    founderExperienceTitle: pickText(home.founderExperienceTitle, locale),
+    founderExperienceIntro: pickText(home.founderExperienceIntro, locale),
+    insightsEyebrow: pickText(home.insightsEyebrow, locale),
+    insightsTitle: pickText(home.insightsTitle, locale),
+    insightsDescription: pickText(home.insightsDescription, locale),
+    insightsViewAll: pickText(home.insightsViewAll, locale),
+    insightsReadArticle: pickText(home.insightsReadArticle, locale),
+    homeCtaTitle: pickText(home.homeCtaTitle, locale),
+    homeCtaButton: pickText(home.homeCtaButton, locale),
   };
 }
 
@@ -260,6 +316,9 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
     const resources = mergeCmsObject(defaultCmsResources(), payload.resources);
     const trainingPage = mergeCmsObject(defaultCmsTrainingPage(), payload.trainingPage);
     const partners = toPartnerView(payload.partners ?? defaultCmsPartners(), locale);
+    const heroData = toHeroView(mergeCmsObject(defaultCmsHero(), payload.hero), locale);
+    const pagesData = mergeCmsObject(defaultCmsPages(), payload.pages);
+    const navigationData = mergeCmsObject(defaultCmsNavigation(), payload.navigation);
 
     return {
       ready,
@@ -277,6 +336,35 @@ export function CmsProvider({ children }: { children: React.ReactNode }) {
       partners,
       contactServiceOptions: toContactServiceOptions(contact.serviceOptions, locale),
       resourceGroups: toResourceGroups(resources.groups, locale),
+      hero: heroData,
+      headerNav: toNavItems(navigationData.header, locale),
+      footerNav: toFooterNav(navigationData.footer, locale),
+      pageCopy: {
+        projects: toPageHeroView(pagesData.projects, locale),
+        insights: toPageHeroView(pagesData.insights, locale),
+        faq: {
+          eyebrow: pickText(pagesData.faq.eyebrow, locale),
+          heading: pickText(pagesData.faq.heading, locale),
+        },
+        about: toAboutPageCopy(pagesData.about, locale),
+        impact: {
+          heading: pickText(pagesData.impact.heading, locale),
+          body: pickText(pagesData.impact.body, locale),
+          cta: pickText(pagesData.impact.cta, locale),
+        },
+        impactAssessment: {
+          serviceEyebrow: pickText(pagesData.impactAssessment.serviceEyebrow, locale),
+          cta: pickText(pagesData.impactAssessment.cta, locale),
+          overview: pickText(pagesData.impactAssessment.overview, locale),
+          steps: pickList(pagesData.impactAssessment.steps, locale),
+        },
+        monitoring: {
+          serviceEyebrow: pickText(pagesData.monitoring.serviceEyebrow, locale),
+          cta: pickText(pagesData.monitoring.cta, locale),
+          overview: pickText(pagesData.monitoring.overview, locale),
+          areas: toMonitoringAreas(pagesData.monitoring.areas, locale),
+        },
+      },
       servicesPage: servicesData,
       homepage: homepageData,
       contactPage: {

@@ -43,6 +43,19 @@ export default function AdminHomepagePage() {
         <LocalizedTextarea label="Legacy description" value={data.legacyDescription} onChange={(v) => setData({ ...data, legacyDescription: v })} />
         <LocalizedInput label="Process eyebrow" value={data.processEyebrow} onChange={(v) => setData({ ...data, processEyebrow: v })} />
         <LocalizedInput label="Process title" value={data.processTitle} onChange={(v) => setData({ ...data, processTitle: v })} />
+        <LocalizedInput label="Cases — view all link" value={data.casesViewAll} onChange={(v) => setData({ ...data, casesViewAll: v })} />
+        <LocalizedInput label="Cases — view case link" value={data.casesViewCase} onChange={(v) => setData({ ...data, casesViewCase: v })} />
+        <LocalizedInput label="Founder eyebrow" value={data.founderEyebrow} onChange={(v) => setData({ ...data, founderEyebrow: v })} />
+        <LocalizedInput label="Founder biography link" value={data.founderBiography} onChange={(v) => setData({ ...data, founderBiography: v })} />
+        <LocalizedInput label="Founder experience title" value={data.founderExperienceTitle} onChange={(v) => setData({ ...data, founderExperienceTitle: v })} />
+        <LocalizedInput label="Founder experience intro" value={data.founderExperienceIntro} onChange={(v) => setData({ ...data, founderExperienceIntro: v })} />
+        <LocalizedInput label="Insights eyebrow" value={data.insightsEyebrow} onChange={(v) => setData({ ...data, insightsEyebrow: v })} />
+        <LocalizedInput label="Insights title" value={data.insightsTitle} onChange={(v) => setData({ ...data, insightsTitle: v })} />
+        <LocalizedTextarea label="Insights description" value={data.insightsDescription} onChange={(v) => setData({ ...data, insightsDescription: v })} />
+        <LocalizedInput label="Insights — view all link" value={data.insightsViewAll} onChange={(v) => setData({ ...data, insightsViewAll: v })} />
+        <LocalizedInput label="Insights — read article link" value={data.insightsReadArticle} onChange={(v) => setData({ ...data, insightsReadArticle: v })} />
+        <LocalizedInput label="Home CTA title" value={data.homeCtaTitle} onChange={(v) => setData({ ...data, homeCtaTitle: v })} />
+        <LocalizedInput label="Home CTA button" value={data.homeCtaButton} onChange={(v) => setData({ ...data, homeCtaButton: v })} />
       </div>
 
       <div className="mt-8 space-y-4">

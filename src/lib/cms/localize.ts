@@ -4,8 +4,13 @@ import type {
   CmsContactServiceOption,
   CmsCoreService,
   CmsFaqSection,
+  CmsHero,
   CmsInsight,
   CmsLegacyService,
+  CmsMonitoringArea,
+  CmsNavigation,
+  CmsNavItem,
+  CmsPages,
   CmsPartner,
   CmsProcessStep,
   CmsProject,
@@ -19,8 +24,14 @@ import type {
   FaqSectionView,
   InsightView,
   LegacyServiceView,
+  AboutPageCopyView,
+  FooterNavItemView,
+  HeroView,
   LocalizedList,
   LocalizedText,
+  MonitoringAreaView,
+  NavItemView,
+  PageHeroView,
   PartnerView,
   ProcessStepView,
   ProjectView,
@@ -206,6 +217,66 @@ export function toResourceGroups(groups: CmsResourceGroup[], locale: Locale): Re
       title: pickText(item.title, locale),
       description: pickText(item.description, locale),
     })),
+  }));
+}
+
+export function toHeroView(hero: CmsHero, locale: Locale): HeroView {
+  return {
+    eyebrow: pickText(hero.eyebrow, locale),
+    headline: pickText(hero.headline, locale),
+    subheadline: pickText(hero.subheadline, locale),
+    cta: pickText(hero.cta, locale),
+    ctaSecondary: pickText(hero.ctaSecondary, locale),
+    image: hero.image,
+    imageAlt: pickText(hero.imageAlt, locale),
+  };
+}
+
+export function toPageHeroView(block: { eyebrow: LocalizedText; heading: LocalizedText; intro: LocalizedText; cta?: LocalizedText; imageAlt?: LocalizedText }, locale: Locale): PageHeroView {
+  return {
+    eyebrow: pickText(block.eyebrow, locale),
+    heading: pickText(block.heading, locale),
+    intro: pickText(block.intro, locale),
+    cta: block.cta ? pickText(block.cta, locale) : undefined,
+    imageAlt: block.imageAlt ? pickText(block.imageAlt, locale) : undefined,
+  };
+}
+
+export function toAboutPageCopy(copy: CmsPages["about"], locale: Locale): AboutPageCopyView {
+  return {
+    eyebrow: pickText(copy.eyebrow, locale),
+    founderOf: pickText(copy.founderOf, locale),
+    credentials: pickText(copy.credentials, locale),
+    careerTimeline: pickText(copy.careerTimeline, locale),
+    areasOfWork: pickText(copy.areasOfWork, locale),
+    countries: pickText(copy.countries, locale),
+    ourValues: pickText(copy.ourValues, locale),
+    linkedIn: pickText(copy.linkedIn, locale),
+  };
+}
+
+export function toMonitoringAreas(areas: CmsMonitoringArea[], locale: Locale): MonitoringAreaView[] {
+  return areas.map((area) => ({
+    name: pickText(area.name, locale),
+    items: pickList(area.items, locale),
+  }));
+}
+
+export function toNavItems(items: CmsNavItem[], locale: Locale): NavItemView[] {
+  return items.map((item) => ({
+    label: pickText(item.label, locale),
+    href: item.href,
+    children: item.children?.map((child) => ({
+      label: pickText(child.label, locale),
+      href: child.href,
+    })),
+  }));
+}
+
+export function toFooterNav(items: CmsNavigation["footer"], locale: Locale): FooterNavItemView[] {
+  return items.map((item) => ({
+    label: pickText(item.label, locale),
+    href: item.href,
   }));
 }
 

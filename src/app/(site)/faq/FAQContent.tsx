@@ -3,16 +3,14 @@
 import { useState } from "react";
 import { PageHero } from "@/components/PageHero";
 import { useCms } from "@/components/cms/CmsProvider";
-import { useSiteContent } from "@/components/locale/LocaleProvider";
 
 export function FAQContent() {
   const [openIndex, setOpenIndex] = useState<string | null>(null);
-  const { pages } = useSiteContent();
-  const { faq } = useCms();
+  const { faq, pageCopy } = useCms();
 
   return (
     <>
-      <PageHero eyebrow={pages.faq.eyebrow} title={pages.faq.heading} />
+      <PageHero eyebrow={pageCopy.faq.eyebrow} title={pageCopy.faq.heading} />
 
       <section className="py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-4 sm:px-6">
