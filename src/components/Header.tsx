@@ -17,13 +17,16 @@ export function Header() {
   const { company, headerNav, ui } = useCms();
 
   useEffect(() => {
-    if (!open) return;
+    if (!open && !servicesOpen) return;
     function onKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        setServicesOpen(false);
+      }
     }
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, servicesOpen]);
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-white">
@@ -48,18 +51,28 @@ export function Header() {
                 className="relative"
                 onMouseEnter={() => setServicesOpen(true)}
                 onMouseLeave={() => setServicesOpen(false)}
+                onFocus={() => setServicesOpen(true)}
+                onBlur={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false);
+                }}
               >
-                <Link href={path(item.href)} className="font-medium text-ink-muted hover:text-brand-blue">
+                <Link
+                  href={path(item.href)}
+                  className="font-medium text-ink-muted hover:text-brand-blue"
+                  aria-haspopup="menu"
+                  aria-expanded={servicesOpen}
+                >
                   {item.label}
                 </Link>
                 {servicesOpen && (
                   <div className="absolute left-0 top-full z-50 pt-2">
-                    <div className="min-w-[200px] border border-line bg-white py-1 shadow-lg">
+                    <div className="min-w-[200px] border border-line bg-white py-1 shadow-lg" role="menu" aria-label={item.label}>
                       {item.children.map((child) => (
                         <Link
                           key={child.href}
                           href={path(child.href)}
                           className="block px-4 py-2.5 text-ink-muted hover:bg-paper hover:text-ink"
+                          role="menuitem"
                         >
                           {child.label}
                         </Link>
